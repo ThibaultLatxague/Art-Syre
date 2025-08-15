@@ -25,3 +25,21 @@ Route::delete('/categories/{id}', [ControllerCategorie::class, 'destroy']);
 
 // La liste d'image d'un tableau
 Route::get('/tableaux/{id}/images', [ControllerTableau::class, 'getImages']);
+
+// Element unique
+Route::get('/utilisateurs/{id}', [ControllerUtilisateur::class, 'show']);
+Route::get('/categories/{id}', [ControllerCategorie::class, 'show']);
+Route::get('/images/{id}', [ControllerImage::class, 'show']);
+Route::get('/tableaux/{id}', [ControllerTableau::class, 'show']);
+
+// Mise a jour
+Route::put('/utilisateurs/{id}', [ControllerUtilisateur::class, 'update']);
+Route::put('/categories/{id}', [ControllerCategorie::class, 'update']);
+Route::put('/images/{id}', [ControllerImage::class, 'update']);
+Route::put('/tableaux/{id}', [ControllerTableau::class, 'update']);
+
+// Création
+Route::post('/utilisateurs', [ControllerUtilisateur::class, 'store']);
+Route::post('/categories', [ControllerCategorie::class, 'store']);
+Route::post('/images', [ControllerImage::class, 'store']);
+Route::post('/tableaux', [ControllerTableau::class, 'store']);
