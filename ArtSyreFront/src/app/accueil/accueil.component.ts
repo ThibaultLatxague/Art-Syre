@@ -18,7 +18,7 @@ export class AccueilComponent implements OnInit {
 
   ngOnInit(): void {
     // Code à exécuter lors de l'initialisation du composant
-    //this.loadData();
+    this.loadData();
   }
 
   private loadData(): void {
