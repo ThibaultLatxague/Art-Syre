@@ -11,15 +11,7 @@ class ControllerUtilisateur extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(Utilisateur::all());
     }
 
     /**
@@ -27,7 +19,8 @@ class ControllerUtilisateur extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $utilisateur = Utilisateur::create($request->all());
+        return response()->json($utilisateur, 201);
     }
 
     /**
@@ -35,15 +28,7 @@ class ControllerUtilisateur extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return response()->json(Utilisateur::findOrFail($id));
     }
 
     /**
@@ -51,7 +36,9 @@ class ControllerUtilisateur extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $utilisateur = Utilisateur::findOrFail($id);
+        $utilisateur->update($request->all());
+        return response()->json($utilisateur);
     }
 
     /**
@@ -59,6 +46,8 @@ class ControllerUtilisateur extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $utilisateur = Utilisateur::findOrFail($id);
+        $utilisateur->delete();
+        return response()->json(null, 204);
     }
 }

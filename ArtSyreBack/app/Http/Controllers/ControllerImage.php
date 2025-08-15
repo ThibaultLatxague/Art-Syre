@@ -11,15 +11,7 @@ class ControllerImage extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(Image::all());
     }
 
     /**
@@ -27,7 +19,8 @@ class ControllerImage extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = Image::create($request->all());
+        return response()->json($image, 201);
     }
 
     /**
@@ -35,15 +28,7 @@ class ControllerImage extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return response()->json(Image::findOrFail($id));
     }
 
     /**
@@ -51,7 +36,9 @@ class ControllerImage extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $image = Image::findOrFail($id);
+        $image->update($request->all());
+        return response()->json($image);
     }
 
     /**
@@ -59,6 +46,8 @@ class ControllerImage extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $image = Image::findOrFail($id);
+        $image->delete();
+        return response()->json(null, 204);
     }
 }

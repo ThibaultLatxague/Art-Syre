@@ -11,15 +11,7 @@ class ControllerCategorie extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(Categorie::all());
     }
 
     /**
@@ -27,7 +19,8 @@ class ControllerCategorie extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categorie = Categorie::create($request->all());
+        return response()->json($categorie, 201);
     }
 
     /**
@@ -35,15 +28,7 @@ class ControllerCategorie extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return response()->json(Categorie::findOrFail($id));
     }
 
     /**
@@ -51,7 +36,9 @@ class ControllerCategorie extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $categorie = Categorie::findOrFail($id);
+        $categorie->update($request->all());
+        return response()->json($categorie);
     }
 
     /**
@@ -59,6 +46,8 @@ class ControllerCategorie extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $categorie = Categorie::findOrFail($id);
+        $categorie->delete();
+        return response()->json(null, 204);
     }
 }

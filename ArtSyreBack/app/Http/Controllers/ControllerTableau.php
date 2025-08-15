@@ -11,15 +11,7 @@ class ControllerTableau extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json(Tableau::all());
     }
 
     /**
@@ -27,7 +19,8 @@ class ControllerTableau extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tableau = Tableau::create($request->all());
+        return response()->json($tableau, 201);
     }
 
     /**
@@ -35,15 +28,7 @@ class ControllerTableau extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return response()->json(Tableau::findOrFail($id));
     }
 
     /**
@@ -51,7 +36,9 @@ class ControllerTableau extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tableau = Tableau::findOrFail($id);
+        $tableau->update($request->all());
+        return response()->json($tableau);
     }
 
     /**
@@ -59,6 +46,8 @@ class ControllerTableau extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tableau = Tableau::findOrFail($id);
+        $tableau->delete();
+        return response()->json(null, 204);
     }
 }
