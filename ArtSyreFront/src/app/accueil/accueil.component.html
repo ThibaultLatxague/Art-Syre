@@ -1,5 +1,3 @@
-<p>accueil works!</p>
-
 <div class="grid-container">
     <mat-grid-list [cols]="getGridCols()" rowHeight="400px" gutterSize="20px">
         <mat-grid-tile *ngFor="let tableau of dataSource">
@@ -33,12 +31,12 @@
                         [color]="tableau.estLike ? 'warn' : 'primary'"
                         [class.liked]="tableau.estLike"
                         (click)="toggleLike(tableau)"
-                        matTooltip="J'aime">
+                        matTooltip="Ajouter à la liste de souhaits">
                         <mat-icon>{{ tableau.estLike ? 'favorite' :
                             'favorite_border' }}</mat-icon>
                     </button>
-
-                    <button mat-mini-fab
+                    
+                    <button class="cart-button" mat-mini-fab
                         [color]="tableau.estDansUnPanier ? 'accent' : 'primary'"
                         [class.in-cart]="tableau.estDansUnPanier"
                         (click)="toggleCart(tableau)"

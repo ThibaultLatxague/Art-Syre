@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { TableauxService } from '../services/tableaux.service';
 import { Tableau } from '../models/tableau.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-accueil',
@@ -10,8 +11,8 @@ import { Tableau } from '../models/tableau.model';
 })
 export class AccueilComponent implements OnInit {
   dataSource: Tableau[] = [];
-
-  constructor(private tableauxService: TableauxService) { }
+  
+  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     // Code à exécuter lors de l'initialisation du composant
@@ -45,9 +46,11 @@ export class AccueilComponent implements OnInit {
     tableau.estLike = !tableau.estLike;
     // Ici vous pouvez ajouter la logique pour sauvegarder l'état
     if (tableau.estLike) {
-      console.log(`Produit "${tableau.nom}" ajouté aux favoris`);
+      console.log(`Tableau "${tableau.nom}" ajouté aux favoris`);
+      this.openSnackBarLikeState(tableau.nom, "ajouté aux");
     } else {
-      console.log(`Produit "${tableau.nom}" retiré des favoris`);
+      console.log(`Tableau "${tableau.nom}" retiré des favoris`);
+      this.openSnackBarLikeState(tableau.nom, "retiré des");
     }
   }
 
@@ -55,9 +58,27 @@ export class AccueilComponent implements OnInit {
     tableau.estDansUnPanier = !tableau.estDansUnPanier;
     // Ici vous pouvez ajouter la logique pour sauvegarder l'état du panier
     if (tableau.estDansUnPanier) {
-      console.log(`Produit "${tableau.nom}" ajouté au panier`);
+      console.log(`Tableau "${tableau.nom}" ajouté au panier`);
+      this.openSnackBarCartState(tableau.nom, "ajouté au");
     } else {
-      console.log(`Produit "${tableau.nom}" retiré du panier`);
+      this.openSnackBarCartState(tableau.nom, "retiré du");
+      console.log(`Tableau "${tableau.nom}" retiré du panier`);
     }
+  }
+
+  openSnackBarLikeState(nom:string, status: string) {
+    this.snackBar.open(`Tableau "${nom}" ${status} favoris`, 'Fermer', {
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      duration: 3000,
+    });
+  }
+
+  openSnackBarCartState(nom:string, status: string) {
+    this.snackBar.open(`Tableau "${nom}" ${status} panier`, 'Fermer', {
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      duration: 3000,
+    });
   }
 }

@@ -14,11 +14,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccueilComponent,
+    AccueilComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatGridListModule,
     MatTooltipModule,
     MatButton,
-    MatIcon
+    MatIcon,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
