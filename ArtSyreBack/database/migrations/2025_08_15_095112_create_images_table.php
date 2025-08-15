@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('lien');
             $table->string('texteAlternatif')->nullable();
-            $table->foreignId('tableau_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tableauId')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

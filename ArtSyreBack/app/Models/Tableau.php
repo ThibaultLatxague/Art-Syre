@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tableau extends Model
 {
     use HasFactory;
-    protected $fillable = ['nom', 'taille', 'prix', 'dateCreation', 'estDansUnPanier', 'categorieId'];
+    protected $fillable = ['nom', 'taille', 'prix', 'dateCreation', 'estDansUnPanier', 'categorieId', 'estVendu'];
 
     public function categorie()
     {

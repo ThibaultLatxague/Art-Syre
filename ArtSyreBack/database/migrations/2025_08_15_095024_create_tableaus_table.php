@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tableau', function (Blueprint $table) {
+        Schema::create('tableaus', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
             $table->string('taille');
             $table->decimal('prix', 8, 2);
             $table->date('dateCreation');
             $table->boolean('estDansUnPanier')->default(false);
-            $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
+            $table->boolean('estVendu')->default(false);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tableau');
+        Schema::dropIfExists('tableaus');
     }
 };
