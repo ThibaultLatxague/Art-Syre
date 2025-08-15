@@ -13,7 +13,8 @@ class Utilisateur extends Model
         'prenom',
         'email',
         'motDePasse',
-        'dateCreation'
+        'dateCreation',
+        'estAdministrateur'
     ];
 
     public function commandes()

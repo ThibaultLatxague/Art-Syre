@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('motDePasse');
             $table->date('dateCreation');
+            $table->boolean('estAdministrateur')->default(false);
             $table->timestamps();
         });
     }
