@@ -5,6 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { HeaderComponent } from './header/header.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatCardActions } from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatGridTile } from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -16,6 +25,15 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
     HeaderComponent,
     HttpClientModule,
+    MatCardModule,
+    MatCardActions,
+    MatButtonModule,
+    MatIconModule,
+    MatGridTile,
+    MatGridListModule,
+    MatTooltipModule,
+    MatButton,
+    MatIcon
   ],
   providers: [],
   bootstrap: [AppComponent]
