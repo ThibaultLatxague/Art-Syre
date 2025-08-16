@@ -1,0 +1,51 @@
+<div class="grid-container">
+    <mat-grid-list [cols]="getGridCols()" rowHeight="400px" gutterSize="20px">
+        <mat-grid-tile *ngFor="let tableau of dataSource">
+            <mat-card class="product-card" appearance="outlined">
+                <mat-card-header>
+                    <mat-card-title>{{ tableau.nom }}</mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content class="card-content">
+                    <div class="image-container">
+                        <img class="product-image"
+                            src="https://material.angular.dev/assets/img/examples/shiba2.jpg"
+                            alt="Photo of a Shiba Inu">
+                    </div>
+
+                    <div class="product-info">
+                        <div class="info-item">
+                            <mat-icon class="info-icon">straighten</mat-icon>
+                            <span>{{ tableau.taille }} cm</span>
+                        </div>
+
+                        <div class="info-item price">
+                            <mat-icon class="info-icon">euro</mat-icon>
+                            <span>{{ tableau.prix }} €</span>
+                        </div>
+                    </div>
+                </mat-card-content>
+
+                <mat-card-actions class="card-actions">
+                    <button mat-mini-fab
+                        [color]="tableau.estLike ? 'warn' : 'primary'"
+                        [class.liked]="tableau.estLike"
+                        (click)="toggleLike(tableau)"
+                        matTooltip="Ajouter à la liste de souhaits">
+                        <mat-icon>{{ tableau.estLike ? 'favorite' :
+                            'favorite_border' }}</mat-icon>
+                    </button>
+                    
+                    <button class="cart-button" mat-mini-fab
+                        [color]="tableau.estDansUnPanier ? 'accent' : 'primary'"
+                        [class.in-cart]="tableau.estDansUnPanier"
+                        (click)="toggleCart(tableau)"
+                        matTooltip="Ajouter au panier">
+                        <mat-icon>{{ tableau.estDansUnPanier ? 'shopping_cart' :
+                            'add_shopping_cart' }}</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

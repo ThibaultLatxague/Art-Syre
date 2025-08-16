@@ -1,0 +1,144 @@
+.grid-container {
+  padding: 20px 10%; /* 10% de vide de chaque côté */
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.product-card {
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px !important;
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-image {
+  width: 100%;
+  max-width: 180px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.05);
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.info-item.price {
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+.info-icon {
+  color: #666;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px !important;
+  background: rgba(248, 249, 250, 0.8);
+}
+
+.card-actions button {
+  transition: all 0.3s ease;
+}
+
+.card-actions button:hover {
+  transform: translateY(-2px);
+}
+
+.card-actions button.liked {
+  animation: heartbeat 0.6s ease-in-out;
+}
+
+.card-actions button.in-cart {
+  animation: heartbeat 0.6s ease-in-out;
+}
+
+/* Animations */
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cartShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .grid-container {
+    padding: 20px 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    padding: 15px 3%;
+  }
+  
+  .product-image {
+    max-width: 140px;
+    height: 110px;
+  }
+  
+  .info-item {
+    font-size: 0.8em;
+  }
+}
