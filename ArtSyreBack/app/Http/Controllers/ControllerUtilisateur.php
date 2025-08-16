@@ -66,19 +66,13 @@ class ControllerUtilisateur extends Controller
     {
         // Log pour debug
         Log::info('Tentative de connexion reçue', [
-            'email' => $request->email,
-            'password' => $request->password
+            'email' => $request->email
+            // Ne pas logger le mot de passe en clair pour des raisons de sécurité
         ]);
 
         $credentials = $request->only('email', 'password');
 
-        $hash = Utilisateur::where('email', $request->email)->value('password');
-        if (Hash::check($request->password, $hash)) {
-            Log::info('Mot de passe correct', ['email' => $request->email]);
-        } else {
-            Log::warning('Mot de passe incorrect', ['email' => $request->email]);
-        }
-
+        // Option 1: Utiliser Auth::attempt() (recommandé)
         if (Auth::attempt($credentials)) {
             $utilisateur = Auth::user();
             Log::info('Connexion réussie', ['user_id' => $utilisateur->id]);
