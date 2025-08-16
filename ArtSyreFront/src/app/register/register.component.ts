@@ -188,12 +188,12 @@ export class RegisterComponent implements OnInit {
         // Création de l'objet utilisateur pour Laravel
         const utilisateur: Utilisateur = {
           id: 0,
-          nom: this.registerForm.value.nom.trim(),
+          name: this.registerForm.value.nom.trim(),
           prenom: this.registerForm.value.prenom.trim(),
           email: this.registerForm.value.email.toLowerCase().trim(),
           password: this.registerForm.value.motDePasse,
           dateCreation: new Date().toISOString().slice(0, 19).replace('T', ' '),
-          estAdministrateur: false
+          estAdmin: false
         };
 
         // Appel de la fonction createUtilisateur

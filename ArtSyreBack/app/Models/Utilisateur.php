@@ -1,4 +1,4 @@
-<?php
+<!-- 
 
 namespace App\Models;
 
@@ -66,4 +66,4 @@ class Utilisateur extends Authenticatable
     {
         return $this->belongsToMany(Tableau::class, 'tableau_utilisateur_souhaite');
     }
-}
+} -->

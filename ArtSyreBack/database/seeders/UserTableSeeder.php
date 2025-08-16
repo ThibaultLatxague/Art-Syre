@@ -4,15 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Utilisateur;
+use App\Models\User;
 
-class UtilisateurTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Utilisateur::factory()->count(10)->create();
+        User::factory()->count(10)->create();
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Utilisateur;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -24,8 +24,10 @@ class ControllerUtilisateur extends Controller
     public function store(Request $request)
     {
         $request['password'] = Hash::make($request['password']);
-        $utilisateur = Utilisateur::create($request->all());
-        return response()->json($utilisateur, 201);
+        Log::info('Parametre requete', $request->all());
+        $user = User::create($request->all());
+        Log::info('Utilisateur créé', $user->toArray());
+        return response()->json($user, 201);
     }
 
     /**
@@ -33,7 +35,7 @@ class ControllerUtilisateur extends Controller
      */
     public function show(string $id)
     {
-        return response()->json(Utilisateur::findOrFail($id));
+        return response()->json(User::findOrFail($id));
     }
 
     /**
@@ -41,9 +43,9 @@ class ControllerUtilisateur extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $utilisateur = Utilisateur::findOrFail($id);
-        $utilisateur->update($request->all());
-        return response()->json($utilisateur);
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        return response()->json($user);
     }
 
     /**
@@ -51,15 +53,15 @@ class ControllerUtilisateur extends Controller
      */
     public function destroy(string $id)
     {
-        $utilisateur = Utilisateur::findOrFail($id);
-        $utilisateur->delete();
+        $user = User::findOrFail($id);
+        $user->delete();
         return response()->json(null, 204);
     }
 
     public function ordersId(string $id){
-        $utilisateur = Utilisateur::findOrFail($id);
-        $commandes = $utilisateur->commandes();
-        return response()->json($commandes);
+        $user = User::findOrFail($id);
+        $orders = $user->orders();
+        return response()->json($orders);
     }
 
     public function login(Request $request)
@@ -74,9 +76,9 @@ class ControllerUtilisateur extends Controller
 
         // Option 1: Utiliser Auth::attempt() (recommandé)
         if (Auth::attempt($credentials)) {
-            $utilisateur = Auth::user();
-            Log::info('Connexion réussie', ['user_id' => $utilisateur->id]);
-            return response()->json($utilisateur);
+            $user = Auth::user();
+            Log::info('Connexion réussie', ['user_id' => $user->id]);
+            return response()->json($user);
         }
 
         Log::warning('Connexion échouée', ['email' => $request->email]);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tableau;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerTableau extends Controller
 {
@@ -54,7 +55,7 @@ class ControllerTableau extends Controller
 
     public function toggleLike($id)
     {
-        $user = auth()->user(); // utilisateur connecté
+        $user = Auth::user(); // utilisateur connecté
         $tableau = Tableau::findOrFail($id);
 
         if ($user->souhaites()->where('tableau_id', $id)->exists()) {

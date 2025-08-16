@@ -1,19 +1,19 @@
 export class Utilisateur {
     id: number;
-    nom: string;
+    name: string;
     prenom: string;
     email: string;
     password: string;
     dateCreation: string;
-    estAdministrateur: boolean;
+    estAdmin: boolean;
 
-    constructor(id: number, nom: string, prenom: string, email: string, password: string, dateCreation: string, estAdministrateur: boolean) {
+    constructor(id: number, name: string, prenom: string, email: string, password: string, dateCreation: string, estAdmin: boolean) {
         this.id = id;
-        this.nom = nom;
+        this.name = name;
         this.prenom = prenom;
         this.email = email;
         this.password = password;
         this.dateCreation = dateCreation;
-        this.estAdministrateur = estAdministrateur;
+        this.estAdmin = estAdmin;
     }
 }

@@ -75,12 +75,12 @@ export class LoginComponent {
         // Création de l'objet utilisateur pour Laravel
         const utilisateur: Utilisateur = {
           id: 0,
-          nom: '',
+          name: '',
           prenom: '',
           email: this.loginForm.value.email.toLowerCase().trim(),
           password: this.loginForm.value.password,
           dateCreation: new Date().toISOString().slice(0, 19).replace('T', ' '),
-          estAdministrateur: false
+          estAdmin: false
         };
 
         // Appel de la fonction connectUtilisateur

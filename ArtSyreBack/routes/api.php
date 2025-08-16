@@ -48,4 +48,4 @@ Route::post('/tableaux', [ControllerTableau::class, 'store']);
 // Commandes et souhaits
 Route::get('/commandes', [ControllerUtilisateur::class, 'orders']);
 Route::get('/commandes/{id}', [ControllerUtilisateur::class, 'ordersId']);
-Route::post('/tableaux/like/{id}', [TableauController::class, 'toggleLike']);
+Route::post('/tableaux/like/{id}', [ControllerTableau::class, 'toggleLike']);

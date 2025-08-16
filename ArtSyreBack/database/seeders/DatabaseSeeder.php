@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             CategorieTableSeeder::class,
             ImageTableSeeder::class,
             TableauTableSeeder::class,
-            UtilisateurTableSeeder::class,
+            UserTableSeeder::class,
         ]);
     }
 }
