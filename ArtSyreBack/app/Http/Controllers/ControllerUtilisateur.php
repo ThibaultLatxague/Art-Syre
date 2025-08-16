@@ -51,4 +51,10 @@ class ControllerUtilisateur extends Controller
         $utilisateur->delete();
         return response()->json(null, 204);
     }
+
+    public function ordersId(string $id){
+        $utilisateur = Utilisateur::findOrFail($id);
+        $commandes = $utilisateur->commandes();
+        return response()->json($commandes);
+    }
 }

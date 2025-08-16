@@ -43,3 +43,8 @@ Route::post('/utilisateurs', [ControllerUtilisateur::class, 'store']);
 Route::post('/categories', [ControllerCategorie::class, 'store']);
 Route::post('/images', [ControllerImage::class, 'store']);
 Route::post('/tableaux', [ControllerTableau::class, 'store']);
+
+// Commandes et souhaits
+Route::get('/commandes', [ControllerUtilisateur::class, 'orders']);
+Route::get('/commandes/{id}', [ControllerUtilisateur::class, 'ordersId']);
+Route::post('/tableaux/{id}/like', [TableauController::class, 'toggleLike']);

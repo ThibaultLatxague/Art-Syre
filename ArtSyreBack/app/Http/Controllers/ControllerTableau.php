@@ -51,4 +51,20 @@ class ControllerTableau extends Controller
         $tableau->delete();
         return response()->json(null, 204);
     }
+
+    public function toggleLike($id)
+    {
+        $user = auth()->user(); // utilisateur connecté
+        $tableau = Tableau::findOrFail($id);
+
+        if ($user->souhaites()->where('tableau_id', $id)->exists()) {
+            // déjà en "like" → on supprime
+            $user->souhaites()->detach($id);
+            return response()->json(['liked' => false]);
+        } else {
+            // pas encore en "like" → on ajoute
+            $user->souhaites()->attach($id);
+            return response()->json(['liked' => true]);
+        }
+    }
 }

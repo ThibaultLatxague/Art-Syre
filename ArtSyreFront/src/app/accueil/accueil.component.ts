@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { TableauxService } from '../services/tableaux.service';
 import { Tableau } from '../models/tableau.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-accueil',
@@ -12,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AccueilComponent implements OnInit {
   dataSource: Tableau[] = [];
   
-  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar) { }
+  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar, private http: HttpClient) { }
 
   ngOnInit(): void {
     // Code à exécuter lors de l'initialisation du composant
@@ -43,15 +44,28 @@ export class AccueilComponent implements OnInit {
   }
 
   toggleLike(tableau: Tableau) {
-    tableau.estLike = !tableau.estLike;
-    // Ici vous pouvez ajouter la logique pour sauvegarder l'état
-    if (tableau.estLike) {
-      console.log(`Tableau "${tableau.nom}" ajouté aux favoris`);
-      this.openSnackBarLikeState(tableau.nom, "ajouté aux");
-    } else {
-      console.log(`Tableau "${tableau.nom}" retiré des favoris`);
-      this.openSnackBarLikeState(tableau.nom, "retiré des");
-    }
+    // URL de ton endpoint Laravel
+    const url = `/api/tableaux/${tableau.id}/like`;
+
+    this.http.post<{ liked: boolean }>(url, {}).subscribe({
+      next: (res) => {
+        tableau.estLike = res.liked;
+
+        if (tableau.estLike) {
+          console.log(`Tableau "${tableau.nom}" ajouté aux favoris`);
+          this.openSnackBarLikeState(tableau.nom, "ajouté aux");
+        } else {
+          console.log(`Tableau "${tableau.nom}" retiré des favoris`);
+          this.openSnackBarLikeState(tableau.nom, "retiré des");
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de la mise à jour du like', err);
+        this.snackBar.open('Impossible de modifier le favori', 'Fermer', {
+          duration: 3000
+        });
+      }
+    });
   }
 
   toggleCart(tableau: Tableau) {
