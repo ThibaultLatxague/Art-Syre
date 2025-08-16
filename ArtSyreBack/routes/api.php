@@ -37,6 +37,7 @@ Route::put('/utilisateurs/{id}', [ControllerUtilisateur::class, 'update']);
 Route::put('/categories/{id}', [ControllerCategorie::class, 'update']);
 Route::put('/images/{id}', [ControllerImage::class, 'update']);
 Route::put('/tableaux/{id}', [ControllerTableau::class, 'update']);
+Route::post('/utilisateurs/login', [ControllerUtilisateur::class, 'login']);
 
 // Création
 Route::post('/utilisateurs', [ControllerUtilisateur::class, 'store']);

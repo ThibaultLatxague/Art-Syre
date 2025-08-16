@@ -22,7 +22,15 @@ export class UtilisateursService {
   }
 
   createUtilisateur(data: Utilisateur): Observable<any> {
+    console.log("Tentative de création d'un utilisateur avec les données suivantes :");
+    console.log(data);
     return this.http.post(this.apiUrl, data);
+  }
+
+  connectUtilisateur(email: string, password: string): Observable<any> {
+    console.log("Tentative de connexion avec les identifiants suivants :");
+    console.log("Email: " + email + ", Mot de passe: " + password);
+    return this.http.post(`${this.apiUrl}/login`, { email, password });
   }
 
   updateUtilisateur(id: string, data: any): Observable<any> {

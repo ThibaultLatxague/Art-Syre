@@ -44,10 +44,7 @@ export class AccueilComponent implements OnInit {
   }
 
   toggleLike(tableau: Tableau) {
-    // URL de ton endpoint Laravel
-    const url = `/tableaux/like/${tableau.id}`;
-
-    this.http.post<{ liked: boolean }>(url, {}).subscribe({
+    this.tableauxService.updateLikeStatus(tableau.id.toString()).subscribe({
       next: (res) => {
         tableau.estLike = res.liked;
 

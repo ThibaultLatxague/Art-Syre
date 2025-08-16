@@ -191,7 +191,7 @@ export class RegisterComponent implements OnInit {
           nom: this.registerForm.value.nom.trim(),
           prenom: this.registerForm.value.prenom.trim(),
           email: this.registerForm.value.email.toLowerCase().trim(),
-          motDePasse: this.registerForm.value.motDePasse,
+          password: this.registerForm.value.motDePasse,
           dateCreation: new Date().toISOString().slice(0, 19).replace('T', ' '),
           estAdministrateur: false
         };

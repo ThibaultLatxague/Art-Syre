@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Utilisateur;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ControllerUtilisateur extends Controller
 {
@@ -20,6 +23,7 @@ class ControllerUtilisateur extends Controller
      */
     public function store(Request $request)
     {
+        $request['password'] = Hash::make($request['password']);
         $utilisateur = Utilisateur::create($request->all());
         return response()->json($utilisateur, 201);
     }
@@ -56,5 +60,32 @@ class ControllerUtilisateur extends Controller
         $utilisateur = Utilisateur::findOrFail($id);
         $commandes = $utilisateur->commandes();
         return response()->json($commandes);
+    }
+
+    public function login(Request $request)
+    {
+        // Log pour debug
+        Log::info('Tentative de connexion reçue', [
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        $hash = Utilisateur::where('email', $request->email)->value('password');
+        if (Hash::check($request->password, $hash)) {
+            Log::info('Mot de passe correct', ['email' => $request->email]);
+        } else {
+            Log::warning('Mot de passe incorrect', ['email' => $request->email]);
+        }
+
+        if (Auth::attempt($credentials)) {
+            $utilisateur = Auth::user();
+            Log::info('Connexion réussie', ['user_id' => $utilisateur->id]);
+            return response()->json($utilisateur);
+        }
+
+        Log::warning('Connexion échouée', ['email' => $request->email]);
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 }

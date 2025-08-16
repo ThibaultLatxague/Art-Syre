@@ -29,7 +29,7 @@ class UtilisateurFactory extends Factory
             'prenom' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             // 'email_verified_at' => now(),
-            'motDePasse' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('password'),
             'dateCreation' => now(),
             'estAdministrateur' => fake()->boolean()
         ];

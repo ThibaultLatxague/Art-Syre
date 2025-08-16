@@ -12,7 +12,7 @@ class Utilisateur extends Model
         'nom',
         'prenom',
         'email',
-        'motDePasse',
+        'password',
         'dateCreation',
         'estAdministrateur'
     ];
