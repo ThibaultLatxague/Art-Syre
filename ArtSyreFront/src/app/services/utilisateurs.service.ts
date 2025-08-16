@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Utilisateur } from '../models/utilisateur.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UtilisateursService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  createUtilisateur(data: any): Observable<any> {
+  createUtilisateur(data: Utilisateur): Observable<any> {
     return this.http.post(this.apiUrl, data);
   }
 
