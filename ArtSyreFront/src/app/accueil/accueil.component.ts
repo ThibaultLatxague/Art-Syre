@@ -3,6 +3,7 @@ import { TableauxService } from '../services/tableaux.service';
 import { Tableau } from '../models/tableau.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-accueil',
@@ -12,12 +13,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccueilComponent implements OnInit {
   dataSource: Tableau[] = [];
-  
-  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar, private http: HttpClient) { }
+  user: any;
+
+  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar, private http: HttpClient, private authService: AuthService) { }
 
   ngOnInit(): void {
     // Code à exécuter lors de l'initialisation du composant
     this.loadData();
+    this.authService.getCurrentUser().subscribe(user => {
+      console.log("Utilisateur courant:", user); // Ici tu as bien l'objet User
+      this.user = user;
+    });
   }
 
   @HostListener('window:resize', ['$event'])

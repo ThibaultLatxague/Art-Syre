@@ -84,4 +84,15 @@ class ControllerUtilisateur extends Controller
         Log::warning('Connexion échouée', ['email' => $request->email]);
         return response()->json(['error' => 'Unauthorized'], 401);
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return response()->json(['message' => 'Logged out successfully']);
+    }
+
+    public function me()
+    {
+        return response()->json(Auth::user());
+    }
 }

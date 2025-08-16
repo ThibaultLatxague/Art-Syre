@@ -49,3 +49,11 @@ Route::post('/tableaux', [ControllerTableau::class, 'store']);
 Route::get('/commandes', [ControllerUtilisateur::class, 'orders']);
 Route::get('/commandes/{id}', [ControllerUtilisateur::class, 'ordersId']);
 Route::post('/tableaux/like/{id}', [ControllerTableau::class, 'toggleLike']);
+
+
+
+
+// Routes login etc
+Route::post('/login', [ControllerUtilisateur::class, 'login']);
+Route::post('/logout', [ControllerUtilisateur::class, 'logout']);
+Route::get('/me', [ControllerUtilisateur::class, 'me']);

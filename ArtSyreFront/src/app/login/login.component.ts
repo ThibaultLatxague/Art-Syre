@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UtilisateursService } from '../services/utilisateurs.service';
 import { Utilisateur } from '../models/utilisateur.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent {
     private router: Router,
     private snackBar: MatSnackBar,
     private utilisateurService: UtilisateursService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -84,10 +86,16 @@ export class LoginComponent {
         };
 
         // Appel de la fonction connectUtilisateur
-        await this.utilisateurService.connectUtilisateur(utilisateur.email, utilisateur.password).toPromise();
-
-        // Redirection vers la page d'accueil (vide)
-        this.router.navigate(['']);
+        //await this.utilisateurService.connectUtilisateur(utilisateur.email, utilisateur.password).toPromise();
+        this.authService.login(utilisateur.email, utilisateur.password).subscribe({
+          next: () => {
+            // Redirection vers la page d'accueil (vide)
+            this.router.navigate(['']);
+          },
+          error: (error) => {
+            console.error('Erreur lors de la connexion:', error);
+          }
+        });
 
       } catch (error: any) {
         console.error('Erreur lors de la connexion:', error);
