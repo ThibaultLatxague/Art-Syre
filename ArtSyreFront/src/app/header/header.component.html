@@ -18,15 +18,15 @@
     <span class="spacer"></span>
 
     <!-- Icônes -->
-    <button mat-icon-button aria-label="Favoris">
+    <button mat-icon-button aria-label="Favoris" [routerLink]="'/liste-souhait'">
         <mat-icon>favorite_border</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="Compte">
+    <button mat-icon-button aria-label="Compte" [routerLink]="'/compte'">
         <mat-icon>account_circle</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="Panier">
+    <button mat-icon-button aria-label="Panier" [routerLink]="'/panier'">
         <mat-icon>shopping_cart</mat-icon>
     </button>
 </mat-toolbar>

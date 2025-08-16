@@ -24,13 +24,18 @@ import { MatFormField } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { PanierComponent } from './panier/panier.component';
+import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccueilComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PanierComponent,
+    ListSouhaitComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,7 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
