@@ -111,12 +111,21 @@ class ControllerUtilisateur extends Controller
     }
 
     /**
+     * Obtenir les tableaux aimés par l'utilisateur authentifié.
+     */
+    public function getLikes()
+    {
+        $user = Auth::user();
+        return response()->json($user->tableauxLikes);
+    }
+
+    /**
      * Ajouter un tableau au panier de l'utilisateur authentifié.
      */
     public function addToPanier(Request $request)
     {
         $user = Auth::user();
-        $tableauId = $request->input('tableau_id');
+        $tableauId = $request->input('tableauId');
 
         // Vérifier si le tableau existe et l'ajouter au panier
         if ($tableauId) {
@@ -126,6 +135,29 @@ class ControllerUtilisateur extends Controller
             $user->save();
 
             return response()->json(['message' => 'Tableau avec id ' . $tableauId . ' ajouté au panier'], 200);
+        }
+
+        return response()->json(['error' => 'Tableau non spécifié'], 400);
+    }
+
+    /**
+     * Ajouter un tableau aux likes de l'utilisateur authentifié.
+     */
+    public function addLikes(Request $request)
+    {
+        $user = Auth::user();
+        $tableauId = $request->only('tableauId');
+        Log::info('Composant de la requete', ['requete' => $request]);
+        Log::info('Ajout de like pour le tableau', ['tableauId' => $tableauId]);
+
+        // Vérifier si le tableau existe et l'ajouter aux likes
+        if ($tableauId) {
+            $tableauxLikes = json_decode($user->tableauxLikes, true);
+            $tableauxLikes[] = $tableauId;
+            $user->tableauxLikes = json_encode($tableauxLikes);
+            $user->save();
+
+            return response()->json(['message' => 'Tableau avec id ' . $tableauId . ' ajouté aux likes'], 200);
         }
 
         return response()->json(['error' => 'Tableau non spécifié'], 400);
@@ -153,44 +185,12 @@ class ControllerUtilisateur extends Controller
     }
 
     /**
-     * Obtenir les tableaux aimés par l'utilisateur authentifié.
-     */
-    public function getLikes()
-    {
-        $user = Auth::user();
-        return response()->json($user->tableauxLikes);
-    }
-
-    /**
-     * Ajouter un tableau aux likes de l'utilisateur authentifié.
-     */
-    public function addLikes(Request $request)
-    {
-        $user = Auth::user();
-        $tableauId = $request->only('tableauId');
-        Log::info('Composant de la requete', ['requete' => $request]);
-        Log::info('Ajout de like pour le tableau', ['tableauId' => $tableauId]);
-
-        // Vérifier si le tableau existe et l'ajouter aux likes
-        if ($tableauId) {
-            $tableauxLikes = json_decode($user->tableauxLikes, true);
-            $tableauxLikes[] = $tableauId;
-            $user->tableauxLikes = json_encode($tableauxLikes);
-            $user->save();
-
-            return response()->json(['message' => 'Tableau avec id ' . $tableauId . ' ajouté aux likes'], 200);
-        }
-
-        return response()->json(['error' => 'Tableau non spécifié'], 400);
-    }
-
-    /**
      * Retirer un tableau des likes de l'utilisateur authentifié.
      */
     public function removeLikes(Request $request)
     {
         $user = Auth::user();
-        $tableauId = $request->input('tableau_id');
+        $tableauId = $request->input('tableauId');
 
         // Vérifier si le tableau existe et l'enlever des likes
         if ($tableauId) {

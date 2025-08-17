@@ -57,7 +57,7 @@ export class AccueilComponent implements OnInit {
       this.utilisateursService.removeLike(tableau.id.toString()).subscribe({
         next: () => {
           console.log(`Tableau "${tableau.nom}" retiré des likes`);
-          this.openSnackBarLikeState(tableau.nom, "retiré des");
+          this.openSnackBarStateType(tableau.nom, "retiré des likes");
         },
         error: (err) => {
           console.error('Erreur lors du retrait des likes', err);
@@ -70,56 +70,47 @@ export class AccueilComponent implements OnInit {
       this.utilisateursService.addLike(tableau.id.toString()).subscribe({
         next: () => {
           console.log(`Tableau "${tableau.nom}" ajouté aux likes`);
-          this.openSnackBarLikeState(tableau.nom, "ajouté aux");
+          this.openSnackBarStateType(tableau.nom, "ajouté aux likes");
         },
         error: (err) => {
           console.error('Erreur lors de l\'ajout aux likes', err);
         }
       });
     }
-    // this.tableauxService.updateLikeStatus(tableau.id.toString()).subscribe({
-    //   next: (res) => {
-    //     tableau.estLike = res.liked;
-
-    //     if (tableau.estLike) {
-    //       console.log(`Tableau "${tableau.nom}" ajouté aux favoris`);
-    //       this.openSnackBarLikeState(tableau.nom, "ajouté aux");
-    //     } else {
-    //       console.log(`Tableau "${tableau.nom}" retiré des favoris`);
-    //       this.openSnackBarLikeState(tableau.nom, "retiré des");
-    //     }
-    //   },
-    //   error: (err) => {
-    //     console.error('Erreur lors de la mise à jour du like', err);
-    //     this.snackBar.open('Impossible de modifier le favori', 'Fermer', {
-    //       duration: 3000
-    //     });
-    //   }
-    // });
   }
 
   toggleCart(tableau: Tableau) {
-    tableau.estDansUnPanier = !tableau.estDansUnPanier;
-    // Ici vous pouvez ajouter la logique pour sauvegarder l'état du panier
-    if (tableau.estDansUnPanier) {
-      console.log(`Tableau "${tableau.nom}" ajouté au panier`);
-      this.openSnackBarCartState(tableau.nom, "ajouté au");
-    } else {
-      this.openSnackBarCartState(tableau.nom, "retiré du");
-      console.log(`Tableau "${tableau.nom}" retiré du panier`);
+    if (this.utilisateurCourant && this.utilisateurCourant.tableauxDansPanier.includes(tableau.id)) {
+      // Si le tableau est déjà dans le panier, on le retire
+      console.log("Utilisateur courant trouvé, tableau compris dans le panier");
+      this.utilisateurCourant.tableauxDansPanier = this.utilisateurCourant.tableauxDansPanier.filter((id: number) => id !== tableau.id);
+      this.utilisateursService.removeFromCart(tableau.id.toString()).subscribe({
+        next: () => {
+          console.log(`Tableau "${tableau.nom}" retiré du panier`);
+          this.openSnackBarStateType(tableau.nom, "retiré du panier");
+        },
+        error: (err) => {
+          console.error('Erreur lors du retrait du panier', err);
+        }
+      });
+    } else if (this.utilisateurCourant) {
+      // Sinon, on l'ajoute
+      console.log("Utilisateur courant trouvé, tableau non compris dans le panier");
+      this.utilisateurCourant.tableauxDansPanier.push(tableau.id);
+      this.utilisateursService.addToCart(tableau.id.toString()).subscribe({
+        next: () => {
+          console.log(`Tableau "${tableau.nom}" ajouté au panier`);
+          this.openSnackBarStateType(tableau.nom, "ajouté au panier");
+        },
+        error: (err) => {
+          console.error('Erreur lors de l\'ajout au panier', err);
+        }
+      });
     }
   }
 
-  openSnackBarLikeState(nom:string, status: string) {
-    this.snackBar.open(`Tableau "${nom}" ${status} favoris`, 'Fermer', {
-      horizontalPosition: 'right',
-      verticalPosition: 'bottom',
-      duration: 3000,
-    });
-  }
-
-  openSnackBarCartState(nom:string, status: string) {
-    this.snackBar.open(`Tableau "${nom}" ${status} panier`, 'Fermer', {
+  openSnackBarStateType(nom:string, status: string) {
+    this.snackBar.open(`Tableau "${nom}" ${status}`, 'Fermer', {
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
       duration: 3000,
