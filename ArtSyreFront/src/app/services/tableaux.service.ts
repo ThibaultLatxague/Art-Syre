@@ -31,4 +31,8 @@ export class TableauxService {
   deleteTableau(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  updateLikeStatus(id: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/like/${id}`, {});
+  }
 }

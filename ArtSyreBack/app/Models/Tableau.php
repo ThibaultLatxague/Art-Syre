@@ -22,11 +22,11 @@ class Tableau extends Model
 
     public function commandes()
     {
-        return $this->belongsToMany(Utilisateur::class, 'tableau_utilisateur_commande');
+        return $this->belongsToMany(User::class, 'tableau_utilisateur_commande');
     }
 
     public function souhaites()
     {
-        return $this->belongsToMany(Utilisateur::class, 'tableau_utilisateur_souhaite');
+        return $this->belongsToMany(User::class, 'tableau_utilisateur_souhaite');
     }
 }

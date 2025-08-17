@@ -25,10 +25,15 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'prenom' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'estAdmin' => fake()->boolean(),
+            'tableauxLikes' => json_encode([1, 2, 3]), // Exemple de tableaux aimés
+            'tableauxDansPanier' => json_encode([4, 5]), // Exemple de tableaux dans le panier
+            'dateCreation' => now(),
         ];
     }
 

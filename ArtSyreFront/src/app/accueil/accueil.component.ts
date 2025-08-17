@@ -2,6 +2,10 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { TableauxService } from '../services/tableaux.service';
 import { Tableau } from '../models/tableau.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
+import { UtilisateursService } from '../services/utilisateurs.service';
+import { Utilisateur } from '../models/utilisateur.model';
 
 @Component({
   selector: 'app-accueil',
@@ -11,12 +15,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AccueilComponent implements OnInit {
   dataSource: Tableau[] = [];
-  
-  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar) { }
+  utilisateurCourant: Utilisateur | null = null;
+
+  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar, private http: HttpClient, private authService: AuthService, private utilisateursService: UtilisateursService) { }
 
   ngOnInit(): void {
     // Code à exécuter lors de l'initialisation du composant
     this.loadData();
+    this.utilisateurCourant = new Utilisateur(0, '', '', '', '', '', false, [], []);
+    this.utilisateurCourant = this.authService.getCurrentUserAngular();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -43,15 +50,52 @@ export class AccueilComponent implements OnInit {
   }
 
   toggleLike(tableau: Tableau) {
-    tableau.estLike = !tableau.estLike;
-    // Ici vous pouvez ajouter la logique pour sauvegarder l'état
-    if (tableau.estLike) {
-      console.log(`Tableau "${tableau.nom}" ajouté aux favoris`);
-      this.openSnackBarLikeState(tableau.nom, "ajouté aux");
-    } else {
-      console.log(`Tableau "${tableau.nom}" retiré des favoris`);
-      this.openSnackBarLikeState(tableau.nom, "retiré des");
+    if (this.utilisateurCourant && this.utilisateurCourant.tableauxLikes.includes(tableau.id)) {
+      // Si le tableau est déjà dans les likes, on le retire
+      console.log("Utilisateur courant trouvé, tableau compris dans les likes");
+      this.utilisateurCourant.tableauxLikes = this.utilisateurCourant.tableauxLikes.filter((id: number) => id !== tableau.id);
+      this.utilisateursService.removeLike(tableau.id.toString()).subscribe({
+        next: () => {
+          console.log(`Tableau "${tableau.nom}" retiré des likes`);
+          this.openSnackBarLikeState(tableau.nom, "retiré des");
+        },
+        error: (err) => {
+          console.error('Erreur lors du retrait des likes', err);
+        }
+      });
+    } else if (this.utilisateurCourant) {
+      // Sinon, on l'ajoute
+      console.log("Utilisateur courant trouvé, tableau non compris dans les likes");
+      this.utilisateurCourant.tableauxLikes.push(tableau.id);
+      this.utilisateursService.addLike(tableau.id.toString()).subscribe({
+        next: () => {
+          console.log(`Tableau "${tableau.nom}" ajouté aux likes`);
+          this.openSnackBarLikeState(tableau.nom, "ajouté aux");
+        },
+        error: (err) => {
+          console.error('Erreur lors de l\'ajout aux likes', err);
+        }
+      });
     }
+    // this.tableauxService.updateLikeStatus(tableau.id.toString()).subscribe({
+    //   next: (res) => {
+    //     tableau.estLike = res.liked;
+
+    //     if (tableau.estLike) {
+    //       console.log(`Tableau "${tableau.nom}" ajouté aux favoris`);
+    //       this.openSnackBarLikeState(tableau.nom, "ajouté aux");
+    //     } else {
+    //       console.log(`Tableau "${tableau.nom}" retiré des favoris`);
+    //       this.openSnackBarLikeState(tableau.nom, "retiré des");
+    //     }
+    //   },
+    //   error: (err) => {
+    //     console.error('Erreur lors de la mise à jour du like', err);
+    //     this.snackBar.open('Impossible de modifier le favori', 'Fermer', {
+    //       duration: 3000
+    //     });
+    //   }
+    // });
   }
 
   toggleCart(tableau: Tableau) {

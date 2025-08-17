@@ -15,11 +15,27 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { MatError } from '@angular/material/form-field';
+import { MatSpinner } from '@angular/material/progress-spinner';
+import { MatLabel } from '@angular/material/form-field';
+import { MatFormField } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { PanierComponent } from './panier/panier.component';
+import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccueilComponent
+    AccueilComponent,
+    LoginComponent,
+    RegisterComponent,
+    PanierComponent,
+    ListSouhaitComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +51,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTooltipModule,
     MatButton,
     MatIcon,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatError,
+    MatSpinner,
+    MatLabel,
+    MatFormField,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

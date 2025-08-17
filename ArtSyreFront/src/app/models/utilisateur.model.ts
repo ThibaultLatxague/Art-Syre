@@ -1,19 +1,23 @@
 export class Utilisateur {
     id: number;
-    nom: string;
+    name: string;
     prenom: string;
     email: string;
-    motDePasse: string;
-    dateInscription: Date;
-    estAdministrateur: boolean;
+    password: string;
+    dateCreation: string;
+    estAdmin: boolean;
+    tableauxLikes: number[];
+    tableauxDansPanier: number[];
 
-    constructor(id: number, nom: string, prenom: string, email: string, motDePasse: string, dateInscription: Date, estAdministrateur: boolean) {
+    constructor(id: number, name: string, prenom: string, email: string, password: string, dateCreation: string, estAdmin: boolean, tableauxLikes: number[], tableauxDansPanier: number[]) {
         this.id = id;
-        this.nom = nom;
+        this.name = name;
         this.prenom = prenom;
         this.email = email;
-        this.motDePasse = motDePasse;
-        this.dateInscription = dateInscription;
-        this.estAdministrateur = estAdministrateur;
+        this.password = password;
+        this.dateCreation = dateCreation;
+        this.estAdmin = estAdmin;
+        this.tableauxLikes = tableauxLikes;
+        this.tableauxDansPanier = tableauxDansPanier;
     }
 }

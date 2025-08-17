@@ -19,8 +19,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'prenom',
         'email',
         'password',
+        'estAdmin',
+        'dateCreation',
+        'tableauxLikes',
+        'tableauxDansPanier',
     ];
 
     /**
@@ -44,5 +49,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function commandes()
+    {
+        return $this->belongsToMany(Tableau::class, 'tableau_utilisateur_commande');
+    }
+
+    public function souhaits()
+    {
+        return $this->belongsToMany(Tableau::class, 'tableau_utilisateur_souhaite');
     }
 }
