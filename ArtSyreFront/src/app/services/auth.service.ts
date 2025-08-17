@@ -35,9 +35,25 @@ export class AuthService {
         return this.http.post<Utilisateur>(`${this.API_URL}/login`, { email, password })
             .pipe(
                 tap(response => {
-                    console.log('Réponse de la connexion:', response);
-                    localStorage.setItem('utilisateurCourant', JSON.stringify(response.id));
-                    //this.setAuthData(response);
+                    // Transformation en tableaux si JSON string
+                    if (typeof response.tableauxLikes === 'string') {
+                        try {
+                            response.tableauxLikes = JSON.parse(response.tableauxLikes);
+                        } catch {
+                            response.tableauxLikes = [];
+                        }
+                    }
+
+                    if (typeof response.tableauxDansPanier === 'string') {
+                        try {
+                            response.tableauxDansPanier = JSON.parse(response.tableauxDansPanier);
+                        } catch {
+                            response.tableauxDansPanier = [];
+                        }
+                    }
+
+                    console.log('Réponse de la connexion (après conversion):', response);
+                    localStorage.setItem('utilisateurCourant', JSON.stringify(response));
                 })
             );
     }
@@ -51,10 +67,11 @@ export class AuthService {
             );
     }
 
-    getCurrentUserAngular(): Utilisateur{
-        //return this.userSubject.asObservable();
+    getCurrentUserAngular(): Utilisateur {
+        console.log("getCurrentUserAngular: ", localStorage.getItem('utilisateurCourant'));
         if (localStorage.getItem('utilisateurCourant')) {
-            return JSON.parse(localStorage.getItem('utilisateurCourant')!);
+            var user = <Utilisateur>JSON.parse(localStorage.getItem('utilisateurCourant')!);
+            return user;
         }
         return new Utilisateur(0, '', '', '', '', '', false, [], []);
     }

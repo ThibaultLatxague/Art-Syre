@@ -137,7 +137,7 @@ class ControllerUtilisateur extends Controller
     public function removeFromPanier(Request $request)
     {
         $user = Auth::user();
-        $tableauId = $request->input('tableau_id');
+        $tableauId = $request->only('tableauId');
 
         // Vérifier si le tableau existe et l'enlever du panier
         if ($tableauId) {
@@ -167,7 +167,9 @@ class ControllerUtilisateur extends Controller
     public function addLikes(Request $request)
     {
         $user = Auth::user();
-        $tableauId = $request->input('tableau_id');
+        $tableauId = $request->only('tableauId');
+        Log::info('Composant de la requete', ['requete' => $request]);
+        Log::info('Ajout de like pour le tableau', ['tableauId' => $tableauId]);
 
         // Vérifier si le tableau existe et l'ajouter aux likes
         if ($tableauId) {

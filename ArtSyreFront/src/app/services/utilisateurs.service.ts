@@ -47,7 +47,7 @@ export class UtilisateursService {
   }
 
   addLike(tableauId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${tableauId}/likes`, {});
+    return this.http.post(`${this.apiUrl}/${tableauId}/likes`, {tableauId});
   }
 
   removeLike(tableauId: string): Observable<any> {

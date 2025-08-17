@@ -52,33 +52,50 @@ export class AccueilComponent implements OnInit {
   toggleLike(tableau: Tableau) {
     if (this.utilisateurCourant && this.utilisateurCourant.tableauxLikes.includes(tableau.id)) {
       // Si le tableau est déjà dans les likes, on le retire
+      console.log("Utilisateur courant trouvé, tableau compris dans les likes");
       this.utilisateurCourant.tableauxLikes = this.utilisateurCourant.tableauxLikes.filter((id: number) => id !== tableau.id);
-      this.utilisateursService.removeLike(tableau.id.toString()).subscribe();
+      this.utilisateursService.removeLike(tableau.id.toString()).subscribe({
+        next: () => {
+          console.log(`Tableau "${tableau.nom}" retiré des likes`);
+          this.openSnackBarLikeState(tableau.nom, "retiré des");
+        },
+        error: (err) => {
+          console.error('Erreur lors du retrait des likes', err);
+        }
+      });
     } else if (this.utilisateurCourant) {
       // Sinon, on l'ajoute
+      console.log("Utilisateur courant trouvé, tableau non compris dans les likes");
       this.utilisateurCourant.tableauxLikes.push(tableau.id);
-      this.utilisateursService.addLike(tableau.id.toString()).subscribe();
-    }
-
-    this.tableauxService.updateLikeStatus(tableau.id.toString()).subscribe({
-      next: (res) => {
-        tableau.estLike = res.liked;
-
-        if (tableau.estLike) {
-          console.log(`Tableau "${tableau.nom}" ajouté aux favoris`);
+      this.utilisateursService.addLike(tableau.id.toString()).subscribe({
+        next: () => {
+          console.log(`Tableau "${tableau.nom}" ajouté aux likes`);
           this.openSnackBarLikeState(tableau.nom, "ajouté aux");
-        } else {
-          console.log(`Tableau "${tableau.nom}" retiré des favoris`);
-          this.openSnackBarLikeState(tableau.nom, "retiré des");
+        },
+        error: (err) => {
+          console.error('Erreur lors de l\'ajout aux likes', err);
         }
-      },
-      error: (err) => {
-        console.error('Erreur lors de la mise à jour du like', err);
-        this.snackBar.open('Impossible de modifier le favori', 'Fermer', {
-          duration: 3000
-        });
-      }
-    });
+      });
+    }
+    // this.tableauxService.updateLikeStatus(tableau.id.toString()).subscribe({
+    //   next: (res) => {
+    //     tableau.estLike = res.liked;
+
+    //     if (tableau.estLike) {
+    //       console.log(`Tableau "${tableau.nom}" ajouté aux favoris`);
+    //       this.openSnackBarLikeState(tableau.nom, "ajouté aux");
+    //     } else {
+    //       console.log(`Tableau "${tableau.nom}" retiré des favoris`);
+    //       this.openSnackBarLikeState(tableau.nom, "retiré des");
+    //     }
+    //   },
+    //   error: (err) => {
+    //     console.error('Erreur lors de la mise à jour du like', err);
+    //     this.snackBar.open('Impossible de modifier le favori', 'Fermer', {
+    //       duration: 3000
+    //     });
+    //   }
+    // });
   }
 
   toggleCart(tableau: Tableau) {
