@@ -9,7 +9,7 @@ import { Utilisateur } from '../models/utilisateur.model';
 })
 export class UtilisateursService {
 
-  private apiUrl = `${environment.apiUrl}/utilisateurs`;
+  private apiUrl = `${environment.apiUrl}/utilisateur`;
 
   constructor(private http: HttpClient) { }
 
@@ -44,5 +44,13 @@ export class UtilisateursService {
 
   deleteUtilisateur(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  addLike(tableauId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${tableauId}/likes`, {});
+  }
+
+  removeLike(tableauId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${tableauId}/likes`);
   }
 }

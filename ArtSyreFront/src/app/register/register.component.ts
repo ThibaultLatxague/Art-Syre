@@ -193,7 +193,9 @@ export class RegisterComponent implements OnInit {
           email: this.registerForm.value.email.toLowerCase().trim(),
           password: this.registerForm.value.motDePasse,
           dateCreation: new Date().toISOString().slice(0, 19).replace('T', ' '),
-          estAdmin: false
+          estAdmin: false,
+          tableauxLikes: [],
+          tableauxDansPanier: []
         };
 
         // Appel de la fonction createUtilisateur

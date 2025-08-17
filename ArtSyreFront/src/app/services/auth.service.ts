@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-}
+import { Utilisateur } from '../models/utilisateur.model';
 
 export interface LoginResponse {
     id: number;
@@ -25,8 +20,9 @@ export class AuthService {
     private readonly API_URL = 'http://localhost:8000';
     private readonly TOKEN_KEY = 'auth-token';
 
-    private userSubject = new BehaviorSubject<User | null>(null);
-    public user = this.userSubject.asObservable();
+    private userSubject = new BehaviorSubject<Utilisateur | null>(null);
+    //public user = this.userSubject.asObservable();
+    private user: Utilisateur | null = null;
 
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
@@ -35,12 +31,13 @@ export class AuthService {
         this.checkAuthState();
     }
 
-    login(email: string, password: string): Observable<LoginResponse> {
-        return this.http.post<LoginResponse>(`${this.API_URL}/login`, { email, password })
+    login(email: string, password: string): Observable<Utilisateur> {
+        return this.http.post<Utilisateur>(`${this.API_URL}/login`, { email, password })
             .pipe(
                 tap(response => {
                     console.log('Réponse de la connexion:', response);
-                    this.setAuthData(response);
+                    localStorage.setItem('utilisateurCourant', JSON.stringify(response.id));
+                    //this.setAuthData(response);
                 })
             );
     }
@@ -54,20 +51,28 @@ export class AuthService {
             );
     }
 
-    getCurrentUser(): Observable<User> {
-        var response = this.http.get<User>(`${this.API_URL}/me`).pipe(
+    getCurrentUserAngular(): Utilisateur{
+        //return this.userSubject.asObservable();
+        if (localStorage.getItem('utilisateurCourant')) {
+            return JSON.parse(localStorage.getItem('utilisateurCourant')!);
+        }
+        return new Utilisateur(0, '', '', '', '', '', false, [], []);
+    }
+
+    getCurrentUserLaravel(): Observable<Utilisateur> {
+        var response = this.http.get<Utilisateur>(`${this.API_URL}/me`).pipe(
             tap(user => console.log("Réponse de l'utilisateur courant:", user))
         );
         return response;
     }
 
 
-    private setAuthData(response: LoginResponse): void {
-        //localStorage.setItem(this.TOKEN_KEY, response.token);
-        console.log('Utilisateur connecté:', response);
-        this.userSubject.next(response);
-        this.isAuthenticatedSubject.next(true);
-    }
+    // private setAuthData(response: LoginResponse): void {
+    //     //localStorage.setItem(this.TOKEN_KEY, response.token);
+    //     console.log('Utilisateur connecté:', response);
+    //     this.userSubject.next(response);
+    //     this.isAuthenticatedSubject.next(true);
+    // }
 
     private clearAuthData(): void {
         localStorage.removeItem(this.TOKEN_KEY);
@@ -79,7 +84,7 @@ export class AuthService {
         const token = this.getToken();
         if (token) {
             // Vérifier si le token est valide en récupérant l'utilisateur
-            this.getCurrentUser().subscribe({
+            this.getCurrentUserLaravel().subscribe({
                 next: (user) => {
                     this.userSubject.next(user);
                     this.isAuthenticatedSubject.next(true);

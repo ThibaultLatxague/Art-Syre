@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('estAdmin')->default('0');
             $table->string('dateCreation')->default(now());
             $table->string('password');
+            $table->json('tableauxLikes')->nullable();
+            $table->json('tableauxDansPanier')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

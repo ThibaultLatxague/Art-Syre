@@ -23,7 +23,9 @@ class User extends Authenticatable
         'email',
         'password',
         'estAdmin',
-        'dateCreation'
+        'dateCreation',
+        'tableauxLikes',
+        'tableauxDansPanier',
     ];
 
     /**

@@ -82,7 +82,9 @@ export class LoginComponent {
           email: this.loginForm.value.email.toLowerCase().trim(),
           password: this.loginForm.value.password,
           dateCreation: new Date().toISOString().slice(0, 19).replace('T', ' '),
-          estAdmin: false
+          estAdmin: false,
+          tableauxLikes: [],
+          tableauxDansPanier: []
         };
 
         // Appel de la fonction connectUtilisateur

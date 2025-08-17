@@ -4,6 +4,8 @@ import { Tableau } from '../models/tableau.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
+import { UtilisateursService } from '../services/utilisateurs.service';
+import { Utilisateur } from '../models/utilisateur.model';
 
 @Component({
   selector: 'app-accueil',
@@ -13,17 +15,15 @@ import { AuthService } from '../services/auth.service';
 })
 export class AccueilComponent implements OnInit {
   dataSource: Tableau[] = [];
-  user: any;
+  utilisateurCourant: Utilisateur | null = null;
 
-  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar, private http: HttpClient, private authService: AuthService) { }
+  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar, private http: HttpClient, private authService: AuthService, private utilisateursService: UtilisateursService) { }
 
   ngOnInit(): void {
     // Code à exécuter lors de l'initialisation du composant
     this.loadData();
-    this.authService.getCurrentUser().subscribe(user => {
-      console.log("Utilisateur courant:", user); // Ici tu as bien l'objet User
-      this.user = user;
-    });
+    this.utilisateurCourant = new Utilisateur(0, '', '', '', '', '', false, [], []);
+    this.utilisateurCourant = this.authService.getCurrentUserAngular();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -50,6 +50,16 @@ export class AccueilComponent implements OnInit {
   }
 
   toggleLike(tableau: Tableau) {
+    if (this.utilisateurCourant && this.utilisateurCourant.tableauxLikes.includes(tableau.id)) {
+      // Si le tableau est déjà dans les likes, on le retire
+      this.utilisateurCourant.tableauxLikes = this.utilisateurCourant.tableauxLikes.filter((id: number) => id !== tableau.id);
+      this.utilisateursService.removeLike(tableau.id.toString()).subscribe();
+    } else if (this.utilisateurCourant) {
+      // Sinon, on l'ajoute
+      this.utilisateurCourant.tableauxLikes.push(tableau.id);
+      this.utilisateursService.addLike(tableau.id.toString()).subscribe();
+    }
+
     this.tableauxService.updateLikeStatus(tableau.id.toString()).subscribe({
       next: (res) => {
         tableau.estLike = res.liked;
