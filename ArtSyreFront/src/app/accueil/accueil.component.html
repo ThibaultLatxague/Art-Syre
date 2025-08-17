@@ -28,22 +28,27 @@
 
                 <mat-card-actions class="card-actions">
                     <button mat-mini-fab
-                        [color]="tableau.estLike ? 'warn' : 'primary'"
+                        [color]="utilisateurCourant?.tableauxLikes?.includes(tableau.id) ? 'warn' : 'primary'"
                         [class.liked]="tableau.estLike"
                         (click)="toggleLike(tableau)"
                         matTooltip="Ajouter à la liste de souhaits">
-                        <mat-icon>{{ tableau.estLike ? 'favorite' :
+                        <mat-icon>{{ utilisateurCourant?.tableauxLikes?.includes(tableau.id) ? 'favorite' :
                             'favorite_border' }}</mat-icon>
                     </button>
-                    
+                    <p>{{ utilisateurCourant?.tableauxLikes?.includes(tableau.id) }}</p>
+
                     <button class="cart-button" mat-mini-fab
-                        [color]="tableau.estDansUnPanier ? 'accent' : 'primary'"
+                        [color]="utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) ? 'accent' : 'primary'"
                         [class.in-cart]="tableau.estDansUnPanier"
                         (click)="toggleCart(tableau)"
                         matTooltip="Ajouter au panier">
-                        <mat-icon>{{ tableau.estDansUnPanier ? 'shopping_cart' :
-                            'add_shopping_cart' }}</mat-icon>
+                        <mat-icon>
+                            {{ utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) ? 'shopping_cart' :
+                            'add_shopping_cart' }}
+                        </mat-icon>
                     </button>
+                    <p>{{ utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) }}</p>
+
                 </mat-card-actions>
             </mat-card>
         </mat-grid-tile>
