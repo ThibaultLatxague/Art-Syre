@@ -27,6 +27,7 @@ import { MatInputModule } from '@angular/material/input';
 import { PanierComponent } from './panier/panier.component';
 import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
 import { RouterModule } from '@angular/router';
+import { AdministrationComponent } from './administration/administration.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { RouterModule } from '@angular/router';
     LoginComponent,
     RegisterComponent,
     PanierComponent,
-    ListSouhaitComponent
+    ListSouhaitComponent,
+    AdministrationComponent
   ],
   imports: [
     BrowserModule,

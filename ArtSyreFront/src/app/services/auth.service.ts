@@ -52,6 +52,14 @@ export class AuthService {
                         }
                     }
 
+                    if (typeof response.estAdmin === 'string') {
+                        try {
+                            response.estAdmin = JSON.parse(response.estAdmin);
+                        } catch {
+                            response.estAdmin = false;
+                        }
+                    }
+
                     console.log('Réponse de la connexion (après conversion):', response);
                     localStorage.setItem('utilisateurCourant', JSON.stringify(response));
                 })

@@ -1,32 +1,43 @@
 <mat-toolbar color="primary" class="header-toolbar">
     <!-- Menu hamburger -->
-    <button mat-icon-button class="menu-btn">
+    <button mat-icon-button class="menu-btn" matTooltip="Menu">
         <mat-icon>menu</mat-icon>
     </button>
 
     <!-- Barre de recherche -->
     <mat-form-field class="search-field" appearance="outline">
         <input matInput placeholder="Rechercher..." />
-        <button mat-icon-button matSuffix>
+        <button mat-icon-button matSuffix matTooltip="Rechercher">
             <mat-icon>search</mat-icon>
         </button>
     </mat-form-field>
 
     <!-- Bouton Accueil -->
-    <button mat-button class="logo-btn">Accueil</button>
+    <button mat-button class="logo-btn" [routerLink]="'/accueil'"
+        matTooltip="Accueil">Accueil</button>
 
     <span class="spacer"></span>
 
     <!-- Icônes -->
-    <button mat-icon-button aria-label="Favoris" [routerLink]="'/liste-souhait'">
+    <button mat-icon-button aria-label="Favoris" [routerLink]="'/liste-souhait'"
+        matTooltip="Ma liste de souhaits">
         <mat-icon>favorite_border</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="Compte" [routerLink]="'/compte'">
+    <button mat-icon-button aria-label="Compte" [routerLink]="'/compte'"
+        matTooltip="Mon compte">
         <mat-icon>account_circle</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="Panier" [routerLink]="'/panier'">
+    <button mat-icon-button aria-label="Panier" [routerLink]="'/panier'"
+        matTooltip="Mon panier">
         <mat-icon>shopping_cart</mat-icon>
     </button>
+
+    @if(utilisateurCourant && utilisateurCourant.estAdmin == true){
+        <button mat-icon-button aria-label="Administration"
+            [routerLink]="'/administration'" matTooltip="Administration">
+            <mat-icon>admin_panel_settings</mat-icon>
+        </button>
+    }
 </mat-toolbar>

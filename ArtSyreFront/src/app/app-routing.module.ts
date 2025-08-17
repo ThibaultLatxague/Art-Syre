@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PanierComponent } from './panier/panier.component';
 import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
+import { AdministrationComponent } from './administration/administration.component';
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'panier', component: PanierComponent },
-  { path: 'liste-souhait', component: ListSouhaitComponent }
+  { path: 'liste-souhait', component: ListSouhaitComponent },
+  { path: 'administration', component: AdministrationComponent }
 ];
 
 @NgModule({
