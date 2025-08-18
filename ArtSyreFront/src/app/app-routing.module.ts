@@ -6,7 +6,9 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PanierComponent } from './panier/panier.component';
 import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
-import { AdministrationComponent } from './administration/administration.component';
+import { AdministrationComponent } from './administration/accueil-administration/administration.component';
+import { AdministrationUtilisateursComponent } from './administration/administration-utilisateurs/administration-utilisateurs.component';
+import { AdministrationTableauxComponent } from './administration/administration-tableaux/administration-tableaux.component';
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
@@ -15,7 +17,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'panier', component: PanierComponent },
   { path: 'liste-souhait', component: ListSouhaitComponent },
-  { path: 'administration', component: AdministrationComponent }
+  { path: 'administration', component: AdministrationComponent },
+  { path: 'administration/utilisateurs', component: AdministrationUtilisateursComponent },
+  { path: 'administration/tableaux', component: AdministrationTableauxComponent }
 ];
 
 @NgModule({
