@@ -1,22 +1,62 @@
 <mat-toolbar color="primary" class="header-toolbar">
-    <!-- Menu hamburger -->
-    <button mat-icon-button class="menu-btn" matTooltip="Menu">
-        <mat-icon>menu</mat-icon>
-    </button>
-
-    <!-- Barre de recherche -->
-    <mat-form-field class="search-field" appearance="outline">
-        <input matInput placeholder="Rechercher..." />
-        <button mat-icon-button matSuffix matTooltip="Rechercher">
-            <mat-icon>search</mat-icon>
-        </button>
-    </mat-form-field>
-
     <!-- Bouton Accueil -->
     <button mat-button class="logo-btn" [routerLink]="'/accueil'"
-        matTooltip="Accueil">Accueil</button>
+        matTooltip="Accueil">ArtSyre</button>
+
+    <!-- Menu hamburger -->
+    <button mat-icon-button [matMenuTriggerFor]="menu"
+        matTooltip="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>À propos de l'artiste</span>
+        </button>
+
+        <button mat-menu-item>
+            <mat-icon>build</mat-icon>
+            <span>Procédé de fabrication</span>
+        </button>
+
+        <button mat-menu-item>
+            <mat-icon>email</mat-icon>
+            <span>Contact</span>
+        </button>
+    </mat-menu>
 
     <span class="spacer"></span>
+
+    @if(utilisateurCourant != null && utilisateurCourant.estAdmin == true){
+        <button mat-icon-button aria-label="Administration"
+            [routerLink]="'/administration'" matTooltip="Administration">
+            <mat-icon>admin_panel_settings</mat-icon>
+        </button>
+    }
+
+    <!-- Menu hamburger compte -->
+    <button mat-icon-button [matMenuTriggerFor]="Compte"
+        matTooltip="Mon compte">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #Compte="matMenu" xPosition="before">
+        @if(utilisateurCourant == null){
+            <button mat-menu-item [routerLink]="'/login'">
+                <mat-icon>login</mat-icon>
+                <span>Se connecter</span>
+            </button>
+        } @else {
+            <button mat-menu-item [routerLink]="'/compte'">
+                <mat-icon>person</mat-icon>
+                <span>Mon compte</span>
+            </button>
+
+            <button mat-menu-item (click)="logout()" [routerLink]="'/accueil'">
+                <mat-icon>logout</mat-icon>
+                <span>Se déconnecter</span>
+            </button>
+        }
+    </mat-menu>
 
     <!-- Icônes -->
     <button mat-icon-button aria-label="Favoris" [routerLink]="'/liste-souhait'"
@@ -24,20 +64,8 @@
         <mat-icon>favorite_border</mat-icon>
     </button>
 
-    <button mat-icon-button aria-label="Compte" [routerLink]="'/compte'"
-        matTooltip="Mon compte">
-        <mat-icon>account_circle</mat-icon>
-    </button>
-
     <button mat-icon-button aria-label="Panier" [routerLink]="'/panier'"
         matTooltip="Mon panier">
         <mat-icon>shopping_cart</mat-icon>
     </button>
-
-    @if(utilisateurCourant && utilisateurCourant.estAdmin == true){
-        <button mat-icon-button aria-label="Administration"
-            [routerLink]="'/administration'" matTooltip="Administration">
-            <mat-icon>admin_panel_settings</mat-icon>
-        </button>
-    }
 </mat-toolbar>

@@ -67,6 +67,8 @@ export class AuthService {
     }
 
     logout(): Observable<any> {
+        console.log("Déconnexion de l'utilisateur");
+        localStorage.removeItem('utilisateurCourant');
         return this.http.post(`${this.API_URL}/logout`, {})
             .pipe(
                 tap(() => {
@@ -75,13 +77,13 @@ export class AuthService {
             );
     }
 
-    getCurrentUserAngular(): Utilisateur {
+    getCurrentUserAngular(): Utilisateur | null {
         console.log("getCurrentUserAngular: ", localStorage.getItem('utilisateurCourant'));
         if (localStorage.getItem('utilisateurCourant')) {
             var user = <Utilisateur>JSON.parse(localStorage.getItem('utilisateurCourant')!);
             return user;
         }
-        return new Utilisateur(0, '', '', '', '', '', false, [], []);
+        return null;
     }
 
     getCurrentUserLaravel(): Observable<Utilisateur> {
