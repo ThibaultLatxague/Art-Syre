@@ -6,21 +6,13 @@ import { AppComponent } from './app.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { HeaderComponent } from './header/header.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatCardActions } from '@angular/material/card';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatGridTile } from '@angular/material/grid-list';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { MatError } from '@angular/material/form-field';
-import { MatSpinner } from '@angular/material/progress-spinner';
-import { MatLabel } from '@angular/material/form-field';
-import { MatFormField } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +22,9 @@ import { RouterModule } from '@angular/router';
 import { AdministrationComponent } from './administration/accueil-administration/administration.component';
 import { AdministrationUtilisateursComponent } from './administration/administration-utilisateurs/administration-utilisateurs.component';
 import { AdministrationTableauxComponent } from './administration/administration-tableaux/administration-tableaux.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -49,23 +44,18 @@ import { AdministrationTableauxComponent } from './administration/administration
     HeaderComponent,
     HttpClientModule,
     MatCardModule,
-    MatCardActions,
     MatButtonModule,
     MatIconModule,
-    MatGridTile,
     MatGridListModule,
     MatTooltipModule,
-    MatButton,
-    MatIcon,
     MatSnackBarModule,
-    MatError,
-    MatSpinner,
-    MatLabel,
-    MatFormField,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    RouterModule
+    RouterModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

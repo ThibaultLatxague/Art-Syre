@@ -67,3 +67,6 @@ Route::delete('/utilisateur/{id}/likes', [ControllerUtilisateur::class, 'removeL
 Route::get('/utilisateur/{id}/panier', [ControllerUtilisateur::class, 'getTableauxDansPanier']);
 Route::post('/utilisateur/{id}/panier', [ControllerUtilisateur::class, 'addToPanier']);
 Route::delete('/utilisateur/{id}/panier', [ControllerUtilisateur::class, 'removeFromPanier']);
+
+// Récupérer la liste des utilisateurs
+Route::get('/utilisateur', [ControllerUtilisateur::class, 'index']);
