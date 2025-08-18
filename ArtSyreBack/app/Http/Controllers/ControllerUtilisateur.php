@@ -15,7 +15,7 @@ class ControllerUtilisateur extends Controller
      */
     public function index()
     {
-        return response()->json(Utilisateur::all());
+        return response()->json(User::all());
     }
 
     /**
