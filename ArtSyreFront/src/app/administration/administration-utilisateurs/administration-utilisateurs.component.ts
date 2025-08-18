@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Utilisateur } from '../../models/utilisateur.model';
 import { UtilisateursService } from '../../services/utilisateurs.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administration-utilisateurs',
@@ -29,7 +30,7 @@ export class AdministrationUtilisateursComponent implements OnInit, AfterViewIni
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private utilisateursService: UtilisateursService) { }
+  constructor(private utilisateursService: UtilisateursService, private router: Router) { }
 
   ngOnInit() {
     this.utilisateursService.getUtilisateurs().subscribe(data => {
@@ -56,6 +57,16 @@ export class AdministrationUtilisateursComponent implements OnInit, AfterViewIni
   }
 
   deleteUser(userId: number) {
-    // Logic to delete the user
+    console.log('Deleting user with ID:', userId);
+    this.utilisateursService.deleteUtilisateur(userId.toString()).subscribe({
+      next: () => {
+        // Redirection vers la page d'administration
+        console.log('Utilisateur supprimé avec succès');
+        this.dataSource.data = this.dataSource.data.filter(user => user.id !== userId);
+      },
+      error: (error) => {
+            console.error('Erreur lors de la suppression de l\'utilisateur: ' + userId, error);
+          }
+    });
   }
 }
