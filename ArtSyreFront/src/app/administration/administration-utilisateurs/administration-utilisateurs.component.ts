@@ -1,10 +1,12 @@
-import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit, Inject } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Utilisateur } from '../../models/utilisateur.model';
 import { UtilisateursService } from '../../services/utilisateurs.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-administration-utilisateurs',
@@ -29,8 +31,8 @@ export class AdministrationUtilisateursComponent implements OnInit, AfterViewIni
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private utilisateursService: UtilisateursService, private router: Router) { }
+  
+  constructor(private utilisateursService: UtilisateursService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.utilisateursService.getUtilisateurs().subscribe(data => {
@@ -56,17 +58,29 @@ export class AdministrationUtilisateursComponent implements OnInit, AfterViewIni
     // Logic to edit the user
   }
 
-  deleteUser(userId: number) {
+  confirmDelete(user: Utilisateur) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { id: user.id, name: user.name }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteUser(user.id);
+      }
+    });
+  }
+
+  private deleteUser(userId: number) {
     console.log('Deleting user with ID:', userId);
     this.utilisateursService.deleteUtilisateur(userId.toString()).subscribe({
       next: () => {
-        // Redirection vers la page d'administration
         console.log('Utilisateur supprimé avec succès');
         this.dataSource.data = this.dataSource.data.filter(user => user.id !== userId);
       },
       error: (error) => {
-            console.error('Erreur lors de la suppression de l\'utilisateur: ' + userId, error);
-          }
+        console.error('Erreur lors de la suppression de l\'utilisateur: ' + userId, error);
+      }
     });
   }
 }

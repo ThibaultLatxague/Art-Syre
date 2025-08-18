@@ -25,6 +25,8 @@ import { AdministrationTableauxComponent } from './administration/administration
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ListSouhaitComponent,
     AdministrationComponent,
     AdministrationUtilisateursComponent,
-    AdministrationTableauxComponent
+    AdministrationTableauxComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     RouterModule,
     MatTableModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
