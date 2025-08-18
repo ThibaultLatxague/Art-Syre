@@ -29,7 +29,7 @@
                 <mat-card-actions class="card-actions">
                     <button mat-mini-fab
                         [color]="utilisateurCourant?.tableauxLikes?.includes(tableau.id) ? 'warn' : 'primary'"
-                        [class.liked]="tableau.estLike"
+                        [class.liked]="utilisateurCourant?.tableauxLikes?.includes(tableau.id)"
                         (click)="toggleLike(tableau)"
                         matTooltip="Ajouter à la liste de souhaits">
                         <mat-icon>{{ utilisateurCourant?.tableauxLikes?.includes(tableau.id) ? 'favorite' :
@@ -39,7 +39,7 @@
 
                     <button class="cart-button" mat-mini-fab
                         [color]="utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) ? 'accent' : 'primary'"
-                        [class.in-cart]="tableau.estDansUnPanier"
+                        [class.in-cart]="utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) "
                         (click)="toggleCart(tableau)"
                         matTooltip="Ajouter au panier">
                         <mat-icon>
