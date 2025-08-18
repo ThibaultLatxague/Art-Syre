@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,17 +11,29 @@ import { UtilisateursService } from '../../services/utilisateurs.service';
   templateUrl: './administration-utilisateurs.component.html',
   styleUrl: './administration-utilisateurs.component.scss'
 })
-export class AdministrationUtilisateursComponent  implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
-  dataSource!: MatTableDataSource<Utilisateur>;
+export class AdministrationUtilisateursComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = [
+    'id', 
+    'name', 
+    'prenom', 
+    'email', 
+    'dateCreation', 
+    'estAdmin', 
+    'tableauxLikes', 
+    'tableauxDansPanier', 
+    'actions'
+  ];
+
+  dataSource = new MatTableDataSource<Utilisateur>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private utilisateursService: UtilisateursService) {
+  constructor(private utilisateursService: UtilisateursService) { }
+
+  ngOnInit() {
     this.utilisateursService.getUtilisateurs().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      console.log(data);
+      this.dataSource.data = data;
     });
   }
 
@@ -37,5 +49,13 @@ export class AdministrationUtilisateursComponent  implements AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  editUser(user: Utilisateur) {
+    // Logic to edit the user
+  }
+
+  deleteUser(userId: number) {
+    // Logic to delete the user
   }
 }
