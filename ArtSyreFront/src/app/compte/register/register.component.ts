@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { UtilisateursService } from '../services/utilisateurs.service';
-import { Utilisateur } from '../models/utilisateur.model';
+import { UtilisateursService } from '../../services/utilisateurs.service';
+import { Utilisateur } from '../../models/utilisateur.model';
 
 @Component({
   selector: 'app-register',
