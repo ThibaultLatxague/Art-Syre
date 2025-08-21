@@ -1,1 +1,90 @@
-<p>detail-compte works!</p>
+<div class="account-details-container">
+    <!-- Header -->
+    <div class="account-header">
+        <h1 class="account-title">Détails du compte</h1>
+        <div class="header-actions">
+            <button class="btn btn-secondary" (click)="onDeconnexion()">
+                <i class="icon-logout"></i>
+                Déconnexion
+            </button>
+        </div>
+    </div>
+
+    <!-- Informations personnelles -->
+    <div class="account-section">
+        <h2 class="section-title">Informations personnelles</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <label class="info-label">Nom :</label>
+                <span class="info-value">{{ utilisateurCourant.name }}</span>
+            </div>
+            <div class="info-item">
+                <label class="info-label">Prénom :</label>
+                <span class="info-value">{{ utilisateurCourant.prenom }}</span>
+            </div>
+            <div class="info-item">
+                <label class="info-label">Email :</label>
+                <span class="info-value">{{ utilisateurCourant.email }}</span>
+            </div>
+            <div class="info-item">
+                <label class="info-label">Date de création :</label>
+                <span class="info-value">{{ utilisateurCourant.dateCreation |
+                    date:'dd/MM/yyyy' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Tableaux -->
+    <div class="account-section">
+        <h2 class="section-title">Mes tableaux</h2>
+        <div class="tableaux-stats">
+            <div class="stat-card" *ngIf="utilisateurCourant.nombreTableauxLikes > 0">
+                <div class="stat-content">
+                    <p class="stat-text">
+                        Vous avez <strong>{{ utilisateurCourant.nombreTableauxLikes }}</strong>
+                        tableau{{ utilisateurCourant.nombreTableauxLikes > 1 ? 'x' : '' }} liké{{
+                        utilisateurCourant.nombreTableauxLikes > 1 ? 's' : '' }}
+                    </p>
+                    <button class="btn btn-outline"
+                        (click)="onConsulterTableauxLikes()">
+                        Consulter mes tableaux likés
+                    </button>
+                </div>
+            </div>
+
+            <div class="stat-card" *ngIf="utilisateurCourant.tableauxDansPanier > 0">
+                <div class="stat-content">
+                    <p class="stat-text">
+                        Vous avez <strong>{{ utilisateurCourant.tableauxDansPanier }}</strong>
+                        tableau{{ utilisateurCourant.tableauxDansPanier > 1 ? 'x' : '' }} dans
+                        votre panier
+                    </p>
+                    <button class="btn btn-primary" (click)="onAccederPanier()">
+                        Accéder au panier
+                    </button>
+                </div>
+            </div>
+
+            <div class="empty-state"
+                *ngIf="utilisateurCourant.nombreTableauxLikes === 0 && utilisateurCourant.tableauxDansPanier.length === 0">
+                <p>Vous n'avez encore aucun tableau liké ou dans votre
+                    panier.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions dangereuses -->
+    <div class="account-section danger-section">
+        <h2 class="section-title danger-title">Zone dangereuse</h2>
+        <div class="danger-content">
+            <p class="danger-description">
+                La suppression de votre compte est définitive et irréversible.
+                Toutes vos données seront perdues.
+            </p>
+            <button class="btn btn-danger" (click)="onSuppressionCompte()">
+                <i class="icon-trash"></i>
+                Supprimer mon compte
+            </button>
+        </div>
+    </div>
+</div>
