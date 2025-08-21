@@ -31,7 +31,7 @@ export class AdministrationUtilisateursComponent implements OnInit, AfterViewIni
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   constructor(private utilisateursService: UtilisateursService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -61,7 +61,7 @@ export class AdministrationUtilisateursComponent implements OnInit, AfterViewIni
   confirmDelete(user: Utilisateur) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: { id: user.id, name: user.name }
+      data: { id: user.id, name: user.name, objet: "l'utilisateur" }
     });
 
     dialogRef.afterClosed().subscribe(result => {

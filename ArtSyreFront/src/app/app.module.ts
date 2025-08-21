@@ -27,6 +27,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconButton } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule,
+    MatIconButton
   ],
   providers: [],
   bootstrap: [AppComponent]
