@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Utilisateur } from '../../models/utilisateur.model';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-detail-compte',
   standalone: false,
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./detail-compte.component.scss']
 })
 export class DetailCompteComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog) {}
 
   utilisateurCourant: Utilisateur | null = null;
   nombreTableauxLikes: number = 0;
@@ -26,10 +27,18 @@ export class DetailCompteComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  onSuppressionCompte() {
-    // Logique de suppression du compte
-    this.authService.deleteAccount().subscribe(() => {
-      this.router.navigate(['/login']);
+  confirmDelete() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { id: this.utilisateurCourant?.id, name: this.utilisateurCourant?.prenom + " (vous)", objet: "l'utilisateur" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.authService.deleteAccount().subscribe(() => {
+          this.router.navigate(['/login']);
+        });
+      }
     });
   }
 
