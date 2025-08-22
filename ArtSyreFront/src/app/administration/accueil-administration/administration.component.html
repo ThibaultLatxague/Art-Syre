@@ -1,8 +1,10 @@
+@if(utilisateurCourant != null && utilisateurCourant.estAdmin){
 <mat-card appearance="outlined">
     <button mat-button [routerLink]="'/administration/tableaux'">
         <mat-card-header>
             <mat-card-title>Les tableaux</mat-card-title>
-            <mat-card-subtitle>Gérer les tableaux (ajout, modification, suppression etc)</mat-card-subtitle>
+            <mat-card-subtitle>Gérer les tableaux (ajout, modification,
+                suppression etc)</mat-card-subtitle>
         </mat-card-header>
     </button>
 </mat-card>
@@ -11,7 +13,8 @@
     <button mat-button [routerLink]="'/administration/utilisateurs'">
         <mat-card-header>
             <mat-card-title>Les utilisateurs</mat-card-title>
-            <mat-card-subtitle>Gérer les utilisateurs (ajout, modification, suppression etc)</mat-card-subtitle>
+            <mat-card-subtitle>Gérer les utilisateurs (ajout, modification,
+                suppression etc)</mat-card-subtitle>
         </mat-card-header>
     </button>
 </mat-card>
@@ -20,7 +23,8 @@
     <button mat-button [routerLink]="'/liste-souhait'">
         <mat-card-header>
             <mat-card-title>La sécurité</mat-card-title>
-            <mat-card-subtitle>Paramètre de sécurité (réseaux, données etc)</mat-card-subtitle>
+            <mat-card-subtitle>Paramètre de sécurité (réseaux, données
+                etc)</mat-card-subtitle>
         </mat-card-header>
     </button>
 </mat-card>
@@ -29,7 +33,8 @@
     <button mat-button [routerLink]="'/liste-souhait'">
         <mat-card-header>
             <mat-card-title>Les logs</mat-card-title>
-            <mat-card-subtitle>Consulter les logs (erreurs, accès, etc) des utilisateurs et du serveur</mat-card-subtitle>
+            <mat-card-subtitle>Consulter les logs (erreurs, accès, etc) des
+                utilisateurs et du serveur</mat-card-subtitle>
         </mat-card-header>
     </button>
 </mat-card>
@@ -38,7 +43,13 @@
     <button mat-button [routerLink]="'/liste-souhait'">
         <mat-card-header>
             <mat-card-title>Statistiques</mat-card-title>
-            <mat-card-subtitle>Consulter les statistiques du site (visites, performances, etc)</mat-card-subtitle>
+            <mat-card-subtitle>Consulter les statistiques du site (visites,
+                performances, etc)</mat-card-subtitle>
         </mat-card-header>
     </button>
 </mat-card>
+} @else {
+    <div class="empty-state">
+        <p>Vous n'avez pas les droits nécessaires pour accéder à cette section.</p>
+    </div>
+}

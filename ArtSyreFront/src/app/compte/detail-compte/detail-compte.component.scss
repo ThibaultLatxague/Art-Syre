@@ -1,0 +1,318 @@
+// Variables
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$danger-color: #dc3545;
+$success-color: #28a745;
+$warning-color: #ffc107;
+
+$background-light: #f8f9fa;
+$border-color: #dee2e6;
+$text-color: #333;
+$text-muted: #6c757d;
+
+$border-radius: 8px;
+$box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+$transition: all 0.3s ease;
+
+// Container principal
+.account-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+
+    @media (max-width: 768px) {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
+
+// Header
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid $border-color;
+
+    @media (max-width: 576px) {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+.account-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-color;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+// Sections
+.account-section {
+    margin-bottom: 2rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: 1rem;
+    border-left: 4px solid $primary-color;
+    padding-left: 1rem;
+}
+
+// Grille d'informations
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.info-item {
+    background: $background-light;
+    padding: 1rem;
+    border-radius: $border-radius;
+    border: 1px solid $border-color;
+    transition: $transition;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.info-label {
+    display: block;
+    font-weight: 600;
+    color: $text-muted;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    color: $text-color;
+    font-weight: 500;
+}
+
+// Stats des tableaux
+.tableaux-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: 1.5rem;
+    transition: $transition;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.stat-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 576px) {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+}
+
+.stat-text {
+    margin: 0;
+    font-size: 1.1rem;
+    color: $text-color;
+
+    strong {
+        color: $primary-color;
+        font-weight: 700;
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: $text-muted;
+    font-style: italic;
+    background: $background-light;
+    border-radius: $border-radius;
+    border: 2px dashed $border-color;
+}
+
+// Section dangereuse
+.danger-section {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    border: 2px solid lighten($danger-color, 30%);
+    border-radius: $border-radius;
+    padding: 1.5rem;
+}
+
+.danger-title {
+    color: $danger-color;
+    border-left-color: $danger-color;
+}
+
+.danger-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 576px) {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+}
+
+.danger-description {
+    margin: 0;
+    color: darken($danger-color, 10%);
+    flex: 1;
+}
+
+// Boutons
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: $transition;
+    min-width: 140px;
+    justify-content: center;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+.btn-primary {
+    background: $primary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+        background: darken($primary-color, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    }
+}
+
+.btn-secondary {
+    background: $secondary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+        background: darken($secondary-color, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    }
+}
+
+.btn-outline {
+    background: transparent;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+
+    &:hover:not(:disabled) {
+        background: $primary-color;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    }
+}
+
+.btn-danger {
+    background: $danger-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+        background: darken($danger-color, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+    }
+}
+
+// Icônes (vous devrez ajouter vos icônes)
+.icon-logout::before,
+.icon-trash::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+}
+
+// Animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.account-details-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+// Responsive
+@media (max-width: 992px) {
+    .account-details-container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 576px) {
+    .account-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}

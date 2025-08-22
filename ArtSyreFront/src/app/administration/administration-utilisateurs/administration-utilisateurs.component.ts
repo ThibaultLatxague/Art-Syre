@@ -7,6 +7,7 @@ import { UtilisateursService } from '../../services/utilisateurs.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-administration-utilisateurs',
@@ -28,13 +29,15 @@ export class AdministrationUtilisateursComponent implements OnInit, AfterViewIni
   ];
 
   dataSource = new MatTableDataSource<Utilisateur>();
+  utilisateurCourant: Utilisateur | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private utilisateursService: UtilisateursService, private router: Router, private dialog: MatDialog) { }
+  constructor(private utilisateursService: UtilisateursService, private router: Router, private dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit() {
+    this.utilisateurCourant = this.authService.getCurrentUserAngular();
     this.utilisateursService.getUtilisateurs().subscribe(data => {
       this.dataSource.data = data;
     });

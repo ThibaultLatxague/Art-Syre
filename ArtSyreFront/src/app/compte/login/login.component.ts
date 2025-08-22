@@ -3,9 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UtilisateursService } from '../services/utilisateurs.service';
-import { Utilisateur } from '../models/utilisateur.model';
-import { AuthService } from '../services/auth.service';
+import { UtilisateursService } from '../../services/utilisateurs.service';
+import { Utilisateur } from '../../models/utilisateur.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',

@@ -11,8 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './compte/login/login.component';
+import { RegisterComponent } from './compte/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -29,6 +29,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconButton } from '@angular/material/button';
+import { DetailCompteComponent } from './compte/detail-compte/detail-compte.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatIconButton } from '@angular/material/button';
     AdministrationComponent,
     AdministrationUtilisateursComponent,
     AdministrationTableauxComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    DetailCompteComponent
   ],
   imports: [
     BrowserModule,

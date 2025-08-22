@@ -1,0 +1,105 @@
+@if(utilisateurCourant != null){
+<div class="account-details-container">
+    <!-- Header -->
+    <div class="account-header">
+        <h1 class="account-title">Détails du compte</h1>
+        <div class="header-actions">
+            <button class="btn btn-secondary" (click)="onDeconnexion()">
+                <i class="icon-logout"></i>
+                Déconnexion
+            </button>
+        </div>
+    </div>
+
+    <!-- Informations personnelles -->
+    <div class="account-section">
+        <h2 class="section-title">Informations personnelles</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <label class="info-label">Nom :</label>
+                <span class="info-value">{{ utilisateurCourant.name }}</span>
+            </div>
+            <div class="info-item">
+                <label class="info-label">Prénom :</label>
+                <span class="info-value">{{ utilisateurCourant.prenom }}</span>
+            </div>
+            <div class="info-item">
+                <label class="info-label">Email :</label>
+                <span class="info-value">{{ utilisateurCourant.email }}</span>
+            </div>
+            <div class="info-item">
+                <label class="info-label">Date de création :</label>
+                <span class="info-value">{{ utilisateurCourant.dateCreation |
+                    date:'dd/MM/yyyy' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Tableaux -->
+    <div class="account-section">
+        <h2 class="section-title">Mes tableaux</h2>
+        <div class="tableaux-stats">
+            <div class="stat-card"
+                *ngIf="nombreTableauxLikes > 0">
+                <div class="stat-content">
+                    <p class="stat-text">
+                        Vous avez <strong>{{
+                            nombreTableauxLikes }}</strong>
+                        tableau{{ nombreTableauxLikes > 1 ?
+                        'x' : '' }} liké{{
+                        nombreTableauxLikes > 1 ? 's' : '' }}
+                    </p>
+                    <button class="btn btn-outline"
+                        (click)="redirigerLikes()">
+                        Consulter mes tableaux likés
+                    </button>
+                </div>
+            </div>
+
+            <div class="stat-card"
+                *ngIf="tableauxDansPanier > 0">
+                <div class="stat-content">
+                    <p class="stat-text">
+                        Vous avez <strong>{{
+                            tableauxDansPanier }}</strong>
+                        tableau{{ tableauxDansPanier > 1 ?
+                        'x' : '' }} dans
+                        votre panier
+                    </p>
+                    <button class="btn btn-primary" (click)="redirigerPanier()">
+                        Accéder au panier
+                    </button>
+                </div>
+            </div>
+
+            <div class="empty-state"
+                *ngIf="nombreTableauxLikes === 0 && tableauxDansPanier === 0">
+                <p>Vous n'avez encore aucun tableau liké ou dans votre
+                    panier.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions dangereuses -->
+    <div class="account-section danger-section">
+        <h2 class="section-title danger-title">Zone dangereuse</h2>
+        <div class="danger-content">
+            <p class="danger-description">
+                La suppression de votre compte est définitive et irréversible.
+                Toutes vos données seront perdues.
+            </p>
+            <button class="btn btn-danger" (click)="confirmDelete()">
+                <i class="icon-trash"></i>
+                Supprimer mon compte
+            </button>
+        </div>
+    </div>
+</div>
+} @else {
+    <div class="empty-state">
+        <p>Vous devez vous connecter pour accéder à cette section.</p>
+        <button class="btn btn-primary" [routerLink]="'/login'">
+            Se connecter
+        </button>
+    </div>
+}
