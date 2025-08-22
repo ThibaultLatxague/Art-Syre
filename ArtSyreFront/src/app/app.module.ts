@@ -30,6 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconButton } from '@angular/material/button';
 import { DetailCompteComponent } from './compte/detail-compte/detail-compte.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { DetailCompteComponent } from './compte/detail-compte/detail-compte.comp
     AdministrationUtilisateursComponent,
     AdministrationTableauxComponent,
     ConfirmDialogComponent,
-    DetailCompteComponent
+    DetailCompteComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
