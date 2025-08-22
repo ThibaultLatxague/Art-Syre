@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { Tableau } from '../../models/tableau.model';
 import { TableauxService } from '../../services/tableaux.service';
+import { Utilisateur } from '../../models/utilisateur.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-administration-tableaux',
@@ -27,13 +29,15 @@ export class AdministrationTableauxComponent implements OnInit, AfterViewInit {
   ];
 
   dataSource = new MatTableDataSource<Tableau>();
+  utilisateurCourant: Utilisateur | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private tableauxService: TableauxService, private router: Router, private dialog: MatDialog) { }
+  constructor(private tableauxService: TableauxService, private router: Router, private dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit() {
+    this.utilisateurCourant = this.authService.getCurrentUserAngular();
     this.tableauxService.getTableaux().subscribe(data => {
       this.dataSource.data = data;
     });

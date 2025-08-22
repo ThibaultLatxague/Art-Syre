@@ -1,4 +1,5 @@
-<div class="admin-users-container">
+@if(utilisateurCourant != null && utilisateurCourant.estAdmin) {
+    <div class="admin-users-container">
     <div class="admin-header">
         <h1>Administration des Utilisateurs</h1>
         <p class="subtitle">Gérez vos utilisateurs en toute simplicité</p>
@@ -135,3 +136,8 @@
         </div>
     </div>
 </div>
+} @else {
+    <div class="empty-state">
+        <p>Vous n'avez pas les droits nécessaires pour accéder à cette section.</p>
+    </div>
+}

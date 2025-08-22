@@ -22,10 +22,15 @@ export class DetailCompteComponent implements OnInit {
 
   onDeconnexion() {
     // Logique de déconnexion
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   onSuppressionCompte() {
     // Logique de suppression du compte
+    this.authService.deleteAccount().subscribe(() => {
+      this.router.navigate(['/login']);
+    });
   }
 
   redirigerPanier() {
