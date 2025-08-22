@@ -77,6 +77,18 @@ export class AuthService {
             );
     }
 
+    deleteAccount(): Observable<any> {
+        console.log("Suppression du compte de l'utilisateur");
+        localStorage.removeItem('utilisateurCourant');
+        // TODO : changer route API et tester backend
+        return this.http.delete(`${this.API_URL}/delete-account`)
+            .pipe(
+                tap(() => {
+                    this.clearAuthData();
+                })
+            );
+    }
+
     getCurrentUserAngular(): Utilisateur | null {
         console.log("getCurrentUserAngular: ", localStorage.getItem('utilisateurCourant'));
         if (localStorage.getItem('utilisateurCourant')) {

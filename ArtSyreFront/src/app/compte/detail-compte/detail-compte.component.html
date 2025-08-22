@@ -1,3 +1,4 @@
+@if(utilisateurCourant != null){
 <div class="account-details-container">
     <!-- Header -->
     <div class="account-header">
@@ -38,35 +39,41 @@
     <div class="account-section">
         <h2 class="section-title">Mes tableaux</h2>
         <div class="tableaux-stats">
-            <div class="stat-card" *ngIf="utilisateurCourant.nombreTableauxLikes > 0">
+            <div class="stat-card"
+                *ngIf="nombreTableauxLikes > 0">
                 <div class="stat-content">
                     <p class="stat-text">
-                        Vous avez <strong>{{ utilisateurCourant.nombreTableauxLikes }}</strong>
-                        tableau{{ utilisateurCourant.nombreTableauxLikes > 1 ? 'x' : '' }} liké{{
-                        utilisateurCourant.nombreTableauxLikes > 1 ? 's' : '' }}
+                        Vous avez <strong>{{
+                            nombreTableauxLikes }}</strong>
+                        tableau{{ nombreTableauxLikes > 1 ?
+                        'x' : '' }} liké{{
+                        nombreTableauxLikes > 1 ? 's' : '' }}
                     </p>
                     <button class="btn btn-outline"
-                        (click)="onConsulterTableauxLikes()">
+                        (click)="redirigerLikes()">
                         Consulter mes tableaux likés
                     </button>
                 </div>
             </div>
 
-            <div class="stat-card" *ngIf="utilisateurCourant.tableauxDansPanier > 0">
+            <div class="stat-card"
+                *ngIf="tableauxDansPanier > 0">
                 <div class="stat-content">
                     <p class="stat-text">
-                        Vous avez <strong>{{ utilisateurCourant.tableauxDansPanier }}</strong>
-                        tableau{{ utilisateurCourant.tableauxDansPanier > 1 ? 'x' : '' }} dans
+                        Vous avez <strong>{{
+                            tableauxDansPanier }}</strong>
+                        tableau{{ tableauxDansPanier > 1 ?
+                        'x' : '' }} dans
                         votre panier
                     </p>
-                    <button class="btn btn-primary" (click)="onAccederPanier()">
+                    <button class="btn btn-primary" (click)="redirigerPanier()">
                         Accéder au panier
                     </button>
                 </div>
             </div>
 
             <div class="empty-state"
-                *ngIf="utilisateurCourant.nombreTableauxLikes === 0 && utilisateurCourant.tableauxDansPanier.length === 0">
+                *ngIf="nombreTableauxLikes === 0 && tableauxDansPanier === 0">
                 <p>Vous n'avez encore aucun tableau liké ou dans votre
                     panier.</p>
             </div>
@@ -88,3 +95,11 @@
         </div>
     </div>
 </div>
+} @else {
+    <div class="empty-state">
+        <p>Vous devez vous connecter pour accéder à cette section.</p>
+        <button class="btn btn-primary" [routerLink]="'/login'">
+            Se connecter
+        </button>
+    </div>
+}
