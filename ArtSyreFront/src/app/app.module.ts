@@ -30,6 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconButton } from '@angular/material/button';
 import { DetailCompteComponent } from './compte/detail-compte/detail-compte.component';
+import { ContactComponent } from './contact/contact.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,8 @@ import { DetailCompteComponent } from './compte/detail-compte/detail-compte.comp
     AdministrationUtilisateursComponent,
     AdministrationTableauxComponent,
     ConfirmDialogComponent,
-    DetailCompteComponent
+    DetailCompteComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,9 @@ import { DetailCompteComponent } from './compte/detail-compte/detail-compte.comp
     MatProgressSpinnerModule,
     MatDialogModule,
     MatMenuModule,
-    MatIconButton
+    MatIconButton,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

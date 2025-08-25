@@ -1,0 +1,109 @@
+<div class="contact-form-container">
+    <mat-card class="contact-card">
+        <mat-card-header>
+            <mat-card-title>Contactez-nous</mat-card-title>
+            <mat-card-subtitle>Nous vous répondrons dans les plus brefs
+                délais</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()"
+                class="contact-form">
+
+                <!-- Champ Email -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Adresse email</mat-label>
+                    <input matInput
+                        type="email"
+                        formControlName="email">
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-error
+                        *ngIf="contactForm.get('email')?.hasError('required')">
+                        L'adresse email est obligatoire
+                    </mat-error>
+                    <mat-error
+                        *ngIf="contactForm.get('email')?.hasError('email')">
+                        Veuillez saisir une adresse email valide
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Liste déroulante Sujet -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Sujet</mat-label>
+                    <mat-select formControlName="subject">
+                        <mat-option value="information">Demande
+                            d'information</mat-option>
+                        <mat-option value="support">Support
+                            technique</mat-option>
+                        <mat-option value="commercial">Question
+                            commerciale</mat-option>
+                        <mat-option
+                            value="feedback">Feedback/Suggestion</mat-option>
+                        <mat-option value="bug">Signaler un
+                            problème</mat-option>
+                        <mat-option value="partnership">Partenariat</mat-option>
+                        <mat-option value="other">Autre</mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>arrow_drop_down</mat-icon>
+                    <mat-error
+                        *ngIf="contactForm.get('subject')?.hasError('required')">
+                        Veuillez sélectionner un sujet
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Zone de texte Description -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput
+                        formControlName="description"
+                        rows="6"
+                        maxlength="1000"></textarea>
+                    <mat-icon matSuffix>description</mat-icon>
+                    <mat-hint align="end">
+                        {{contactForm.get('description')?.value?.length ||
+                        0}}/1000
+                    </mat-hint>
+                    <mat-error
+                        *ngIf="contactForm.get('description')?.hasError('required')">
+                        La description est obligatoire
+                    </mat-error>
+                    <mat-error
+                        *ngIf="contactForm.get('description')?.hasError('minlength')">
+                        La description doit contenir au moins 10 caractères
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Boutons d'action -->
+                <div class="form-actions">
+                    <button mat-raised-button
+                        type="button"
+                        color="basic"
+                        (click)="onReset()"
+                        [disabled]="isSubmitting">
+                        <mat-icon>refresh</mat-icon>
+                        Réinitialiser
+                    </button>
+
+                    <button mat-raised-button
+                        type="submit"
+                        color="primary"
+                        [disabled]="contactForm.invalid || isSubmitting">
+                        <mat-icon *ngIf="!isSubmitting">send</mat-icon>
+                        <mat-spinner *ngIf="isSubmitting"
+                            diameter="20"></mat-spinner>
+                        {{ isSubmitting ? 'Envoi...' : 'Envoyer' }}
+                    </button>
+                </div>
+
+                <!-- Message de confirmation -->
+                <div *ngIf="submitMessage" class="submit-message"
+                    [ngClass]="submitMessageType">
+                    <mat-icon>{{ submitMessageType === 'success' ?
+                        'check_circle' : 'error' }}</mat-icon>
+                    {{ submitMessage }}
+                </div>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
