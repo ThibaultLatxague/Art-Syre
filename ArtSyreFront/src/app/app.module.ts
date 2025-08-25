@@ -34,6 +34,7 @@ import { ContactComponent } from './contact/contact.component';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ArtisteComponent } from './artiste/artiste.component';
+import { ProcedeFabricationComponent } from './procede-fabrication/procede-fabrication.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ArtisteComponent } from './artiste/artiste.component';
     ConfirmDialogComponent,
     DetailCompteComponent,
     ContactComponent,
-    ArtisteComponent
+    ArtisteComponent,
+    ProcedeFabricationComponent
   ],
   imports: [
     BrowserModule,

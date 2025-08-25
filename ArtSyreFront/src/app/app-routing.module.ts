@@ -12,6 +12,7 @@ import { AdministrationTableauxComponent } from './administration/administration
 import { DetailCompteComponent } from './compte/detail-compte/detail-compte.component';
 import { ContactComponent } from './contact/contact.component';
 import { ArtisteComponent } from './artiste/artiste.component';
+import { ProcedeFabricationComponent } from './procede-fabrication/procede-fabrication.component';
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'administration/tableaux', component: AdministrationTableauxComponent },
   { path: 'compte', component: DetailCompteComponent},
   { path: 'contact', component: ContactComponent },
-  { path: 'artiste', component: ArtisteComponent }
+  { path: 'artiste', component: ArtisteComponent },
+  { path: 'fabrication', component: ProcedeFabricationComponent }
 ];
 
 @NgModule({
