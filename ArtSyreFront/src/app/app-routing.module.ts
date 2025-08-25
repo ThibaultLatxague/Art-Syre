@@ -10,6 +10,7 @@ import { AdministrationComponent } from './administration/accueil-administration
 import { AdministrationUtilisateursComponent } from './administration/administration-utilisateurs/administration-utilisateurs.component';
 import { AdministrationTableauxComponent } from './administration/administration-tableaux/administration-tableaux.component';
 import { DetailCompteComponent } from './compte/detail-compte/detail-compte.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'administration', component: AdministrationComponent },
   { path: 'administration/utilisateurs', component: AdministrationUtilisateursComponent },
   { path: 'administration/tableaux', component: AdministrationTableauxComponent },
-  { path: 'compte', component: DetailCompteComponent}
+  { path: 'compte', component: DetailCompteComponent},
+  { path: 'contact', component: ContactComponent }
 ];
 
 @NgModule({
