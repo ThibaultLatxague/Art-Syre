@@ -33,6 +33,7 @@ import { DetailCompteComponent } from './compte/detail-compte/detail-compte.comp
 import { ContactComponent } from './contact/contact.component';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ArtisteComponent } from './artiste/artiste.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MatSelectModule } from '@angular/material/select';
     AdministrationTableauxComponent,
     ConfirmDialogComponent,
     DetailCompteComponent,
-    ContactComponent
+    ContactComponent,
+    ArtisteComponent
   ],
   imports: [
     BrowserModule,

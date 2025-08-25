@@ -11,6 +11,7 @@ import { AdministrationUtilisateursComponent } from './administration/administra
 import { AdministrationTableauxComponent } from './administration/administration-tableaux/administration-tableaux.component';
 import { DetailCompteComponent } from './compte/detail-compte/detail-compte.component';
 import { ContactComponent } from './contact/contact.component';
+import { ArtisteComponent } from './artiste/artiste.component';
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'administration/utilisateurs', component: AdministrationUtilisateursComponent },
   { path: 'administration/tableaux', component: AdministrationTableauxComponent },
   { path: 'compte', component: DetailCompteComponent},
-  { path: 'contact', component: ContactComponent }
+  { path: 'contact', component: ContactComponent },
+  { path: 'artiste', component: ArtisteComponent }
 ];
 
 @NgModule({
