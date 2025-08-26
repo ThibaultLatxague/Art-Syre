@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class ControllerUtilisateur extends Controller
 {
@@ -65,23 +66,46 @@ class ControllerUtilisateur extends Controller
      */
     public function login(Request $request)
     {
-        // Log pour debug
-        Log::info('Tentative de connexion reçue', [
-            'email' => $request->email
-            // Ne pas logger le mot de passe en clair pour des raisons de sécurité
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('email', 'password');
-
-        // Option 1: Utiliser Auth::attempt() (recommandé)
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            Log::info('Connexion réussie', ['user_id' => $user->id]);
-            return response()->json($user);
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $request->session()->regenerate();
+            
+            return response()->json([
+                'message' => 'Authenticated successfully',
+                'user' => Auth::user()
+            ]);
         }
 
-        Log::warning('Connexion échouée', ['email' => $request->email]);
-        return response()->json(['error' => 'Unauthorized'], 401);
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = new Utilisateur;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->store($user);
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return response()->json([
+            'message' => 'User registered successfully',
+            'user' => $user
+        ]);
     }
 
     /**
@@ -90,6 +114,9 @@ class ControllerUtilisateur extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return response()->json(['message' => 'Logged out successfully']);
     }
 
@@ -146,6 +173,9 @@ class ControllerUtilisateur extends Controller
     public function addLikes(Request $request)
     {
         $user = Auth::user();
+        Log::info('utilisateur de Auth', $user);
+        $user = Session::get('user');
+        Log::info('utilisateur de Session', $user);
         $tableauId = $request->only('tableauId');
         Log::info('Composant de la requete', ['requete' => $request]);
         Log::info('Ajout de like pour le tableau', ['tableauId' => $tableauId]);

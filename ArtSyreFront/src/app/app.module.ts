@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccueilComponent } from './accueil/accueil.component';
@@ -35,6 +35,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ArtisteComponent } from './artiste/artiste.component';
 import { ProcedeFabricationComponent } from './procede-fabrication/procede-fabrication.component';
+import { CredentialsInterceptor } from './interceptors/credentials.interceptor';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,7 @@ import { ProcedeFabricationComponent } from './procede-fabrication/procede-fabri
     MatOptionModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: CredentialsInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

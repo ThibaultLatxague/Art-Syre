@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { UtilisateursService } from '../../services/utilisateurs.service';
 import { Utilisateur } from '../../models/utilisateur.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -25,6 +26,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private utilisateurService: UtilisateursService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -199,7 +201,7 @@ export class RegisterComponent implements OnInit {
         };
 
         // Appel de la fonction createUtilisateur
-        await this.utilisateurService.createUtilisateur(utilisateur).toPromise();
+        await this.authService.register(utilisateur.name, utilisateur.email, utilisateur.password, utilisateur.password).toPromise();
 
         // Simulation de l'appel API - remplacez par votre service
         await this.simulateApiCall(utilisateur);
