@@ -1,11 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { Router, RouterModule, NavigationEnd } from '@angular/router';
-import { MatMenuModule } from '@angular/material/menu';
+import { Component, viewChild, QueryList, ViewChildren } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-cgdu',
@@ -13,15 +8,21 @@ import { MatMenuModule } from '@angular/material/menu';
   templateUrl: './cgdu.component.html',
   styleUrls: ['./cgdu.component.scss']
 })
-export class CGDUComponent implements OnInit, OnDestroy { 
+export class CGDUComponent { 
+  accordion = viewChild.required(MatAccordion);
+  @ViewChildren(MatExpansionPanel) panels!: QueryList<MatExpansionPanel>;
 
-  constructor(
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy(): void {
+  openPanel(index: number) {
+    // Ferme tous les panneaux avant
+    //this.panels.forEach(panel => panel.close());
+    // Ouvre le panneau demandé
+    const panel = this.panels.toArray()[index];
+    if (panel) {
+      panel.open();
+      // scroll auto jusqu’au panneau
+      setTimeout(() => {
+        panel._body.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
   }
 }

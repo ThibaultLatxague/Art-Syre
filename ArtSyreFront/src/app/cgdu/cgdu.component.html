@@ -1,1 +1,281 @@
-<h1>CGDU</h1>
+<mat-toolbar color="primary">
+    <span>Conditions Générales — Boutique de Tableaux</span>
+</mat-toolbar>
+
+<div class="terms-container">
+    <mat-card>
+        <mat-card-content>
+            <mat-accordion multi>
+                <div class="example-action-buttons">
+                    <button matButton (click)="accordion().openAll()">Expand All</button>
+                    <button matButton (click)="accordion().closeAll()">Collapse All</button>
+                </div>
+                <!-- Résumé / Sommaire -->
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Sommaire</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+                        <mat-list-item class="link" (click)="openPanel(1)">1. Mentions légales</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(2)">2. Définitions</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(3)">3. Objet</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(4)">4. Produits — Disponibilité &
+                            Prix</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(5)">5. Commandes & Paiement</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(6)">6. Livraison</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(7)">7. Droit de rétractation &
+                            retours</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(8)">8. Garanties & responsabilité</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(9)">9. Propriété intellectuelle</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(10)">10. Données personnelles &
+                            cookies</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(11)">11. Litiges & droit
+                            applicable</mat-list-item>
+                        <mat-list-item class="link" (click)="openPanel(12)">Contact</mat-list-item>
+                    </mat-list>
+                </mat-expansion-panel>
+
+                <!-- 1. Mentions légales -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>1. Mentions légales</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Éditeur du site : <strong>[Nom / Raison sociale]</strong><br />
+                            Forme juridique : <strong>[ex : SARL / SAS / EI]</strong><br />
+                            Capital social : <strong>[montant]</strong><br />
+                            Siège social : <strong>[adresse complète]</strong><br />
+                            SIRET : <strong>[numéro]</strong> — RCS : <strong>[ville]</strong><br />
+                            Directeur de la publication : <strong>[nom]</strong><br />
+                            Hébergeur : <strong>[nom hébergeur]</strong> — Adresse : <strong>[adresse
+                                hébergeur]</strong> — Téléphone : <strong>[tel]</strong>
+                        </p>
+                        <p>
+                            Ces informations doivent figurer sur le site conformément aux obligations légales
+                            applicables aux sites professionnels / e-commerce.
+                        </p>
+                        <!-- Après e-commerce : :contentReference[oaicite:1]{index=1} -->
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 2. Définitions -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>2. Définitions</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p><strong>Vendeur</strong> : la société éditrice du site.<br />
+                            <strong>Client</strong> : toute personne physique ou morale passante commande.<br />
+                            <strong>Produit</strong> : tableau, œuvre d'art, cadre et accessoires vendus sur le
+                            site.<br />
+                            <strong>Contrat</strong> : la commande validée conformément aux présentes CGV.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 3. Objet -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>3. Objet</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>Les présentes Conditions Générales ont pour objet de définir les droits et obligations des
+                            parties dans le cadre de la vente en ligne de tableaux sur le site <strong>[URL]</strong>.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 4. Produits, disponibilité & prix -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>4. Produits — Disponibilité & Prix</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Les caractéristiques essentielles des produits sont présentées sur les fiches produits. Les
+                            photographies sont contractuelles à l'exception des erreurs typographiques.
+                        </p>
+                        <p>
+                            Prix : tous les prix sont indiqués en euros, toutes taxes comprises (TTC), hors
+                            participation éventuelle aux frais de livraison. Le vendeur se réserve le droit de modifier
+                            ses tarifs à tout moment, les produits seront facturés sur la base des tarifs en vigueur au
+                            moment de la validation de la commande.
+                        </p>
+                        <p>
+                            Disponibilité : les offres de produits sont valables dans la limite des stocks disponibles.
+                            En cas d’indisponibilité après passation de la commande, le client en sera informé dans les
+                            meilleurs délais et pourra annuler la commande ou accepter une date de livraison différente.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 5. Commandes & Paiement -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>5. Commandes & Paiement</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Modalités de commande : le client sélectionne les produits, les ajoute au panier et valide
+                            la commande après avoir renseigné ses coordonnées et choisi le mode de livraison. La
+                            validation finale de la commande vaut acceptation des présentes CGV.
+                        </p>
+                        <p>
+                            Paiement : le paiement est exigible immédiatement à la commande. Moyens acceptés : carte
+                            bancaire (3D Secure), Paypal, virement (si précisé). Les informations bancaires sont
+                            traitées par des prestataires de paiement sécurisés. En cas de paiement par carte, les
+                            coordonnées sont transmises chiffrées au prestataire.
+                        </p>
+                        <p>
+                            Facturation : une facture est remise au client sur demande ou jointe au colis selon le cas.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 6. Livraison -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>6. Livraison</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Délais : les délais de livraison indiqués sont des estimations et commencent à courir à
+                            compter de la date de confirmation de paiement. Les délais peuvent varier selon le
+                            transporteur et zone géographique.
+                        </p>
+                        <p>
+                            Transport & risques : les produits voyagent aux risques et périls du destinataire à compter
+                            de la prise en charge par le transporteur. Le client doit vérifier l’état du colis et
+                            signaler toute anomalie sur le bordereau de livraison et au service client dans les 48
+                            heures.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 7. Droit de rétractation & retours -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>7. Droit de rétractation & retours</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Conformément au Code de la consommation, le consommateur dispose d’un délai de 14 jours
+                            calendaires à compter de la réception du produit pour exercer son droit de rétractation sans
+                            motif. Pour exercer ce droit, le client doit informer le service client par e-mail ou
+                            courrier.
+                        </p>
+                        <p>
+                            Exception : Sont exclus du droit de rétractation les produits personnalisés, réalisés sur
+                            mesure ou clairement personnalisés par le client, ou les œuvres déclarées "unique" si
+                            expressément indiqué.
+                        </p>
+                        <p>
+                            Retour & remboursement : les frais de retour sont à la charge du client sauf défaut avéré ou
+                            erreur du vendeur. Le remboursement sera effectué dans un délai maximum de 14 jours après
+                            réception du produit retourné et vérification de son état.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 8. Garanties & responsabilité -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>8. Garanties & responsabilité</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Garanties légales : les produits bénéficient des garanties légales de conformité et des
+                            vices cachés prévues par les articles L.217-4 et suivants du Code de la consommation et les
+                            articles 1641 et suivants du Code civil.
+                        </p>
+                        <p>
+                            Limitation de responsabilité : sauf faute lourde ou dolosive, la responsabilité du vendeur
+                            est limitée au montant de la commande. Le vendeur ne pourra être tenu responsable des
+                            dommages indirects ou perte de profit.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 9. Propriété intellectuelle -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>9. Propriété intellectuelle</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            L’ensemble des éléments présents sur le site (textes, images, logos, visuels des tableaux,
+                            codes) sont protégés par le droit d’auteur. Toute reproduction totale ou partielle est
+                            interdite sans autorisation écrite préalable.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 10. Données personnelles & cookies -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>10. Données personnelles & cookies</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Responsable de traitement : <strong>[Nom / Raison sociale]</strong> est responsable du
+                            traitement des données collectées sur le site (commandes, facturation, prospection après
+                            opt-in).
+                        </p>
+                        <p>
+                            Finalités : gestion des commandes, service client, prévention des fraudes, prospection
+                            commerciale (si consentement).
+                        </p>
+                        <p>
+                            Durée de conservation : les données sont conservées selon les durées légales et utiles au
+                            service (ex : facturation 10 ans).
+                        </p>
+                        <p>
+                            Droits : conformément au RGPD, vous disposez d’un droit d’accès, rectification, suppression,
+                            opposition et portabilité. Pour exercer vos droits : <em>contact&#64;[tonsite].fr</em>.
+                            Exemples de mentions & modèles d’information client fournis par la CNIL.
+                        </p>
+                        <!-- Après CNIL : :contentReference[oaicite:2]{index=2} -->
+                        <p>
+                            Cookies : un bandeau cookie informe l’utilisateur et permet de consentir/refuser les
+                            traceurs non-essentiels. Les cookies strictement nécessaires sont exemptés de consentement.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- 11. Litiges & droit applicable -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>11. Litiges & droit applicable</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Droit applicable : les présentes conditions sont soumises au droit français. En cas de
+                            litige, les tribunaux compétents seront ceux du siège social du vendeur, sauf disposition
+                            légale contraire pour les consommateurs.
+                        </p>
+                        <p>
+                            Médiation : avant toute action judiciaire, le client est invité à contacter le service
+                            client ; les parties peuvent recourir gratuitement au dispositif de médiation de la
+                            consommation compétent.
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+
+                <!-- Contact -->
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Contact</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="section">
+                        <p>
+                            Service client : <strong>contact&#64;[tonsite].fr</strong><br />
+                            Téléphone : <strong>[numéro]</strong><br />
+                            Adresse postale : <strong>[adresse siège]</strong>
+                        </p>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-card-content>
+    </mat-card>
+</div>

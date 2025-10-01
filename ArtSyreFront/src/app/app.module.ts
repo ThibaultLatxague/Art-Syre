@@ -43,6 +43,12 @@ import { SecuriteComponent } from './administration/securite/securite.component'
 import { StatistiquesComponent } from './administration/statistiques/statistiques.component';
 import { LogsComponent } from './administration/logs/logs.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatAccordion } from '@angular/material/expansion';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatList } from '@angular/material/list';
+import { MatListItem } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -91,7 +97,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconButton,
     MatOptionModule,
     MatSelectModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatAccordion,
+    MatExpansionModule,
+    MatExpansionPanel,
+    MatListItem,
+    MatListModule,
+    MatList
   ],
   providers: [],
   bootstrap: [AppComponent]

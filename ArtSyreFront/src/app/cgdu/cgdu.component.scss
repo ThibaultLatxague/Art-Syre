@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  padding: 16px;
+}
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.terms-container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 12px;
+}
+
+mat-card {
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.section {
+  padding: 12px 4px;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+mat-expansion-panel-header {
+  font-weight: 600;
+}
+
+mat-list-item {
+  font-size: 0.95rem;
+}
+
+.link {
+  cursor: pointer;
+  color: #1976d2; // bleu Material
+  text-decoration: none;
+  transition: color 0.2s, text-decoration 0.2s;
+
+  &:hover {
+    color: #0d47a1; // bleu plus foncé au survol
+    text-decoration: underline;
+    cursor: pointer
+  }
+}
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
