@@ -1,0 +1,49 @@
+<!--
+ - Faire des tests
+ - Liens intéressants : Instagram, Lien de l'artiste (Fabrication, Artiste), Contact, License
+-->
+
+<mat-toolbar color="secondary" class="header-toolbar">
+    <!-- Instagram -->
+    <button mat-icon-button aria-label="Instagram" [routerLink]="'/liste-souhait'"
+        matTooltip="Compte instagram">
+        <mat-icon>instagram_icon</mat-icon>
+    </button>
+
+    <!-- Fabrication -->
+    <button mat-icon-button aria-label="Fabrication" [routerLink]="'/procede-fabrication'"
+        matTooltip="Procédé de fabrication">
+        <mat-icon>--fabrication--</mat-icon>
+    </button>
+
+    <!-- Artiste -->
+    <button mat-icon-button aria-label="Artiste" [routerLink]="'/artiste'"
+        matTooltip="L'Artiste">
+        <mat-icon>--artiste--</mat-icon>
+    </button>
+
+    <!-- Contact -->
+    <button mat-icon-button aria-label="Contact" [routerLink]="'/contact'"
+        matTooltip="Contacter l'artiste">
+        <mat-icon>--contact--</mat-icon>
+    </button>
+
+    <!-- License -->
+    <button mat-icon-button aria-label="License" [routerLink]="''"
+        matTooltip="Lisence X">
+        <mat-icon>--license--</mat-icon>
+    </button>
+
+    <!-- ATTENTION -->
+    <!-- Conditions générales d'utilisation CGDU -->
+    <button mat-icon-button aria-label="CGDU" [routerLink]="'/conditions-generales-d-utilisation'"
+        matTooltip="Conditions générales d'utilisation">
+        <mat-icon>--CGDU--</mat-icon>
+    </button>
+
+    <!-- Politique de confidentialité -->
+    <button mat-icon-button aria-label="Confidentialité" [routerLink]="'/politique-de-confidentialite'"
+        matTooltip="Confidentialité">
+        <mat-icon>--Conf--</mat-icon>
+    </button>
+</mat-toolbar>

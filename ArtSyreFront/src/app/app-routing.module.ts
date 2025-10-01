@@ -13,6 +13,12 @@ import { DetailCompteComponent } from './compte/detail-compte/detail-compte.comp
 import { ContactComponent } from './contact/contact.component';
 import { ArtisteComponent } from './artiste/artiste.component';
 import { ProcedeFabricationComponent } from './procede-fabrication/procede-fabrication.component';
+import { CGDUComponent } from './cgdu/cdgu.component';
+import { ConfidentialiteComponent } from './confidentialite/confidentialite.component';
+import { SEOGoogleComponent } from './administration/seo-google/seo-google.component';
+import { SecuriteComponent } from './administration/securite/securite.component';
+import { StatistiquesComponent } from './administration/statistiques/statistiques.component';
+import { LogsComponent } from './administration/logs/logs.component';
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
@@ -27,7 +33,13 @@ const routes: Routes = [
   { path: 'compte', component: DetailCompteComponent},
   { path: 'contact', component: ContactComponent },
   { path: 'artiste', component: ArtisteComponent },
-  { path: 'fabrication', component: ProcedeFabricationComponent }
+  { path: 'fabrication', component: ProcedeFabricationComponent },
+  { path: 'conditions-generales-d-utilisation', component: CGDUComponent},
+  { path: 'politique-de-confidentialite', component: ConfidentialiteComponent},
+  { path: 'seo', component: SEOGoogleComponent},
+  { path: 'securite', component: SecuriteComponent},
+  { path: 'statistiques', component: StatistiquesComponent},
+  { path: 'logs', component: LogsComponent}
 ];
 
 @NgModule({

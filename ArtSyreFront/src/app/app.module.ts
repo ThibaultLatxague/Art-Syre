@@ -35,6 +35,13 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ArtisteComponent } from './artiste/artiste.component';
 import { ProcedeFabricationComponent } from './procede-fabrication/procede-fabrication.component';
+import { FooterComponent } from './footer/footer.component';
+import { CGDUComponent } from './cgdu/cdgu.component';
+import { ConfidentialiteComponent } from './confidentialite/confidentialite.component';
+import { SEOGoogleComponent } from './administration/seo-google/seo-google.component';
+import { SecuriteComponent } from './administration/securite/securite.component';
+import { StatistiquesComponent } from './administration/statistiques/statistiques.component';
+import { LogsComponent } from './administration/logs/logs.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +58,14 @@ import { ProcedeFabricationComponent } from './procede-fabrication/procede-fabri
     DetailCompteComponent,
     ContactComponent,
     ArtisteComponent,
-    ProcedeFabricationComponent
+    ProcedeFabricationComponent,
+    FooterComponent,
+    CGDUComponent,
+    ConfidentialiteComponent,
+    SEOGoogleComponent,
+    SecuriteComponent,
+    StatistiquesComponent,
+    LogsComponent
   ],
   imports: [
     BrowserModule,
