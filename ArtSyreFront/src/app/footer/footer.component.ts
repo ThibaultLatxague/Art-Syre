@@ -1,29 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { UtilisateursService } from '../services/utilisateurs.service';
 import { Utilisateur } from '../models/utilisateur.model';
 import { AuthService } from '../services/auth.service';
-import { MatMenuModule } from '@angular/material/menu';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    RouterModule,
-    MatMenuModule
-  ],
+  standalone: false,
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })

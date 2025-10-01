@@ -11,16 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-logs',
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    RouterModule,
-    MatMenuModule
-  ],
+  standalone: false,
   templateUrl: './logs.component.html',
   styleUrls: ['./logs.component.scss']
 })

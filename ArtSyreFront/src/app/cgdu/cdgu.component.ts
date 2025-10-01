@@ -9,16 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-cgdu',
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    RouterModule,
-    MatMenuModule
-  ],
+  standalone: false,
   templateUrl: './cgdu.component.html',
   styleUrls: ['./cgdu.component.scss']
 })

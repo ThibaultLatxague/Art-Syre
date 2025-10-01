@@ -42,6 +42,7 @@ import { SEOGoogleComponent } from './administration/seo-google/seo-google.compo
 import { SecuriteComponent } from './administration/securite/securite.component';
 import { StatistiquesComponent } from './administration/statistiques/statistiques.component';
 import { LogsComponent } from './administration/logs/logs.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { LogsComponent } from './administration/logs/logs.component';
     MatMenuModule,
     MatIconButton,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

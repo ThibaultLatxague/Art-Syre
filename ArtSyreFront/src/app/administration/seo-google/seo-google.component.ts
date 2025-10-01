@@ -11,16 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-seo-google',
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    RouterModule,
-    MatMenuModule
-  ],
+  standalone: false,
   templateUrl: './seo-google.component.html',
   styleUrls: ['./seo-google.component.scss']
 })
