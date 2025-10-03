@@ -10,6 +10,8 @@ use App\Http\Controllers\ControllerUtilisateur;
 use App\Http\Controllers\ControllerCategorie;
 use App\Http\Controllers\ControllerImage;
 use App\Http\Controllers\ControllerTableau;
+use App\Http\Controllers\ControllerCategorieLog;
+use App\Http\Controllers\ControllerLog;
 
 // La liste complète des ressources
 Route::apiResource('utilisateur', ControllerUtilisateur::class);
@@ -70,3 +72,7 @@ Route::delete('/utilisateur/{id}/panier', [ControllerUtilisateur::class, 'remove
 
 // Récupérer la liste des utilisateurs
 Route::get('/utilisateur', [ControllerUtilisateur::class, 'index']);
+
+// Logs et catégories de logs
+Route::apiResource('categories_logs', ControllerCategorieLog::class);
+Route::apiResource('logs', ControllerLog::class);

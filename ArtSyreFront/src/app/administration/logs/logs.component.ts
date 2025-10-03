@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
 import { Utilisateur } from '../../models/utilisateur.model';
 import { AuthService } from '../../services/auth.service';
-import { MatMenuModule } from '@angular/material/menu';
+import { LogsService } from '../../services/log.service';
+import { Log } from '../../models/log.model';
 
 @Component({
   selector: 'app-logs',
@@ -16,11 +11,23 @@ import { MatMenuModule } from '@angular/material/menu';
   styleUrls: ['./logs.component.scss']
 })
 export class LogsComponent implements OnInit{ 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private logsService: LogsService) {}
   utilisateurCourant: Utilisateur | null = null;
 
   ngOnInit() {
     this.utilisateurCourant = this.authService.getCurrentUserAngular();
   }
 
+  addLog() {
+    // Logique pour ajouter un log
+    const nouveauLog = new Log(0, 1, 'Description du log', new Date().toISOString());
+    this.logsService.createLog(nouveauLog).subscribe(
+      response => {
+        console.log('Log ajouté avec succès', response);
+      },
+      error => {
+        console.error('Erreur lors de l\'ajout du log', error);
+      }
+    );
+  }
 }
