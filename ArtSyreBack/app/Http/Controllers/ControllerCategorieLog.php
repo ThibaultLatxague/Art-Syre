@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\CategoriesLog;
 
 class ControllerCategorieLog extends Controller
 {
@@ -11,7 +12,7 @@ class ControllerCategorieLog extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(CategoriesLog::all());
     }
 
     /**
@@ -19,7 +20,7 @@ class ControllerCategorieLog extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -27,7 +28,11 @@ class ControllerCategorieLog extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+        $categorieLog = CategoriesLog::create($request->all());
+        return response()->json($categorieLog, 201);
     }
 
     /**
@@ -35,7 +40,7 @@ class ControllerCategorieLog extends Controller
      */
     public function show(string $id)
     {
-        //
+        return response()->json(CategoriesLog::findOrFail($id));
     }
 
     /**
@@ -51,7 +56,12 @@ class ControllerCategorieLog extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nom' => 'sometimes|required|string|max:255',
+        ]);
+        $categorieLog = CategoriesLog::findOrFail($id);
+        $categorieLog->update($request->all());
+        return response()->json($categorieLog);
     }
 
     /**
@@ -59,6 +69,8 @@ class ControllerCategorieLog extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $categorieLog = CategoriesLog::findOrFail($id);
+        $categorieLog->delete();
+        return response()->json(null, 204);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Log;
 
 class ControllerLog extends Controller
 {
@@ -11,7 +12,7 @@ class ControllerLog extends Controller
      */
     public function index()
     {
-        
+        return response()->json(Log::all());
     }
 
     /**
@@ -19,7 +20,7 @@ class ControllerLog extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -27,7 +28,12 @@ class ControllerLog extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'categories_log_id' => 'required|exists:categories_logs,id',
+            'description' => 'required|string',
+        ]);
+        $log = Log::create($request->all());
+        return response()->json($log, 201);
     }
 
     /**
@@ -35,7 +41,7 @@ class ControllerLog extends Controller
      */
     public function show(string $id)
     {
-        //
+        return response()->json(Log::findOrFail($id));
     }
 
     /**
@@ -51,7 +57,13 @@ class ControllerLog extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'categories_log_id' => 'sometimes|required|exists:categories_logs,id',
+            'description' => 'sometimes|required|string',
+        ]);
+        $log = Log::findOrFail($id);
+        $log->update($request->all());
+        return response()->json($log);
     }
 
     /**
@@ -59,6 +71,8 @@ class ControllerLog extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $log = Log::findOrFail($id);
+        $log->delete();
+        return response()->json(null, 204);
     }
 }
