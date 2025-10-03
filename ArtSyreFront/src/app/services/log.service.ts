@@ -17,6 +17,11 @@ export class LogsService {
     return this.http.get(this.apiUrl);
   }
 
+  getLogsByCategory(categoryId: number): Observable<Log[]> {
+    console.log(`Fetching logs for category ID: ${categoryId}`);
+    return this.http.get<Log[]>(`${this.apiUrl}?categories_log_id=${categoryId}`);
+  }
+
   getLog(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }

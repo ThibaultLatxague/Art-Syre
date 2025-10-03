@@ -49,6 +49,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatList } from '@angular/material/list';
 import { MatListItem } from '@angular/material/list';
 import { MatListModule } from '@angular/material/list';
+import { MatTabGroup } from '@angular/material/tabs';
+import { MatTab } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -103,7 +105,9 @@ import { MatListModule } from '@angular/material/list';
     MatExpansionPanel,
     MatListItem,
     MatListModule,
-    MatList
+    MatList,
+    MatTabGroup,
+    MatTab
   ],
   providers: [],
   bootstrap: [AppComponent]

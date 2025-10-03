@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Log;
+use Illuminate\Support\Facades\Log as LogFacade;
 
 class ControllerLog extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Log::all());
+        // Si une categorie est présente dans la requête, on la récupère
+        $categoryId = $request->query('categories_log_id');
+
+        // Dans ce cas, on filtre les logs par cette catégorie
+        if ($categoryId) {
+            return Log::where('categories_log_id', $categoryId)->get();
+        }
+
+        // Sinon, on retourne tous les logs
+        return Log::all();
     }
 
     /**
