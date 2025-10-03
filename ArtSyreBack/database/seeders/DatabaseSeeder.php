@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             ImageTableSeeder::class,
             TableauTableSeeder::class,
             UserTableSeeder::class,
+            CategoriesLogSeeder::class,
+            LogSeeder::class
         ]);
     }
 }

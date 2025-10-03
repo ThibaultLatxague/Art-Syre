@@ -33,5 +33,25 @@ class LogSeeder extends Seeder
             'categories_log_id' => 5,
             'description' => 'Mise à jour des balises SEO',
         ]);
+        Log::factory()->create([
+            'categories_log_id' => 1,
+            'description' => 'Mise à jour des informations d\'un tableau',
+        ]);
+        Log::factory()->create([
+            'categories_log_id' => 2,
+            'description' => 'Création d\'un nouvel utilisateur',
+        ]);
+        Log::factory()->create([
+            'categories_log_id' => 3,
+            'description' => 'Changement de mot de passe',
+        ]);
+        Log::factory()->create([
+            'categories_log_id' => 4,
+            'description' => 'Analyse des tendances de vente',
+        ]);
+        Log::factory()->create([
+            'categories_log_id' => 5,
+            'description' => 'Optimisation du contenu pour le référencement',
+        ]);
     }
 }

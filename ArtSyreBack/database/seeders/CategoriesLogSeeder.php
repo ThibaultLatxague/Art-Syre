@@ -13,12 +13,12 @@ class CategoriesLogSeeder extends Seeder
      */
     public function run(): void
     {
-        CategoriesLog::factory()->create(
+        CategoriesLog::factory()->createMany([
             ['id' => 1, 'nom' => 'Tableaux'],
             ['id' => 2, 'nom' => 'Utilisateurs'],
             ['id' => 3, 'nom' => 'Sécurité'],
             ['id' => 4, 'nom' => 'Statistiques'],
-            ['id' => 5, 'nom' => 'SEO']
-        );
+            ['id' => 5, 'nom' => 'SEO'], 
+        ]);
     }
 }
