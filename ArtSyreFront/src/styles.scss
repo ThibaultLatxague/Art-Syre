@@ -28,3 +28,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: $border-radius;
     border: 2px dashed $border-color;
 }
+
+// Forcer la couleur des onglets Material
+.mat-mdc-tab .mdc-tab__text-label {
+  color: #333 !important;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #3f51b5 !important;
+}
+
+.logs-tabs .mat-mdc-tab-labels {
+  background-color: white !important;
+}

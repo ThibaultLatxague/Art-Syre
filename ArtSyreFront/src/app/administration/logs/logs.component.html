@@ -1,38 +1,154 @@
-<h1>Logs</h1>
-<p>En fonction de chaque catégorie :</p>
-<ul>
-    <li>Logs de toutes les actions du site</li>
-    <li>Logs en fonction des catégories</li>
-    <li>Choix des catégories de l'utilisateur</li>
-    <li>Chargement des logs après choix</li>
-</ul>
+<div class="logs-container">
+    <!-- En-tête avec Material Card -->
+    <mat-card class="header-card">
+        <mat-card-header>
+            <mat-icon mat-card-avatar class="header-icon">description</mat-icon>
+            <mat-card-title>Gestion des Logs</mat-card-title>
+            <mat-card-subtitle>Consultation et suivi des actions système</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="description">
+                Consultez l'historique complet des actions effectuées sur la plateforme.
+                Les logs sont organisés par catégories pour faciliter votre navigation et analyse.
+            </p>
 
-<mat-tab-group [selectedIndex]="selectedIndex" (selectedIndexChange)="onTabChange($event)">
-    <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
-        {{tab.label}}
-        <ng-template matTabContent>
-            <div class="tab-content">
-                {{ tab.label }} - {{ tab.content?.length || 0 }} logs
-                <p *ngIf="!tab.content">Chargement...</p>
-                <!-- tabs.component.html -->
-                <table mat-table [dataSource]="tab.content || []" *ngIf="tab.content" class="mat-elevation-z2">
+            <!-- Statistiques rapides -->
+            <div class="stats-grid">
+                <mat-card class="stat-card">
+                    <mat-icon>storage</mat-icon>
+                    <div class="stat-content">
+                        <span class="stat-label">Total des logs</span>
+                        <span class="stat-value">{{ getTotalLogs() }}</span>
+                    </div>
+                </mat-card>
 
-                    <!-- Colonne Date de création -->
-                    <ng-container matColumnDef="created_at">
-                        <th mat-header-cell *matHeaderCellDef>Date de création</th>
-                        <td mat-cell *matCellDef="let element">{{ formatDate(element.created_at) }}</td>
-                    </ng-container>
+                <mat-card class="stat-card">
+                    <mat-icon>category</mat-icon>
+                    <div class="stat-content">
+                        <span class="stat-label">Catégories</span>
+                        <span class="stat-value">{{ tabs.length }}</span>
+                    </div>
+                </mat-card>
 
-                    <!-- Colonne Description -->
-                    <ng-container matColumnDef="description">
-                        <th mat-header-cell *matHeaderCellDef>Description</th>
-                        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
+                <mat-card class="stat-card">
+                    <mat-icon>update</mat-icon>
+                    <div class="stat-content">
+                        <span class="stat-label">Dernière mise à jour</span>
+                        <span class="stat-value">{{ getCurrentTime() }}</span>
+                    </div>
+                </mat-card>
             </div>
-        </ng-template>
-    </mat-tab>
-</mat-tab-group>
+
+            <!-- Fonctionnalités -->
+            <mat-expansion-panel class="features-panel">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>info</mat-icon>
+                        Fonctionnalités disponibles
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ul class="features-list">
+                    <li>
+                        <mat-icon>check_circle</mat-icon>
+                        <span>Visualisation des logs par catégorie (Tableaux, Utilisateurs, Sécurité, etc.)</span>
+                    </li>
+                    <li>
+                        <mat-icon>check_circle</mat-icon>
+                        <span>Chargement intelligent des données à la demande</span>
+                    </li>
+                    <li>
+                        <mat-icon>check_circle</mat-icon>
+                        <span>Affichage horodaté avec format français</span>
+                    </li>
+                    <li>
+                        <mat-icon>check_circle</mat-icon>
+                        <span>Navigation rapide entre les différentes catégories</span>
+                    </li>
+                </ul>
+            </mat-expansion-panel>
+        </mat-card-content>
+    </mat-card>
+
+    <!-- Onglets des logs -->
+    <mat-card class="tabs-card">
+        <mat-card-content>
+            <mat-tab-group [selectedIndex]="selectedIndex" (selectedIndexChange)="onTabChange($event)"
+                animationDuration="300ms" class="logs-tabs">
+                <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab.label">
+                    <ng-template mat-tab-label>
+                        <mat-icon class="tab-icon">{{ getTabIcon(i) }}</mat-icon>
+                        {{ tab.label }}
+                        <mat-chip *ngIf="tab.loaded" class="log-count-chip">
+                            {{ tab.content.length }}
+                        </mat-chip>
+                    </ng-template>
+
+                    <div class="tab-content">
+                        <!-- État de chargement -->
+                        <div *ngIf="!tab.loaded" class="loading-state">
+                            <mat-spinner diameter="50"></mat-spinner>
+                            <p>Chargement des logs {{ tab.label }}...</p>
+                        </div>
+
+                        <!-- État vide -->
+                        <div *ngIf="tab.loaded && tab.content.length === 0" class="empty-state">
+                            <mat-icon>inbox</mat-icon>
+                            <h3>Aucun log disponible</h3>
+                            <p>Il n'y a actuellement aucun log dans la catégorie "{{ tab.label }}".</p>
+                        </div>
+
+                        <!-- Tableau des logs -->
+                        <div *ngIf="tab.loaded && tab.content.length > 0" class="table-container">
+                            <div class="table-header">
+                                <h3>
+                                    <mat-icon>list</mat-icon>
+                                    Logs {{ tab.label }}
+                                </h3>
+                                <button mat-stroked-button color="primary" (click)="refreshTab(i)">
+                                    <mat-icon>refresh</mat-icon>
+                                    Actualiser
+                                </button>
+                            </div>
+
+                            <table mat-table [dataSource]="tab.content" class="logs-table mat-elevation-z2">
+                                <!-- Colonne Date de création -->
+                                <ng-container matColumnDef="created_at">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <mat-icon class="column-icon">schedule</mat-icon>
+                                        Date de création
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div class="date-cell">
+                                            <mat-icon>event</mat-icon>
+                                            {{ formatDate(element.created_at) }}
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Colonne Description -->
+                                <ng-container matColumnDef="description">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <mat-icon class="column-icon">description</mat-icon>
+                                        Description
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div class="description-cell">
+                                            {{ element.description }}
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="log-row"></tr>
+                            </table>
+                            <!-- Pagination (optionnelle) -->
+                            <mat-paginator *ngIf="tab.content.length > 10" [length]="tab.content.length" [pageSize]="10"
+                                [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons>
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+</div>

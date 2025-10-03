@@ -1,10 +1,10 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { LogsService } from '../../services/log.service';
 import { Log } from '../../models/log.model';
 
 export interface ExampleTab {
   label: string;
-  content: Log[] | null;
+  content: Log[];
   loaded: boolean;
 }
 
@@ -12,17 +12,18 @@ export interface ExampleTab {
   selector: 'app-logs',
   standalone: false,
   templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.scss']
+  styleUrls: ['./logs.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LogsComponent {
   displayedColumns: string[] = ['created_at', 'description'];
 
   tabs: ExampleTab[] = [
-    { label: 'Tableaux', content: null, loaded: false },
-    { label: 'Utilisateurs', content: null, loaded: false },
-    { label: 'Sécurité', content: null, loaded: false },
-    { label: 'Statistiques', content: null, loaded: false },
-    { label: 'SEO', content: null, loaded: false }
+    { label: 'Tableaux', content: [], loaded: false },
+    { label: 'Utilisateurs', content: [], loaded: false },
+    { label: 'Sécurité', content: [], loaded: false },
+    { label: 'Statistiques', content: [], loaded: false },
+    { label: 'SEO', content: [], loaded: false }
   ];
 
   selectedIndex = 0;
@@ -31,6 +32,7 @@ export class LogsComponent {
     private logService: LogsService,
     private cdr: ChangeDetectorRef
   ) {
+    // Charge le premier onglet au démarrage
     this.loadTabContent(0);
   }
 
@@ -40,14 +42,16 @@ export class LogsComponent {
   }
 
   loadTabContent(index: number): void {
+    // Ne charge que si ce n'est pas déjà chargé
     if (!this.tabs[index].loaded) {
       this.tabs[index].loaded = true;
       
+      // Charge les logs depuis le service
       this.logService.getLogsByCategory(index + 1).subscribe({
         next: (data) => {
           console.log('Logs chargés pour', this.tabs[index].label, data);
-          this.tabs[index].content = data;
-          // Forcer la détection des changements
+          this.tabs[index].content = Array.isArray(data) ? data : [];
+          // Force la détection des changements
           this.cdr.detectChanges();
         },
         error: (error) => {
@@ -59,7 +63,15 @@ export class LogsComponent {
     }
   }
 
+  refreshTab(index: number): void {
+    // Recharge les données d'un onglet spécifique
+    this.tabs[index].loaded = false;
+    this.tabs[index].content = [];
+    this.loadTabContent(index);
+  }
+
   formatDate(dateString: string): string {
+    if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleString('fr-FR', {
       day: '2-digit',
@@ -68,5 +80,31 @@ export class LogsComponent {
       hour: '2-digit',
       minute: '2-digit'
     });
+  }
+
+  getTotalLogs(): number {
+    // Calcule le nombre total de logs chargés
+    return this.tabs.reduce((total, tab) => total + (tab.loaded ? tab.content.length : 0), 0);
+  }
+
+  getCurrentTime(): string {
+    // Retourne l'heure actuelle formatée
+    const now = new Date();
+    return now.toLocaleTimeString('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  getTabIcon(index: number): string {
+    // Retourne l'icône appropriée pour chaque onglet
+    const icons = [
+      'table_chart',      // Tableaux
+      'people',           // Utilisateurs
+      'security',         // Sécurité
+      'bar_chart',        // Statistiques
+      'search'            // SEO
+    ];
+    return icons[index] || 'description';
   }
 }

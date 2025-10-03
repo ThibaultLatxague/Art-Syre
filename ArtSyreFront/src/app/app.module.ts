@@ -51,6 +51,7 @@ import { MatListItem } from '@angular/material/list';
 import { MatListModule } from '@angular/material/list';
 import { MatTabGroup } from '@angular/material/tabs';
 import { MatTab } from '@angular/material/tabs';
+import { MatChip } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { MatTab } from '@angular/material/tabs';
     MatListModule,
     MatList,
     MatTabGroup,
-    MatTab
+    MatTab,
+    MatChip
   ],
   providers: [],
   bootstrap: [AppComponent]
