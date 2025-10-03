@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log as LogFacade;
+use App\Models\Log;
 
 class ControllerUtilisateur extends Controller
 {
@@ -26,9 +27,13 @@ class ControllerUtilisateur extends Controller
         $request['password'] = Hash::make($request['password']);
         $request['tableauxLikes'] = json_encode($request['tableauxLikes']);
         $request['tableauxDansPanier'] = json_encode($request['tableauxDansPanier']);
-        Log::info('Parametre requete', $request->all());
+        LogFacade::info('Parametre requete', $request->all());
         $user = User::create($request->all());
-        Log::info('Utilisateur créé', $user->toArray());
+        LogFacade::info('Utilisateur créé', $user->toArray());
+        Log::create([
+            'categories_log_id' => 2, // ID pour "Création d'utilisateur"
+            'description' => 'Utilisateur créé : ' . $user->email,
+        ]);
         return response()->json($user, 201);
     }
 
@@ -47,6 +52,10 @@ class ControllerUtilisateur extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
+        Log::create([
+            'categories_log_id' => 2, // ID pour "Mise à jour d'utilisateur"
+            'description' => 'Utilisateur mis à jour : ' . $user->email,
+        ]);
         return response()->json($user);
     }
 
@@ -57,6 +66,10 @@ class ControllerUtilisateur extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
+        Log::create([
+            'categories_log_id' => 2, // ID pour "Utilisateur"
+            'description' => 'Utilisateur supprimé : ' . $user->email,
+        ]);
         return response()->json(null, 204);
     }
 
@@ -66,7 +79,7 @@ class ControllerUtilisateur extends Controller
     public function login(Request $request)
     {
         // Log pour debug
-        Log::info('Tentative de connexion reçue', [
+        LogFacade::info('Tentative de connexion reçue', [
             'email' => $request->email
             // Ne pas logger le mot de passe en clair pour des raisons de sécurité
         ]);
@@ -76,11 +89,11 @@ class ControllerUtilisateur extends Controller
         // Option 1: Utiliser Auth::attempt() (recommandé)
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            Log::info('Connexion réussie', ['user_id' => $user->id]);
+            LogFacade::info('Connexion réussie', ['user_id' => $user->id]);
             return response()->json($user);
         }
 
-        Log::warning('Connexion échouée', ['email' => $request->email]);
+        LogFacade::warning('Connexion échouée', ['email' => $request->email]);
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
@@ -147,8 +160,8 @@ class ControllerUtilisateur extends Controller
     {
         $user = Auth::user();
         $tableauId = $request->only('tableauId');
-        Log::info('Composant de la requete', ['requete' => $request]);
-        Log::info('Ajout de like pour le tableau', ['tableauId' => $tableauId]);
+        LogFacade::info('Composant de la requete', ['requete' => $request]);
+        LogFacade::info('Ajout de like pour le tableau', ['tableauId' => $tableauId]);
 
         // Vérifier si le tableau existe et l'ajouter aux likes
         if ($tableauId) {
