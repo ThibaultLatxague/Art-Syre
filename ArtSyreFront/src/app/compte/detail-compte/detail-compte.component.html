@@ -5,7 +5,7 @@
         <h1 class="account-title">Détails du compte</h1>
         <div class="header-actions">
             <button class="btn btn-secondary" (click)="onDeconnexion()">
-                <i class="icon-logout"></i>
+                <mat-icon class="tab-icon">logout</mat-icon>
                 Déconnexion
             </button>
         </div>
@@ -49,8 +49,8 @@
                         'x' : '' }} liké{{
                         nombreTableauxLikes > 1 ? 's' : '' }}
                     </p>
-                    <button class="btn btn-outline"
-                        (click)="redirigerLikes()">
+                    <button class="btn btn-outline" (click)="redirigerLikes()">
+                        <mat-icon class="tab-icon">favorite_border</mat-icon>
                         Consulter mes tableaux likés
                     </button>
                 </div>
@@ -67,6 +67,7 @@
                         votre panier
                     </p>
                     <button class="btn btn-primary" (click)="redirigerPanier()">
+                        <mat-icon class="tab-icon">shopping_cart</mat-icon>
                         Accéder au panier
                     </button>
                 </div>
@@ -89,7 +90,7 @@
                 Toutes vos données seront perdues.
             </p>
             <button class="btn btn-danger" (click)="confirmDelete()">
-                <i class="icon-trash"></i>
+                <mat-icon class="tab-icon">delete_forever</mat-icon>
                 Supprimer mon compte
             </button>
         </div>
