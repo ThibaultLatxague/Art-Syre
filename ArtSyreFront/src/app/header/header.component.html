@@ -45,6 +45,10 @@
                 <mat-icon>login</mat-icon>
                 <span>Se connecter</span>
             </button>
+            <button mat-menu-item [routerLink]="'/register'">
+                <mat-icon>person_add</mat-icon>
+                <span>S'inscrire</span>
+            </button>
         } @else {
             <button mat-menu-item [routerLink]="'/compte'">
                 <mat-icon>person</mat-icon>
