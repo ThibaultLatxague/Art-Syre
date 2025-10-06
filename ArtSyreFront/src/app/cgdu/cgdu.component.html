@@ -7,8 +7,17 @@
         <mat-card-content>
             <mat-accordion multi>
                 <div class="example-action-buttons">
-                    <button matButton (click)="accordion().openAll()">Expand All</button>
-                    <button matButton (click)="accordion().closeAll()">Collapse All</button>
+                    <button mat-stroked-button color="primary" (click)="accordion().openAll()">
+                    <mat-icon>unfold_more</mat-icon>
+                    Expand All
+                    </button>
+
+                    <button mat-stroked-button color="primary" (click)="accordion().closeAll()">
+                    <mat-icon>unfold_less</mat-icon>
+                    Collapse All
+                    </button>
+                    <!-- <button matButton (click)="accordion().openAll()">Expand All</button> -->
+                    <!-- <button matButton (click)="accordion().closeAll()">Collapse All</button> -->
                 </div>
                 <!-- Résumé / Sommaire -->
                 <mat-expansion-panel [expanded]="true">

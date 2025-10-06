@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Log as LogFacade;
 
 class ControllerLog extends Controller
 {
+    public int $numberOfLogs;
+
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +24,9 @@ class ControllerLog extends Controller
         }
 
         // Sinon, on retourne tous les logs
-        return Log::all();
+        $logs = Log::all();
+        $this->numberOfLogs = count($logs);
+        return $logs;
     }
 
     /**
@@ -31,6 +35,11 @@ class ControllerLog extends Controller
     public function create()
     {
         
+    }
+
+    public function count()
+    {
+        return response()->json($this->numberOfLogs);
     }
 
     /**
@@ -43,6 +52,7 @@ class ControllerLog extends Controller
             'description' => 'required|string',
         ]);
         $log = Log::create($request->all());
+        $this->numberOfLogs++;
         return response()->json($log, 201);
     }
 
@@ -83,6 +93,7 @@ class ControllerLog extends Controller
     {
         $log = Log::findOrFail($id);
         $log->delete();
+        $this->numberOfLogs--;
         return response()->json(null, 204);
     }
 }

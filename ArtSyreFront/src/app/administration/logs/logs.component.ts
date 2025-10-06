@@ -83,9 +83,20 @@ export class LogsComponent {
   }
 
   getTotalLogs(): number {
-    // Calcule le nombre total de logs chargés
     return this.tabs.reduce((total, tab) => total + (tab.loaded ? tab.content.length : 0), 0);
   }
+
+  // getTotalLogs(): void {
+  //   this.logService.getNumberOfLogs().subscribe({
+  //     next: (count) => {
+  //       return count;
+  //     },
+  //     error: (error) => {
+  //       console.error('Erreur lors de la récupération du nombre total de logs:', error);
+  //       return 0;
+  //     }
+  //   });
+  // }
 
   getCurrentTime(): string {
     // Retourne l'heure actuelle formatée
