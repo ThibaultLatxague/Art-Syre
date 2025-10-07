@@ -19,7 +19,7 @@ class LogFactory extends Factory
     public function definition(): array
     {
         return [
-            'categories_log_id' => $this->faker->unique()->numberBetween(1, 1000),
+            'categories_log_id' => $this->faker->numberBetween(1, 5),
             'description' => $this->faker->sentence(),
         ];
     }

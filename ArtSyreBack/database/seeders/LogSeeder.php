@@ -53,5 +53,6 @@ class LogSeeder extends Seeder
             'categories_log_id' => 5,
             'description' => 'Optimisation du contenu pour le référencement',
         ]);
+        Log::factory()->count(200)->create();
     }
 }

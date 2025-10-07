@@ -79,7 +79,7 @@
                         <mat-icon class="tab-icon">{{ getTabIcon(i) }}</mat-icon>
                         {{ tab.label }}
                         <mat-chip *ngIf="tab.loaded" class="log-count-chip">
-                            {{ tab.content.length }}
+                            {{ tab.dataSource.data.length }}
                         </mat-chip>
                     </ng-template>
 
@@ -91,14 +91,14 @@
                         </div>
 
                         <!-- État vide -->
-                        <div *ngIf="tab.loaded && tab.content.length === 0" class="empty-state">
+                        <div *ngIf="tab.loaded && tab.dataSource.data.length === 0" class="empty-state">
                             <mat-icon>inbox</mat-icon>
                             <h3>Aucun log disponible</h3>
                             <p>Il n'y a actuellement aucun log dans la catégorie "{{ tab.label }}".</p>
                         </div>
 
                         <!-- Tableau des logs -->
-                        <div *ngIf="tab.loaded && tab.content.length > 0" class="table-container">
+                        <div *ngIf="tab.loaded && tab.dataSource.data.length > 0" class="table-container">
                             <div class="table-header">
                                 <h3>
                                     <mat-icon>list</mat-icon>
@@ -110,8 +110,7 @@
                                 </button>
                             </div>
 
-                            <table mat-table [dataSource]="tab.content" class="logs-table mat-elevation-z2">
-                                <!-- Colonne Date de création -->
+                            <table mat-table [dataSource]="tab.dataSource" class="logs-table mat-elevation-z2">
                                 <ng-container matColumnDef="created_at">
                                     <th mat-header-cell *matHeaderCellDef>
                                         <mat-icon class="column-icon">schedule</mat-icon>
@@ -142,8 +141,17 @@
                                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="log-row"></tr>
                             </table>
                             <!-- Pagination (optionnelle) -->
-                            <mat-paginator *ngIf="tab.content.length > 10" [length]="tab.content.length" [pageSize]="10"
+                            <!-- <mat-paginator *ngIf="tab.content.length > 10" [length]="tab.content.length" [pageSize]="10"
                                 [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons>
+                            </mat-paginator> -->
+                            <!-- Pagination -->
+                            {{ tab.dataSource.data.length }}
+                            <mat-paginator
+                                [pageSizeOptions]="[5, 10, 25, 100]"
+                                [pageSize]="10"
+                                [length]="tab.dataSource.data.length"
+                                showFirstLastButtons
+                                aria-label="Sélecteur de taille de page">
                             </mat-paginator>
                         </div>
                     </div>

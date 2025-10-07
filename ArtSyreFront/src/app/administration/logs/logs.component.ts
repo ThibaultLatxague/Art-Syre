@@ -1,10 +1,13 @@
-import { Component, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewEncapsulation, ViewChildren } from '@angular/core';
 import { LogsService } from '../../services/log.service';
 import { Log } from '../../models/log.model';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { QueryList } from '@angular/core';
 
 export interface ExampleTab {
   label: string;
-  content: Log[];
+  dataSource: MatTableDataSource<Log>;
   loaded: boolean;
 }
 
@@ -17,13 +20,14 @@ export interface ExampleTab {
 })
 export class LogsComponent {
   displayedColumns: string[] = ['created_at', 'description'];
+  @ViewChildren(MatPaginator) paginators!: QueryList<MatPaginator>;
 
   tabs: ExampleTab[] = [
-    { label: 'Tableaux', content: [], loaded: false },
-    { label: 'Utilisateurs', content: [], loaded: false },
-    { label: 'Sécurité', content: [], loaded: false },
-    { label: 'Statistiques', content: [], loaded: false },
-    { label: 'SEO', content: [], loaded: false }
+    { label: 'Tableaux', dataSource: new MatTableDataSource<Log>(), loaded: false },
+    { label: 'Utilisateurs', dataSource: new MatTableDataSource<Log>(), loaded: false },
+    { label: 'Sécurité', dataSource: new MatTableDataSource<Log>(), loaded: false },
+    { label: 'Statistiques', dataSource: new MatTableDataSource<Log>(), loaded: false },
+    { label: 'SEO', dataSource: new MatTableDataSource<Log>(), loaded: false }
   ];
 
   selectedIndex = 0;
@@ -41,22 +45,46 @@ export class LogsComponent {
     this.loadTabContent(index);
   }
 
+  // loadTabContent(index: number): void {
+  //   // Ne charge que si ce n'est pas déjà chargé
+  //   if (!this.tabs[index].loaded) {
+  //     this.tabs[index].loaded = true;
+
+  //     // Charge les logs depuis le service
+  //     this.logService.getLogsByCategory(index + 1).subscribe({
+  //       next: (data) => {
+  //         console.log('Logs chargés pour', this.tabs[index].label, data);
+  //         this.tabs[index].dataSource.data = data;
+  //         this.tabs[index].dataSource.paginator = this.paginator;
+  //         //this.cdr.detectChanges();
+  //       },
+  //       error: (error) => {
+  //         console.error('Erreur lors du chargement des logs:', error);
+  //         this.tabs[index].dataSource.data = [];
+  //         this.cdr.detectChanges();
+  //       }
+  //     });
+  //   }
+  // }
+
+
   loadTabContent(index: number): void {
-    // Ne charge que si ce n'est pas déjà chargé
-    if (!this.tabs[index].loaded) {
-      this.tabs[index].loaded = true;
-      
-      // Charge les logs depuis le service
+    const tab = this.tabs[index];
+    if (!tab.loaded) {
+      tab.loaded = true;
       this.logService.getLogsByCategory(index + 1).subscribe({
         next: (data) => {
-          console.log('Logs chargés pour', this.tabs[index].label, data);
-          this.tabs[index].content = Array.isArray(data) ? data : [];
-          // Force la détection des changements
-          this.cdr.detectChanges();
+          tab.dataSource.data = data;
+          // Attache le paginator une fois la vue rendue
+          setTimeout(() => {
+            const paginator = this.paginators.toArray()[index];
+            tab.dataSource.paginator = paginator;
+            this.cdr.detectChanges();
+          });
         },
         error: (error) => {
           console.error('Erreur lors du chargement des logs:', error);
-          this.tabs[index].content = [];
+          tab.dataSource.data = [];
           this.cdr.detectChanges();
         }
       });
@@ -64,10 +92,17 @@ export class LogsComponent {
   }
 
   refreshTab(index: number): void {
-    // Recharge les données d'un onglet spécifique
-    this.tabs[index].loaded = false;
-    this.tabs[index].content = [];
-    this.loadTabContent(index);
+    const tab = this.tabs[index];
+    this.logService.getLogsByCategory(index + 1).subscribe({
+      next: (data) => {
+        tab.dataSource.data = data;
+        const paginator = this.paginators.toArray()[index];
+        tab.dataSource.paginator = paginator;
+        paginator.firstPage(); // reset à la première page
+        this.cdr.detectChanges();
+      },
+      error: (error) => console.error('Erreur lors du rafraîchissement des logs:', error)
+    });
   }
 
   formatDate(dateString: string): string {
@@ -83,7 +118,7 @@ export class LogsComponent {
   }
 
   getTotalLogs(): number {
-    return this.tabs.reduce((total, tab) => total + (tab.loaded ? tab.content.length : 0), 0);
+    return this.tabs.reduce((total, tab) => total + (tab.loaded ? tab.dataSource.data.length : 0), 0);
   }
 
   // getTotalLogs(): void {
@@ -108,14 +143,13 @@ export class LogsComponent {
   }
 
   getTabIcon(index: number): string {
-    // Retourne l'icône appropriée pour chaque onglet
-    const icons = [
-      'table_chart',      // Tableaux
-      'people',           // Utilisateurs
-      'security',         // Sécurité
-      'bar_chart',        // Statistiques
-      'search'            // SEO
-    ];
-    return icons[index] || 'description';
+    switch (index) {
+      case 0: return 'brush';
+      case 1: return 'person';
+      case 2: return 'security';
+      case 3: return 'query_stats';
+      case 4: return 'public';
+      default: return 'description';
+    }
   }
 }
