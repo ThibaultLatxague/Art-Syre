@@ -1,3 +1,4 @@
+@if(utilisateurCourant != null && utilisateurCourant.estAdmin) {
 <div class="logs-container">
     <!-- En-tête avec Material Card -->
     <mat-card class="header-card">
@@ -160,3 +161,8 @@
         </mat-card-content>
     </mat-card>
 </div>
+} @else {
+<div class="empty-state">
+    <p>Vous n'avez pas les droits nécessaires pour accéder à cette section.</p>
+</div>
+}

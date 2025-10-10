@@ -1,11 +1,13 @@
-import { Component, ChangeDetectorRef, ViewEncapsulation, ViewChildren } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewEncapsulation, ViewChildren, OnInit } from '@angular/core';
 import { LogsService } from '../../services/log.service';
 import { Log } from '../../models/log.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { QueryList } from '@angular/core';
+import { Utilisateur } from '../../models/utilisateur.model';
+import { AuthService } from '../../services/auth.service';
 
-export interface ExampleTab {
+export interface ExampleTab{
   label: string;
   dataSource: MatTableDataSource<Log>;
   loaded: boolean;
@@ -18,9 +20,11 @@ export interface ExampleTab {
   styleUrls: ['./logs.component.scss', '../../app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class LogsComponent {
+export class LogsComponent implements OnInit{
   displayedColumns: string[] = ['created_at', 'description'];
   @ViewChildren(MatPaginator) paginators!: QueryList<MatPaginator>;
+  utilisateurCourant: Utilisateur | null = null;
+
 
   tabs: ExampleTab[] = [
     { label: 'Tableaux', dataSource: new MatTableDataSource<Log>(), loaded: false },
@@ -34,10 +38,15 @@ export class LogsComponent {
 
   constructor(
     private logService: LogsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService
   ) {
     // Charge le premier onglet au démarrage
     this.loadTabContent(0);
+  }
+
+  ngOnInit(){
+    this.utilisateurCourant = this.authService.getCurrentUserAngular();
   }
 
   onTabChange(index: number): void {
