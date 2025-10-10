@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-administration-utilisateurs',
   standalone: false,
   templateUrl: './administration-utilisateurs.component.html',
-  styleUrl: './administration-utilisateurs.component.scss'
+  styleUrls: ['./administration-utilisateurs.component.scss', '../../app.component.scss']
 })
 export class AdministrationUtilisateursComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [

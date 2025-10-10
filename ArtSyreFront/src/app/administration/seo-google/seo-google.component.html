@@ -1,3 +1,74 @@
 <h1>SEO Google</h1>
 <p>SEO : Référencement automatique sur google via scans de pages du site</p><br>
 <p>Important si on veut que le site ressorte facilement</p>
+
+<mat-card class="header-card">
+    <mat-card-header>
+        <mat-icon mat-card-avatar class="header-icon">description</mat-icon>
+        <mat-card-title>Gestion des Tableaux</mat-card-title>
+        <mat-card-subtitle>Consultation et suivi des tableaux</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p class="description">
+            Consultez l'ensemble des tableaux référencés sur la plateforme.
+            Chaque tableau est caractérisé par des informations précises.
+            Il est possible de supprimer, modifier et ajouter un tableau.
+        </p>
+
+        <!-- Statistiques rapides -->
+        <div class="stats-grid">
+            <mat-card class="stat-card">
+                <mat-icon>storage</mat-icon>
+                <div class="stat-content">
+                    <span class="stat-label">Nombre de tableaux</span>
+                    <span class="stat-value">{{ 0 }}</span>
+                </div>
+            </mat-card>
+
+            <mat-card class="stat-card">
+                <mat-icon>category</mat-icon>
+                <div class="stat-content">
+                    <span class="stat-label">Nombre de vues totales</span>
+                    <span class="stat-value">{{ 0 }}</span>
+                </div>
+            </mat-card>
+
+            <mat-card class="stat-card">
+                <mat-icon>update</mat-icon>
+                <div class="stat-content">
+                    <span class="stat-label">Dernière mise à jour</span>
+                    <span class="stat-value">{{ 0 }}</span>
+                </div>
+            </mat-card>
+        </div>
+
+        <!-- Fonctionnalités -->
+        <mat-expansion-panel class="features-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>info</mat-icon>
+                    Fonctionnalités disponibles
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="features-list">
+                <li>
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Visualisation des tableaux en fonction de leurs informations (Nom, Prix, Dimensions,
+                        etc.)</span>
+                </li>
+                <li>
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Ajout d'un tableau</span>
+                </li>
+                <li>
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Modification d'un tableau</span>
+                </li>
+                <li>
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Suppression d'un tableau</span>
+                </li>
+            </ul>
+        </mat-expansion-panel>
+    </mat-card-content>
+</mat-card>

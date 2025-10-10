@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-administration-tableaux',
   standalone: false,
   templateUrl: './administration-tableaux.component.html',
-  styleUrl: './administration-tableaux.component.scss'
+  styleUrls: ['./administration-tableaux.component.scss', '../../app.component.scss']
 })
 export class AdministrationTableauxComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
