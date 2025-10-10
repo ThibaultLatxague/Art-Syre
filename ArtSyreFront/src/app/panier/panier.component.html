@@ -1,1 +1,16 @@
 <p>panier works!</p>
+<section *ngIf="utilisateurCourant">
+    <h2>Bienvenue, {{ utilisateurCourant.prenom }} {{ utilisateurCourant.name }}!</h2>
+    <p>Voici votre panier:</p>
+    <ul>
+        <li *ngFor="let tableau of utilisateurCourant.tableauxDansPanier">
+            {{ tableau }}
+        </li>
+    </ul>
+    <p>Voici votre liste de like:</p>
+    <ul>
+        <li *ngFor="let tableauLike of utilisateurCourant.tableauxLikes">
+            {{ tableauLike }}
+        </li>
+    </ul>
+</section>
