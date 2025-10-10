@@ -127,3 +127,14 @@
     }
   }
 }
+
+// === Aucune autorisation sur la page ===
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    font-style: italic;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
