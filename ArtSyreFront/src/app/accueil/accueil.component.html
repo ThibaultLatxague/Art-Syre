@@ -1,58 +1,64 @@
-<div class="grid-container">
-    <mat-grid-list [cols]="getGridCols()" rowHeight="400px" gutterSize="20px">
-        <mat-grid-tile *ngFor="let tableau of dataSource">
-            <mat-card class="product-card" appearance="outlined">
-                <mat-card-header>
-                    <mat-card-title>{{ tableau.nom }}</mat-card-title>
-                </mat-card-header>
+<div class="gallery">
 
-                <mat-card-content class="card-content">
-                    <div class="image-container">
-                        <img class="product-image"
-                            src="https://material.angular.dev/assets/img/examples/shiba2.jpg"
-                            alt="Photo of a Shiba Inu">
-                    </div>
+  <!-- <header class="gallery-header" *ngIf="utilisateurCourant?.prenom">
+    <span class="gallery-greeting">Galerie privée · <em>{{ utilisateurCourant?.prenom }}</em></span>
+  </header> -->
 
-                    <div class="product-info">
-                        <div class="info-item">
-                            <mat-icon class="info-icon">straighten</mat-icon>
-                            <span>{{ tableau.taille }} cm</span>
-                        </div>
-
-                        <div class="info-item price">
-                            <mat-icon class="info-icon">euro</mat-icon>
-                            <span>{{ tableau.prix }} €</span>
-                        </div>
-                    </div>
-                </mat-card-content>
-
-                <mat-card-actions class="card-actions">
-                    <button mat-mini-fab
-                        [color]="utilisateurCourant?.tableauxLikes?.includes(tableau.id) ? 'warn' : 'primary'"
-                        [class.liked]="utilisateurCourant?.tableauxLikes?.includes(tableau.id)"
-                        (click)="toggleLike(tableau)"
-                        matTooltip="Ajouter à la liste de souhaits">
-                        <mat-icon>{{ utilisateurCourant?.tableauxLikes?.includes(tableau.id) ? 'favorite' :
-                            'favorite_border' }}</mat-icon>
-                    </button>
-                    <p>{{ utilisateurCourant?.tableauxLikes?.includes(tableau.id) }}</p>
-
-                    <button class="cart-button" mat-mini-fab
-                        [color]="utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) ? 'accent' : 'primary'"
-                        [class.in-cart]="utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) "
-                        (click)="toggleCart(tableau)"
-                        matTooltip="Ajouter au panier">
-                        <mat-icon>
-                            {{ utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) ? 'shopping_cart' :
-                            'add_shopping_cart' }}
-                        </mat-icon>
-                    </button>
-                    <p>{{ utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) }}</p>
-
-                </mat-card-actions>
-            </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
+<div class="paint-splashes">
+    <span class="paint-item stroke stroke-left-top" #paintingScene></span>
+    <span class="paint-item stroke stroke-right-middle" #paintingScene></span>
+    <span class="paint-item splash splash-left-bottom" #paintingScene></span>
+    <span class="paint-item splash splash-right-top" #paintingScene></span>
+    <span class="paint-item drip drip-left" #paintingScene></span>
+    <span class="paint-item drip drip-right" #paintingScene></span>
+    <span class="paint-item small-dot dot-one" #paintingScene></span>
+    <span class="paint-item small-dot dot-two" #paintingScene></span>
 </div>
 
-<p *ngIf="utilisateurCourant">Bienvenue, {{ utilisateurCourant.prenom }}!</p>
+  <section class="painting-scene"
+           *ngFor="let tableau of dataSource; let i = index"
+           #paintingScene>
+
+    <div class="painting-wrapper">
+
+      <div class="painting-frame"
+           [class.frame--liked]="utilisateurCourant?.tableauxLikes?.includes(tableau.id)">
+
+        <img class="painting-img"
+             src="https://material.angular.dev/assets/img/examples/shiba2.jpg"
+             [alt]="tableau.nom">
+
+        <div class="painting-overlay">
+          <button class="action-btn"
+            [class.action-btn--active]="utilisateurCourant?.tableauxLikes?.includes(tableau.id)"
+            (click)="toggleLike(tableau)"
+            [attr.aria-label]="'Coup de cœur pour ' + tableau.nom"
+            matTooltip="Coup de cœur">
+            <mat-icon>{{ utilisateurCourant?.tableauxLikes?.includes(tableau.id) ? 'favorite' : 'favorite_border' }}</mat-icon>
+          </button>
+
+          <button class="action-btn action-btn--cart"
+            [class.action-btn--active]="utilisateurCourant?.tableauxDansPanier?.includes(tableau.id)"
+            (click)="toggleCart(tableau)"
+            [attr.aria-label]="'Acquérir ' + tableau.nom"
+            matTooltip="Acquérir cette œuvre">
+            <mat-icon>{{ utilisateurCourant?.tableauxDansPanier?.includes(tableau.id) ? 'shopping_bag' : 'add_shopping_cart' }}</mat-icon>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="painting-caption">
+        <span class="caption-num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+        <div class="caption-rule"></div>
+        <div class="caption-body">
+          <h2 class="caption-title">{{ tableau.nom }}</h2>
+          <p class="caption-meta">{{ tableau.taille }} cm &nbsp;·&nbsp; {{ tableau.prix }} €</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

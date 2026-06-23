@@ -1,4 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { TableauxService } from '../services/tableaux.service';
 import { Tableau } from '../models/tableau.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,104 +21,119 @@ import { Utilisateur } from '../models/utilisateur.model';
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.scss',
 })
-export class AccueilComponent implements OnInit {
+export class AccueilComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSource: Tableau[] = [];
   utilisateurCourant: Utilisateur | null = null;
 
-  constructor(private tableauxService: TableauxService, private snackBar: MatSnackBar, private http: HttpClient, private authService: AuthService, private utilisateursService: UtilisateursService) { }
+  @ViewChildren('paintingScene') paintingScenes!: QueryList<ElementRef>;
+  private scrollObserver!: IntersectionObserver;
+
+  constructor(
+    private tableauxService: TableauxService,
+    private snackBar: MatSnackBar,
+    private http: HttpClient,
+    private authService: AuthService,
+    private utilisateursService: UtilisateursService
+  ) {}
 
   ngOnInit(): void {
-    // Code à exécuter lors de l'initialisation du composant
     this.loadData();
     this.utilisateurCourant = new Utilisateur(0, '', '', '', '', '', false, [], []);
     this.utilisateurCourant = this.authService.getCurrentUserAngular();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    // Force la recalculation de la grille lors du redimensionnement
+  ngAfterViewInit(): void {
+    this.setupScrollObserver();
+
+    // Re-observe scenes that appear after async data loads
+    this.paintingScenes.changes.subscribe(() => {
+      this.paintingScenes.forEach(el => this.scrollObserver?.observe(el.nativeElement));
+    });
   }
 
-  getGridCols(): number {
-    const width = window.innerWidth;
-    if (width > 1200) {
-      return 3; // 3 colonnes pour les grands écrans
-    } else if (width > 768) {
-      return 2; // 2 colonnes pour les écrans moyens
-    } else {
-      return 1; // 1 colonne pour les petits écrans
-    }
+  ngOnDestroy(): void {
+    this.scrollObserver?.disconnect();
+  }
+
+  private setupScrollObserver(): void {
+    this.scrollObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const element = entry.target as HTMLElement;
+            element.classList.remove('hide-paint');
+            element.classList.add('is-visible');
+
+            // disparition automatique après 5 secondes
+            setTimeout(() => {
+              element.classList.add('hide-paint');
+            }, 5000);
+          }
+        });
+
+      },
+      {
+        threshold:0.25,
+        rootMargin:'0px 0px -100px 0px'
+      }
+    );
+
+
+    this.paintingScenes.forEach(
+      el => this.scrollObserver.observe(el.nativeElement)
+    );
   }
 
   private loadData(): void {
-    // Récupérer les tableaux et les assigner à la source de données
     this.tableauxService.getTableaux().subscribe((tableaux: Tableau[]) => {
       this.dataSource = tableaux;
     });
   }
 
-  toggleLike(tableau: Tableau) {
-    if (this.utilisateurCourant && this.utilisateurCourant.tableauxLikes.includes(tableau.id)) {
-      // Si le tableau est déjà dans les likes, on le retire
-      console.log("Utilisateur courant trouvé, tableau compris dans les likes");
-      this.utilisateurCourant.tableauxLikes = this.utilisateurCourant.tableauxLikes.filter((id: number) => id !== tableau.id);
+  toggleLike(tableau: Tableau): void {
+    if (!this.utilisateurCourant) return;
+
+    if (this.utilisateurCourant.tableauxLikes.includes(tableau.id)) {
+      this.utilisateurCourant.tableauxLikes = this.utilisateurCourant.tableauxLikes
+        .filter((id: number) => id !== tableau.id);
+
       this.utilisateursService.removeLike(tableau.id.toString()).subscribe({
-        next: () => {
-          console.log(`Tableau "${tableau.nom}" retiré des likes`);
-          this.openSnackBarStateType(tableau.nom, "retiré des likes");
-        },
-        error: (err) => {
-          console.error('Erreur lors du retrait des likes', err);
-        }
+        next: () => this.openSnackBar(tableau.nom, 'retiré des favoris'),
+        error: (err) => console.error('Erreur retrait like', err),
       });
-    } else if (this.utilisateurCourant) {
-      // Sinon, on l'ajoute
-      console.log("Utilisateur courant trouvé, tableau non compris dans les likes");
+    } else {
       this.utilisateurCourant.tableauxLikes.push(tableau.id);
+
       this.utilisateursService.addLike(tableau.id.toString()).subscribe({
-        next: () => {
-          console.log(`Tableau "${tableau.nom}" ajouté aux likes`);
-          this.openSnackBarStateType(tableau.nom, "ajouté aux likes");
-        },
-        error: (err) => {
-          console.error('Erreur lors de l\'ajout aux likes', err);
-        }
+        next: () => this.openSnackBar(tableau.nom, 'ajouté aux favoris'),
+        error: (err) => console.error('Erreur ajout like', err),
       });
     }
   }
 
-  toggleCart(tableau: Tableau) {
-    if (this.utilisateurCourant && this.utilisateurCourant.tableauxDansPanier.includes(tableau.id)) {
-      // Si le tableau est déjà dans le panier, on le retire
-      console.log("Utilisateur courant trouvé, tableau compris dans le panier");
-      this.utilisateurCourant.tableauxDansPanier = this.utilisateurCourant.tableauxDansPanier.filter((id: number) => id !== tableau.id);
+  toggleCart(tableau: Tableau): void {
+    if (!this.utilisateurCourant) return;
+
+    if (this.utilisateurCourant.tableauxDansPanier.includes(tableau.id)) {
+      this.utilisateurCourant.tableauxDansPanier = this.utilisateurCourant.tableauxDansPanier
+        .filter((id: number) => id !== tableau.id);
+
       this.utilisateursService.removeFromCart(tableau.id.toString()).subscribe({
-        next: () => {
-          console.log(`Tableau "${tableau.nom}" retiré du panier`);
-          this.openSnackBarStateType(tableau.nom, "retiré du panier");
-        },
-        error: (err) => {
-          console.error('Erreur lors du retrait du panier', err);
-        }
+        next: () => this.openSnackBar(tableau.nom, 'retiré du panier'),
+        error: (err) => console.error('Erreur retrait panier', err),
       });
-    } else if (this.utilisateurCourant) {
-      // Sinon, on l'ajoute
-      console.log("Utilisateur courant trouvé, tableau non compris dans le panier");
+    } else {
       this.utilisateurCourant.tableauxDansPanier.push(tableau.id);
+
       this.utilisateursService.addToCart(tableau.id.toString()).subscribe({
-        next: () => {
-          console.log(`Tableau "${tableau.nom}" ajouté au panier`);
-          this.openSnackBarStateType(tableau.nom, "ajouté au panier");
-        },
-        error: (err) => {
-          console.error('Erreur lors de l\'ajout au panier', err);
-        }
+        next: () => this.openSnackBar(tableau.nom, 'ajouté au panier'),
+        error: (err) => console.error('Erreur ajout panier', err),
       });
     }
   }
 
-  openSnackBarStateType(nom:string, status: string) {
-    this.snackBar.open(`Tableau "${nom}" ${status}`, 'Fermer', {
+  private openSnackBar(nom: string, status: string): void {
+    this.snackBar.open(`« ${nom} » ${status}`, 'Fermer', {
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
       duration: 3000,
