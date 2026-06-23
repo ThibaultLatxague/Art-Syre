@@ -65,9 +65,9 @@ export class AccueilComponent implements OnInit, AfterViewInit, OnDestroy {
             element.classList.add('is-visible');
 
             // disparition automatique après 5 secondes
-            setTimeout(() => {
-              element.classList.add('hide-paint');
-            }, 5000);
+            // setTimeout(() => {
+            //   element.classList.add('hide-paint');
+            // }, 5000);
           }
         });
 
