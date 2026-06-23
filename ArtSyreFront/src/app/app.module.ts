@@ -59,7 +59,7 @@ import { MatChip } from '@angular/material/chips';
     AccueilComponent,
     LoginComponent,
     RegisterComponent,
-    PanierComponent,
+    // PanierComponent,
     // ListSouhaitComponent,
     AdministrationComponent,
     AdministrationUtilisateursComponent,

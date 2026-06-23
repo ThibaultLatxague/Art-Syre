@@ -10,10 +10,14 @@
         <div class="header-line"></div>
     </header>
 
-    <section class="cart-empty" *ngIf="tableauxDansPanier.length === 0">
-        <h2>Votre galerie est vide</h2>
+    <section class="cart-empty" *ngIf="isLoading">
+        <div class="loader"></div>
+        <p>Chargement de vos œuvres...</p>
+    </section>  
 
-        <p>Ajoutez une œuvre pour commencer votre collection.</p>
+    <section class="cart-empty" *ngIf="!isLoading && tableauxDansPanier.length === 0">
+        <h2>Aucune œuvre dans le panier</h2>
+        <p>Ajoutez une œuvre à votre panier pour composer votre future collection.</p>
     </section>
 
     <section class="cart-grid">

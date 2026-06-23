@@ -3,22 +3,25 @@ import { Utilisateur } from '../models/utilisateur.model';
 import { Tableau } from '../models/tableau.model';
 import { AuthService } from '../services/auth.service';
 import { TableauxService } from '../services/tableaux.service';
+import { forkJoin } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-panier',
-  standalone: false,
   templateUrl: './panier.component.html',
+  imports : [CommonModule],
   styleUrl: './panier.component.scss'
 })
 export class PanierComponent implements OnInit {
   constructor(private authService: AuthService, private tableauxService: TableauxService) {}
   utilisateurCourant: Utilisateur | null = null;
   tableauxDansPanier: Tableau[] = []; // Remplacez 'any' par le type approprié pour vos tableaux
+  isLoading = true;
 
   ngOnInit(): void {
     this.loadCurrentUser();
     if(this.utilisateurCourant) {
-      this.chargerTableaux();
+      this.chargerTableauxPanier();
     }
   }
 
@@ -32,16 +35,28 @@ export class PanierComponent implements OnInit {
     console.log("Utilisateur courant dans le header:", this.utilisateurCourant);
   }
 
-  private chargerTableaux(): void {
-    // Logique pour charger les tableaux de l'utilisateur
-    for (const tableauId of this.utilisateurCourant!.tableauxDansPanier) {
-      this.tableauxService.getTableau(tableauId.toString()).subscribe({
-        next: (tableau: Tableau) => {
-          this.tableauxDansPanier.push(tableau);
-        }
-      });
+  private chargerTableauxPanier(): void {
+    const ids = this.utilisateurCourant!.tableauxDansPanier;
+
+    if (!ids.length) {
+      this.isLoading = false;
+      return;
     }
-    console.log("Charger les tableaux pour l'utilisateur:", this.utilisateurCourant);
+
+    const requests = ids.map(id =>
+      this.tableauxService.getTableau(id.toString())
+    );
+
+    forkJoin(requests).subscribe({
+      next: (tableaux) => {
+        this.tableauxDansPanier = tableaux;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.tableauxDansPanier = [];
+        this.isLoading = false;
+      }
+    });
   }
 
   public totalPanier(): number {
