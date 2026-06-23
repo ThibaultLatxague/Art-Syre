@@ -1,16 +1,41 @@
-<p>panier works!</p>
-<section *ngIf="utilisateurCourant">
-    <h2>Bienvenue, {{ utilisateurCourant.prenom }} {{ utilisateurCourant.name }}!</h2>
-    <p>Voici votre panier:</p>
-    <ul>
-        <li *ngFor="let tableau of utilisateurCourant.tableauxDansPanier">
-            {{ tableau }}
-        </li>
-    </ul>
-    <p>Voici votre liste de like:</p>
-    <ul>
-        <li *ngFor="let tableauLike of utilisateurCourant.tableauxLikes">
-            {{ tableauLike }}
-        </li>
-    </ul>
-</section>
+<div class="cart-page" *ngIf="utilisateurCourant">
+    <div class="paint-decoration paint-left"></div>
+    <div class="paint-decoration paint-right"></div>
+
+    <header class="cart-header">
+        <p class="subtitle">Collection privée</p>
+
+        <h1>Panier de {{ utilisateurCourant.prenom }}</h1>
+
+        <div class="header-line"></div>
+    </header>
+
+    <section class="cart-empty" *ngIf="tableauxDansPanier.length === 0">
+        <h2>Votre galerie est vide</h2>
+
+        <p>Ajoutez une œuvre pour commencer votre collection.</p>
+    </section>
+
+    <section class="cart-grid">
+        <article class="art-card" *ngFor="let tableau of tableauxDansPanier">
+            <div class="image-wrapper">
+                <img src="https://material.angular.dev/assets/img/examples/shiba2.jpg" [alt]="tableau.nom" />
+            </div>
+
+            <div class="art-info">
+                <h2>
+                    {{ tableau.nom }}
+                </h2>
+                <p class="size">{{ tableau.taille }} cm</p>
+                <p class="price">{{ tableau.prix }} €</p>
+                <button class="remove-btn">Retirer</button>
+            </div>
+        </article>
+    </section>
+
+    <footer class="cart-total" *ngIf="tableauxDansPanier.length">
+        <span> Total </span>
+
+        <strong> {{ totalPanier() }} € </strong>
+    </footer>
+</div>

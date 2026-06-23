@@ -1,1 +1,35 @@
-<p>list-souhait works!</p>
+<div class="wishlist-page" *ngIf="utilisateurCourant">
+    <div class="paint-decoration paint-left"></div>
+    <div class="paint-decoration paint-right"></div>
+
+    <header class="wishlist-header">
+        <p class="subtitle">Sélection intime</p>
+
+        <h1>Liste de souhaits de {{ utilisateurCourant.prenom }}</h1>
+
+        <div class="header-line"></div>
+    </header>
+
+    <section class="wishlist-empty" *ngIf="tableauxSouhaites.length === 0">
+        <h2>Aucune œuvre favorite</h2>
+
+        <p>Ajoutez une œuvre à vos souhaits pour composer votre future collection.</p>
+    </section>
+
+    <section class="wishlist-grid">
+        <article class="art-card" *ngFor="let tableau of tableauxSouhaites">
+            <div class="image-wrapper">
+                <img src="https://material.angular.dev/assets/img/examples/shiba2.jpg" [alt]="tableau.nom" />
+            </div>
+
+            <div class="art-info">
+                <h2>
+                    {{ tableau.nom }}
+                </h2>
+                <p class="size">{{ tableau.taille }} cm</p>
+                <p class="price">{{ tableau.prix }} €</p>
+                <button class="wishlist-btn">Voir l’œuvre</button>
+            </div>
+        </article>
+    </section>
+</div>

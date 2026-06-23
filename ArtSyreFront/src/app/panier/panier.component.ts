@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Utilisateur } from '../models/utilisateur.model';
+import { Tableau } from '../models/tableau.model';
 import { AuthService } from '../services/auth.service';
+import { TableauxService } from '../services/tableaux.service';
 
 @Component({
   selector: 'app-panier',
@@ -9,8 +11,9 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './panier.component.scss'
 })
 export class PanierComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private tableauxService: TableauxService) {}
   utilisateurCourant: Utilisateur | null = null;
+  tableauxDansPanier: Tableau[] = []; // Remplacez 'any' par le type approprié pour vos tableaux
 
   ngOnInit(): void {
     this.loadCurrentUser();
@@ -31,6 +34,17 @@ export class PanierComponent implements OnInit {
 
   private chargerTableaux(): void {
     // Logique pour charger les tableaux de l'utilisateur
+    for (const tableauId of this.utilisateurCourant!.tableauxDansPanier) {
+      this.tableauxService.getTableau(tableauId.toString()).subscribe({
+        next: (tableau: Tableau) => {
+          this.tableauxDansPanier.push(tableau);
+        }
+      });
+    }
     console.log("Charger les tableaux pour l'utilisateur:", this.utilisateurCourant);
+  }
+
+  public totalPanier(): number {
+    return this.tableauxDansPanier.reduce((total, tableau) => total + Number(tableau.prix), 0);
   }
 }
