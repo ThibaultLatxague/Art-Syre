@@ -57,6 +57,27 @@ export class AdministrationUtilisateursComponent implements OnInit, AfterViewIni
     }
   }
 
+  numberOfUsers(): number {
+    return this.dataSource.data.length;
+  }
+
+  numberOfAdmins(): number {
+    return this.dataSource.data.filter(user => user.estAdmin == true).length;
+  }
+
+  lastUpdate(): string {
+    if (this.dataSource.data.length === 0) {
+      return 'N/A';
+    }
+
+    // Attention : prend la date de création et non la date de mise à jour.
+    const lastUser = this.dataSource.data.reduce((prev, current) => {
+      return (new Date(prev.dateCreation) > new Date(current.dateCreation)) ? prev : current;
+    });
+
+    return new Date(lastUser.dateCreation).toLocaleString();
+  }
+
   editUser(user: Utilisateur) {
     // Logic to edit the user
   }

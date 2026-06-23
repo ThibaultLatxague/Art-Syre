@@ -57,6 +57,20 @@ export class AdministrationTableauxComponent implements OnInit, AfterViewInit {
     }
   }
 
+  numberOfTableaux(): number {
+    return this.dataSource.data.length;
+  }
+
+  numberOfViews(): number {
+    // Logic to calculate the number of views
+    return 0; // Placeholder
+  }
+
+  lastUpdate(): string {
+    // Logic to get the last update date
+    return '0000-00-00 00:00'; // Placeholder
+  }
+
   editTableau(tableau: Tableau) {
     // Logic to edit the tableau
   }

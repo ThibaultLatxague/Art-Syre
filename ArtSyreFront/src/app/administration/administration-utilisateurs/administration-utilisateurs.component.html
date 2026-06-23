@@ -18,7 +18,7 @@
                 <mat-icon>storage</mat-icon>
                 <div class="stat-content">
                     <span class="stat-label">Nombre d'utilisateurs</span>
-                    <span class="stat-value">{{ 0 }}</span>
+                    <span class="stat-value">{{ numberOfUsers() }}</span>
                 </div>
             </mat-card>
 
@@ -26,7 +26,7 @@
                 <mat-icon>category</mat-icon>
                 <div class="stat-content">
                     <span class="stat-label">Nombre d'administrateurs</span>
-                    <span class="stat-value">{{ 0 }}</span>
+                    <span class="stat-value">{{ numberOfAdmins() }}</span>
                 </div>
             </mat-card>
 
@@ -34,7 +34,7 @@
                 <mat-icon>update</mat-icon>
                 <div class="stat-content">
                     <span class="stat-label">Dernière mise à jour</span>
-                    <span class="stat-value">{{ 0 }}</span>
+                    <span class="stat-value">{{ lastUpdate() }}</span>
                 </div>
             </mat-card>
         </div>
@@ -133,8 +133,8 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
                         Statut </th>
                     <td mat-cell *matCellDef="let row">
-                        <span class="status-badge" [ngClass]="row.estAdmin === 1 ? 'admin' : 'user'">
-                            {{row.estAdmin === 1 ? 'Admin' : 'Utilisateur'}}
+                        <span class="status-badge" [ngClass]="row.estAdmin == 1 ? 'admin' : 'user'">
+                            {{row.estAdmin == 1 ? 'Admin' : 'Utilisateur'}}
                         </span>
                     </td>
                 </ng-container>
