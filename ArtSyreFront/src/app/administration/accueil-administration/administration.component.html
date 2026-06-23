@@ -1,64 +1,73 @@
 @if(utilisateurCourant != null && utilisateurCourant.estAdmin){
-<mat-card appearance="outlined">
-    <button mat-button [routerLink]="'/administration/tableaux'">
-        <mat-card-header>
-            <mat-card-title>Les tableaux</mat-card-title>
-            <mat-card-subtitle>Gérer les tableaux (ajout, modification,
-                suppression etc)</mat-card-subtitle>
-        </mat-card-header>
-    </button>
-</mat-card>
 
-<mat-card appearance="outlined">
-    <button mat-button [routerLink]="'/administration/utilisateurs'">
-        <mat-card-header>
-            <mat-card-title>Les utilisateurs</mat-card-title>
-            <mat-card-subtitle>Gérer les utilisateurs (ajout, modification,
-                suppression etc)</mat-card-subtitle>
-        </mat-card-header>
-    </button>
-</mat-card>
+<div class="admin-page">
 
-<mat-card appearance="outlined">
-    <button mat-button [routerLink]="'/securite'">
-        <mat-card-header>
-            <mat-card-title>La sécurité</mat-card-title>
-            <mat-card-subtitle>Paramètre de sécurité (réseaux, données
-                etc)</mat-card-subtitle>
-        </mat-card-header>
-    </button>
-</mat-card>
+    <header class="admin-header">
+        <h1>Administration</h1>
+        <p>Gestion globale de la plateforme</p>
+    </header>
 
-<mat-card appearance="outlined">
-    <button mat-button [routerLink]="'/seo'">
-        <mat-card-header>
-            <mat-card-title>Référencement SEO</mat-card-title>
-            <mat-card-subtitle>Consulter les étapes et moyens de référencement automatiques sur Google</mat-card-subtitle>
-        </mat-card-header>
-    </button>
-</mat-card>
+    <div class="admin-grid">
 
-<mat-card appearance="outlined">
-    <button mat-button [routerLink]="'/logs'">
-        <mat-card-header>
-            <mat-card-title>Les logs</mat-card-title>
-            <mat-card-subtitle>Consulter les logs (erreurs, accès, etc) des
-                utilisateurs et du serveur</mat-card-subtitle>
-        </mat-card-header>
-    </button>
-</mat-card>
+        <mat-card class="admin-card" appearance="outlined">
+            <button mat-button [routerLink]="'/administration/tableaux'">
+                <mat-card-header>
+                    <mat-card-title>Tableaux</mat-card-title>
+                    <mat-card-subtitle>Gérer les œuvres (ajout, modification, suppression)</mat-card-subtitle>
+                </mat-card-header>
+            </button>
+        </mat-card>
 
-<mat-card appearance="outlined">
-    <button mat-button [routerLink]="'/statistiques'">
-        <mat-card-header>
-            <mat-card-title>Statistiques</mat-card-title>
-            <mat-card-subtitle>Consulter les statistiques du site (visites,
-                performances, etc)</mat-card-subtitle>
-        </mat-card-header>
-    </button>
-</mat-card>
-} @else {
-    <div class="empty-state">
-        <p>Vous n'avez pas les droits nécessaires pour accéder à cette section.</p>
+        <mat-card class="admin-card" appearance="outlined">
+            <button mat-button [routerLink]="'/administration/utilisateurs'">
+                <mat-card-header>
+                    <mat-card-title>Utilisateurs</mat-card-title>
+                    <mat-card-subtitle>Gestion des comptes et permissions</mat-card-subtitle>
+                </mat-card-header>
+            </button>
+        </mat-card>
+
+        <mat-card class="admin-card" appearance="outlined">
+            <button mat-button [routerLink]="'/securite'">
+                <mat-card-header>
+                    <mat-card-title>Sécurité</mat-card-title>
+                    <mat-card-subtitle>Paramètres et protection des données</mat-card-subtitle>
+                </mat-card-header>
+            </button>
+        </mat-card>
+
+        <mat-card class="admin-card" appearance="outlined">
+            <button mat-button [routerLink]="'/seo'">
+                <mat-card-header>
+                    <mat-card-title>SEO</mat-card-title>
+                    <mat-card-subtitle>Référencement et visibilité Google</mat-card-subtitle>
+                </mat-card-header>
+            </button>
+        </mat-card>
+
+        <mat-card class="admin-card" appearance="outlined">
+            <button mat-button [routerLink]="'/logs'">
+                <mat-card-header>
+                    <mat-card-title>Logs</mat-card-title>
+                    <mat-card-subtitle>Erreurs et activité serveur</mat-card-subtitle>
+                </mat-card-header>
+            </button>
+        </mat-card>
+
+        <mat-card class="admin-card" appearance="outlined">
+            <button mat-button [routerLink]="'/statistiques'">
+                <mat-card-header>
+                    <mat-card-title>Statistiques</mat-card-title>
+                    <mat-card-subtitle>Performance et trafic</mat-card-subtitle>
+                </mat-card-header>
+            </button>
+        </mat-card>
+
     </div>
+</div>
+
+} @else {
+<div class="empty-state">
+    <p>Accès non autorisé</p>
+</div>
 }

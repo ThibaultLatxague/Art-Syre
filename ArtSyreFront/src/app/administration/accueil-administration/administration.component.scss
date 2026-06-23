@@ -1,81 +1,99 @@
-:host {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    gap: 1.5rem; // espace entre les cartes
+$gold: #f5efe6;
+
+.admin-page {
+  min-height: 100vh;
+  padding: 30px 5%;
+  background: $gold;
 }
 
-mat-card {
-    width: 80%;
-    max-width: 1200px; // évite que ça s'étire trop sur grands écrans
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    padding: 0; // Supprime le padding par défaut de mat-card
+.admin-header {
+  margin-bottom: 50px;
 
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    }
+  h1 {
+    font-size: 44px;
+    font-weight: 500;
+    color: #000000;
+  }
 
-    button {
-        width: 100%;
-        height: 100%;
-        text-align: left;
-        padding: 1rem;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        border-radius: 12px;
-        
-        // Supprime complètement les styles Angular Material
-        &.mat-mdc-button, 
-        &.mat-mdc-icon-button {
-            width: 100% !important;
-            height: 100% !important;
-            border-radius: 12px !important;
-            padding: 1rem !important;
-            min-width: unset !important;
-            min-height: unset !important;
-            
-            // Supprime l'effet ovale/ripple
-            .mat-mdc-button-ripple,
-            .mat-mdc-button-persistent-ripple,
-            .mdc-button__ripple {
-                display: none !important;
-            }
-            
-            // Supprime les états focus/hover par défaut
-            .mat-mdc-focus-indicator {
-                display: none !important;
-            }
-        }
-    }
+  p {
+    margin-top: 10px;
+    color: #000000;
+  }
+}
 
-    mat-card-header {
-        width: 100%;
-        margin: 0; // Supprime les marges par défaut
-        padding: 0; // Supprime le padding par défaut
-    }
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+}
 
-    mat-card-title {
-        font-size: 1.4rem;
-        font-weight: 600;
-        white-space: normal; // permet le retour à la ligne
-        word-wrap: break-word;
-        margin-bottom: 0.3rem;
-        margin: 0 0 0.3rem 0; // Supprime les marges par défaut sauf bottom
-    }
+.admin-card {
+  background: #eedfcb;
+  border-radius: 18px;
+  min-height: 170px;
 
-    mat-card-subtitle {
-        font-size: 1rem;
-        color: #555;
-        white-space: normal; // empêche le texte qui dépasse
-        word-wrap: break-word;
-        margin: 0; // Supprime les marges par défaut
-    }
+  /* neutralise totalement Angular Material */
+  box-shadow: none !important;
+  position: relative;
+  overflow: hidden;
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  button {
+    width: 100%;
+    height: 100%;
+    padding: 26px;
+    text-align: left;
+
+    /* IMPORTANT : supprime ripple / focus bleu */
+    position: relative;
+  }
+
+  mat-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  mat-card-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #2b2926;
+  }
+
+  mat-card-subtitle {
+    font-size: 14px;
+    color: rgba(43, 41, 38, 0.7);
+    line-height: 1.5;
+  }
+
+  /* hover maîtrisé (pas de cercle bleu Angular Material) */
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  /* supprime focus/hover Material (cercle bleu) */
+  .mat-ripple-element {
+    display: none !important;
+  }
+
+  button:focus,
+  button:active,
+  button:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* Angular Material focus overlay suppression */
+  .mat-mdc-button-persistent-ripple {
+    display: none !important;
+  }
+
+  .mat-mdc-button-ripple {
+    display: none !important;
+  }
 }
