@@ -10,9 +10,13 @@
         <div class="header-line"></div>
     </header>
 
-    <section class="wishlist-empty" *ngIf="tableauxSouhaites.length === 0">
-        <h2>Aucune œuvre favorite</h2>
+    <section class="wishlist-empty" *ngIf="isLoading">
+        <div class="loader"></div>
+        <p>Chargement de vos œuvres...</p>
+    </section>  
 
+    <section class="wishlist-empty" *ngIf="!isLoading && tableauxSouhaites.length === 0">
+        <h2>Aucune œuvre favorite</h2>
         <p>Ajoutez une œuvre à vos souhaits pour composer votre future collection.</p>
     </section>
 

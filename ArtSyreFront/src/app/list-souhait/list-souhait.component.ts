@@ -3,39 +3,56 @@ import { Tableau } from '../models/tableau.model';
 import { Utilisateur } from '../models/utilisateur.model';
 import { AuthService } from '../services/auth.service';
 import { TableauxService } from '../services/tableaux.service';
+import { forkJoin } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-souhait',
-  standalone: false,
   templateUrl: './list-souhait.component.html',
+  imports : [CommonModule],
   styleUrl: './list-souhait.component.scss'
 })
 export class ListSouhaitComponent implements OnInit {
   utilisateurCourant: Utilisateur | null = null;
   tableauxSouhaites: Tableau[] = [];
+  isLoading = true;
 
-  constructor(private authService: AuthService, private tableauxService: TableauxService) {}
+  constructor(
+    private authService: AuthService,
+    private tableauxService: TableauxService
+  ) {}
 
   ngOnInit(): void {
-    this.loadCurrentUser();
+    this.utilisateurCourant = this.authService.getCurrentUserAngular();
 
     if (this.utilisateurCourant) {
       this.chargerTableauxSouhaites();
+    } else {
+      this.isLoading = false;
     }
-  }
-
-  private loadCurrentUser(): void {
-    this.utilisateurCourant = new Utilisateur(0, '', '', '', '', '', false, [], []);
-    this.utilisateurCourant = this.authService.getCurrentUserAngular();
   }
 
   private chargerTableauxSouhaites(): void {
-    for (const tableauId of this.utilisateurCourant!.tableauxLikes) {
-      this.tableauxService.getTableau(tableauId.toString()).subscribe({
-        next: (tableau: Tableau) => {
-          this.tableauxSouhaites.push(tableau);
-        }
-      });
+    const ids = this.utilisateurCourant!.tableauxLikes;
+
+    if (!ids.length) {
+      this.isLoading = false;
+      return;
     }
+
+    const requests = ids.map(id =>
+      this.tableauxService.getTableau(id.toString())
+    );
+
+    forkJoin(requests).subscribe({
+      next: (tableaux) => {
+        this.tableauxSouhaites = tableaux;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.tableauxSouhaites = [];
+        this.isLoading = false;
+      }
+    });
   }
 }
