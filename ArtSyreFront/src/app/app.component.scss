@@ -138,3 +138,52 @@
     border-radius: 8px;
     border: 2px dashed #dee2e6;
 }
+
+// Variables
+// Couleurs principales
+$primary-color: #b78b52; // doré principal
+$primary-dark: #8f673b; // doré foncé
+$primary-light: #d1a875; // doré clair
+
+// Couleurs secondaires
+$secondary-color: #f5efe6; // beige fond galerie
+$surface-color: #ffffff; // surface carte
+$gold: #b78b52;
+
+// Etats
+$success-color: #6b8f71; // vert doux
+$vert-clair: #c4ded4;
+$green-color: #8bb7a8; // vert
+$warning-color: #c58b45; // ambre
+$orange-red-color: #d98b6b; // rouge orangé
+$yellow-color: #d6a64d; // jaune doux
+$clear-yellow-color: #f0cf87; // jaune clair
+$danger-color: #b85c5c; // rouge terre
+$gres-color: #e89a7a;
+$ligne-gres-color: #e8b08c;
+
+// Textes
+$text-primary: #2b2926; // brun noir
+$text-secondary: #6f675d; // gris chaud
+$text-muted: #a69b8c; // beige/gris
+
+// Background
+$background: #f5efe6;
+$card-background: #ffffff;
+
+// Bordures
+$border-color: rgba(43, 41, 38, .12);
+
+// Shadows
+$shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+// Border radius
+$radius: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+
+// Transitions
+$transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
