@@ -17,7 +17,7 @@ export interface ExampleTab{
   selector: 'app-logs',
   standalone: false,
   templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.scss', '../../app.component.scss'],
+  styleUrls: ['./logs.component.scss', '../../app.component.scss', '../administration.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class LogsComponent implements OnInit{

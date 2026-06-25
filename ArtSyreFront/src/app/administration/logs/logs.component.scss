@@ -1,6 +1,4 @@
-.logs-container {
-  padding: 24px;
-  max-width: 1400px;
+.admin-container {
   margin: 0 auto;
   background: #f5f5f5;
   min-height: 100vh;
@@ -240,10 +238,6 @@ mat-paginator {
 
 // === Responsive ===
 @media (max-width: 768px) {
-  .logs-container {
-    padding: 16px;
-  }
-
   .stats-grid {
     grid-template-columns: 1fr;
   }

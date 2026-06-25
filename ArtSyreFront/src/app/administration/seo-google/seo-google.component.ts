@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-seo-google',
   standalone: false,
   templateUrl: './seo-google.component.html',
-  styleUrls: ['./seo-google.component.scss', '../../app.component.scss']
+  styleUrls: ['./seo-google.component.scss', '../../app.component.scss', '../administration.component.scss']
 })
 export class SEOGoogleComponent implements OnInit{ 
   constructor(private authService: AuthService) {}

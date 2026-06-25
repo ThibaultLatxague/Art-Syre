@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-securite',
   standalone: false,
   templateUrl: './securite.component.html',
-  styleUrls: ['./securite.component.scss', '../../app.component.scss']
+  styleUrls: ['./securite.component.scss', '../../app.component.scss', '../administration.component.scss']
 })
 export class SecuriteComponent implements OnInit{ 
   constructor(private authService: AuthService) {}

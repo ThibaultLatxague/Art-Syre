@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-statistiques',
   standalone: false,
   templateUrl: './statistiques.component.html',
-  styleUrls: ['./statistiques.component.scss', '../../app.component.scss']
+  styleUrls: ['./statistiques.component.scss', '../../app.component.scss', '../administration.component.scss']
 })
 export class StatistiquesComponent implements OnInit{ 
   constructor(private authService: AuthService) {}

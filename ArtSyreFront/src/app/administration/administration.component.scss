@@ -143,10 +143,16 @@ $transition: all 0.2s ease;
     }
 }
 
-// Container
+Container
 .admin-container {
     padding: 2rem;
     background: $background;
+    min-height: 100vh;
+}
+
+.main-admin-container {
+    margin: 0 auto;
+    background: #f5f5f5;
     min-height: 100vh;
 }
 
