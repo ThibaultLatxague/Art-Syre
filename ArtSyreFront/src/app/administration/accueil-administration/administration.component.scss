@@ -1,101 +1,167 @@
-$gold: #f5efe6;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap');
 
+// ── Tokens ────────────────────────────────────────────────────────────────────
+$bg:      #f5efe6;
+$surface: #ffffff;
+$gold:    #b78b52;
+$gold-dim: rgba(183, 139, 82, 0.15);
+$text:    #2b2926;
+$muted:   rgba(43, 41, 38, 0.55);
+
+// ── Host ──────────────────────────────────────────────────────────────────────
+:host {
+  display: block;
+  background: $bg;
+  min-height: 100vh;
+}
+
+// ── Page shell ────────────────────────────────────────────────────────────────
 .admin-page {
   min-height: 100vh;
-  padding: 30px 5%;
-  background: $gold;
+  padding: 72px 7% 80px;
+  background: $bg;
 }
 
+// ── Header ────────────────────────────────────────────────────────────────────
 .admin-header {
-  margin-bottom: 50px;
+  margin-bottom: 64px;
+
+  .admin-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $gold;
+    margin-bottom: 12px;
+  }
 
   h1 {
-    font-size: 44px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 56px);
     font-weight: 500;
-    color: #000000;
+    color: $text;
+    line-height: 1.1;
+    margin: 0 0 12px;
   }
 
-  p {
-    margin-top: 10px;
-    color: #000000;
+  .admin-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: $muted;
+    margin: 0;
   }
 }
 
-button:focus,
-button:active,
-mat-button:focus,
-mat-button:active,
-button:hover {
-  outline: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-}
-
-/* Angular Material focus overlay suppression */
-.mat-mdc-button-persistent-ripple {
-  display: none !important;
-}
-
-.mat-mdc-button-ripple {
-  display: none !important;
-}
-
+// ── Grid ──────────────────────────────────────────────────────────────────────
 .admin-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
 }
 
+// ── Card ──────────────────────────────────────────────────────────────────────
 .admin-card {
-  background: #eedfcb;
-  border-radius: 18px;
-  min-height: 170px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 24px;
+  background: $surface;
+  border-radius: 16px;
+  border: 1px solid rgba(43, 41, 38, 0.07);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform  0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* neutralise totalement Angular Material */
-  box-shadow: none !important;
-  position: relative;
-  overflow: hidden;
-
-  border: 1px solid rgba(0, 0, 0, 0.08);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-  button {
-    width: 100%;
-    height: 100%;
-    padding: 26px;
-    text-align: left;
-
-    /* IMPORTANT : supprime ripple / focus bleu */
-    position: relative;
-  }
-
-  mat-card-header {
+  .card-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: $gold-dim;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s ease;
+
+    mat-icon {
+      color: $gold;
+      font-size: 22px;
+      width: 22px;
+      height: 22px;
+    }
   }
 
-  mat-card-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: #2b2926;
+  .card-body {
+    flex: 1;
+    min-width: 0;
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: $text;
+      margin: 0 0 5px;
+    }
+
+    p {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: $muted;
+      margin: 0;
+      line-height: 1.5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
-  mat-card-subtitle {
-    font-size: 14px;
-    color: rgba(43, 41, 38, 0.7);
-    line-height: 1.5;
+  .card-arrow {
+    flex-shrink: 0;
+    color: $muted;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity   0.25s ease,
+      transform 0.25s ease;
   }
 
-  /* hover maîtrisé (pas de cercle bleu Angular Material) */
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  }
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10);
 
-  /* supprime focus/hover Material (cercle bleu) */
-  .mat-ripple-element {
-    display: none !important;
+    .card-icon {
+      background: rgba(183, 139, 82, 0.25);
+    }
+
+    .card-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+// ── Unauthorized state ────────────────────────────────────────────────────────
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: $bg;
+
+  p {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: $muted;
+    letter-spacing: 0.08em;
   }
 }
