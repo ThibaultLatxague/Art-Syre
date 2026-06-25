@@ -80,13 +80,13 @@ $background: #f5efe6;
             .mat-mdc-form-field {
                 &.mat-focused {
                     .mat-mdc-outline {
-                        border-color: #667eea;
+                        border-color: $primary-light;
                     }
                 }
             }
 
             mat-icon {
-                color: #667eea;
+                color: $primary-light;
             }
         }
 

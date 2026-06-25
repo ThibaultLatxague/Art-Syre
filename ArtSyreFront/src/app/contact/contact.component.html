@@ -18,7 +18,7 @@
                     <input matInput
                         type="email"
                         formControlName="email">
-                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-icon matSuffix class="icon">email</mat-icon>
                     <mat-error
                         *ngIf="contactForm.get('email')?.hasError('required')">
                         L'adresse email est obligatoire
@@ -46,7 +46,6 @@
                         <mat-option value="partnership">Partenariat</mat-option>
                         <mat-option value="other">Autre</mat-option>
                     </mat-select>
-                    <mat-icon matSuffix>arrow_drop_down</mat-icon>
                     <mat-error
                         *ngIf="contactForm.get('subject')?.hasError('required')">
                         Veuillez sélectionner un sujet
@@ -60,7 +59,7 @@
                         formControlName="description"
                         rows="6"
                         maxlength="1000"></textarea>
-                    <mat-icon matSuffix>description</mat-icon>
+                    <mat-icon matSuffix class="icon">description</mat-icon>
                     <mat-hint align="end">
                         {{contactForm.get('description')?.value?.length ||
                         0}}/1000
