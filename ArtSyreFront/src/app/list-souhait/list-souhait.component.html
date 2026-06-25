@@ -37,3 +37,18 @@
         </article>
     </section>
 </div>
+
+<div class="wishlist-page" *ngIf="!utilisateurCourant">
+    <div class="paint-decoration paint-left"></div>
+    <div class="paint-decoration paint-right"></div>
+
+    <section class="wishlist-empty">
+        <h2>Vous devez être connecté pour accéder à votre liste de souhaits</h2>
+        <p>Veuillez vous connecter ou créer un compte pour gérer votre collection.</p>
+        <div class="login-link">
+            <p>Vous avez déjà un compte ?
+                <a mat-button color="primary" routerLink="../compte/login">Se connecter</a>
+            </p>
+        </div>
+    </section>
+</div>

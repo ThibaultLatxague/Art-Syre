@@ -5,11 +5,12 @@ import { AuthService } from '../services/auth.service';
 import { TableauxService } from '../services/tableaux.service';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-panier',
   templateUrl: './panier.component.html',
-  imports : [CommonModule],
+  imports : [CommonModule, MatButtonModule],
   styleUrl: './panier.component.scss'
 })
 export class PanierComponent implements OnInit {

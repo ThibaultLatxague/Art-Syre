@@ -172,3 +172,26 @@ h1 {
         transform: rotate(360deg);
     }
 }
+
+// Lien de connexion
+.login-link {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+
+    p {
+        margin: 0;
+        color: #666;
+        font-size: 14px;
+    }
+
+    a {
+        font-weight: 500;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

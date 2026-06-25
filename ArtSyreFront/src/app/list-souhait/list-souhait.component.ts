@@ -5,11 +5,12 @@ import { AuthService } from '../services/auth.service';
 import { TableauxService } from '../services/tableaux.service';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-list-souhait',
   templateUrl: './list-souhait.component.html',
-  imports : [CommonModule],
+  imports : [CommonModule, MatButtonModule],
   styleUrl: './list-souhait.component.scss'
 })
 export class ListSouhaitComponent implements OnInit {
