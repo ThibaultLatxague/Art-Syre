@@ -1,6 +1,9 @@
 /* register.component.scss */
 
-$primary-color: #fafafa;
+$primary-color: #b78b52;
+    $primary-dark: #8f673b;
+$primary-light: #d1a875;
+
 
 .register-container {
     display: flex;
@@ -20,7 +23,7 @@ $primary-color: #fafafa;
         background: rgba(255, 255, 255, 0.95);
 
         mat-card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, $primary-dark 0%, $primary-light 100%);
             color: white;
             padding: 24px;
             text-align: start;
@@ -135,7 +138,7 @@ $primary-color: #fafafa;
         font-weight: 500;
         border-radius: 8px;
         color: white;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, $primary-dark 0%, $primary-light 100%);
 
         &:hover:not(:disabled) {
             transform: translateY(-2px);
