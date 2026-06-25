@@ -1,316 +1,167 @@
+
 // Variables (palette galerie, alignée avec app.component.scss)
-$primary:       #b78b52;
-$primary-dark:  #8f673b;
+$primary: #b78b52;
+$primary-dark: #8f673b;
 $primary-light: #d1a875;
-$success:       #6b8f71;
-$danger:        #b85c5c;
-$text-primary:  #2b2926;
-$text-secondary:#6f675d;
-$text-muted:    #a69b8c;
-$background:    #f5efe6;
-$surface:       #ffffff;
-$border:        rgba(43, 41, 38, 0.12);
-$shadow:        0 4px 12px rgba(0, 0, 0, 0.08);
-$radius:        8px;
-$transition:    all 0.2s ease;
-
-// === En-tête (header-card) ===
-.header-card {
-  margin-bottom: 1.5rem;
-
-  .header-icon {
-    background-color: $primary !important;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  mat-card-title {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: $text-primary !important;
-  }
-
-  mat-card-subtitle {
-    font-size: 0.9rem;
-    color: $text-secondary !important;
-  }
-
-  .description {
-    margin: 1rem 0;
-    color: $text-secondary !important;
-    line-height: 1.6;
-  }
-}
-
-// === Statistiques ===
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-
-  .stat-card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.25rem;
-    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%) !important;
-    color: white;
-    transition: transform 0.2s, box-shadow 0.2s;
-
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-    }
-
-    &:nth-child(2) { background: linear-gradient(135deg, $primary-light 0%, $primary 100%) !important; }
-    &:nth-child(3) { background: linear-gradient(135deg, $primary-dark 0%, darken($primary-dark, 8%) 100%) !important; }
-
-    mat-icon { font-size: 32px; width: 32px; height: 32px; }
-
-    .stat-content {
-      display: flex;
-      flex-direction: column;
-
-      .stat-label {
-        font-size: 0.7rem;
-        opacity: 0.85;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-
-      .stat-value {
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-top: 2px;
-      }
-    }
-  }
-}
-
-// === Fonctionnalités ===
-.features-panel {
-  margin-top: 1rem;
-
-  mat-panel-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-    mat-icon { color: $primary; }
-  }
-
-  .features-list {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0 0;
-
-    li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid $border;
-
-      &:last-child { border-bottom: none; }
-
-      mat-icon { color: $success; font-size: 20px; }
-      span      { color: $text-secondary; line-height: 1.5; }
-    }
-  }
-}
-
-// Container
-.admin-tableaux-container {
-  padding: 2rem;
-  background: $background;
-  min-height: 100vh;
-}
-
-// Header
-.admin-header {
-  margin-bottom: 1.5rem;
-
-  h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    color: $primary-dark;
-    margin-bottom: 0.25rem;
-  }
-
-  .subtitle {
-    color: $text-secondary;
-    font-size: 1rem;
-  }
-}
-
-// Panel principal
-.tableaux-panel {
-  background: $surface;
-  border-radius: $radius;
-  box-shadow: $shadow;
-  border: 1px solid $border;
-  overflow: hidden;
-}
-
-// Filtre
-.filter-section {
-  padding: 1.5rem;
-  border-bottom: 1px solid $border;
-
-  mat-form-field {
-    width: 100%;
-    max-width: 400px;
-
-    // Couleur accent Material
-    &.mat-focused .mat-form-field-ripple,
-    .mat-form-field-ripple { background-color: $primary !important; }
-
-    &.mat-focused .mat-label,
-    .mat-label { color: $primary !important; }
-
-    .mat-form-field-outline-thick { color: $primary !important; }
-  }
-}
+$success: #6b8f71;
+$danger: #b85c5c;
+$text-primary: #2b2926;
+$text-secondary: #6f675d;
+$text-muted: #a69b8c;
+$background: #f5efe6;
+$surface: #ffffff;
+$border: rgba(43, 41, 38, 0.12);
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+$radius: 8px;
+$transition: all 0.2s ease;
 
 // Table
 .mat-elevation-z8 {
-  box-shadow: none !important;
+    box-shadow: none !important;
 
-  .mat-table {
-    background: transparent;
+    .mat-table {
+        background: transparent;
 
-    .mat-header-row {
-      background: $background;
-      border-bottom: 2px solid $border;
+        .mat-header-row {
+            background: $background;
+            border-bottom: 2px solid $border;
 
-      .mat-header-cell {
-        color: $text-secondary;
-        font-weight: 600;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        padding: 1rem;
-        border-bottom: none;
+            .mat-header-cell {
+                color: $text-secondary;
+                font-weight: 600;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                padding: 1rem;
+                border-bottom: none;
 
-        &.mat-sort-header-sorted { color: $primary; }
-        .mat-sort-header-arrow   { color: $primary; }
-      }
+                &.mat-sort-header-sorted {
+                    color: $primary;
+                }
+
+                .mat-sort-header-arrow {
+                    color: $primary;
+                }
+            }
+        }
+
+        .mat-row {
+            transition: $transition;
+            border-bottom: 1px solid $border;
+
+            &:hover {
+                background: rgba($primary, 0.04) !important;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .mat-cell {
+                color: $text-primary !important;
+                padding: 1rem;
+                font-size: 0.9rem;
+                border-bottom: none;
+            }
+        }
+
+        // Badges ID
+        .id-badge {
+            font-weight: 700;
+            color: $primary-dark !important;
+            background: rgba($primary, 0.12) !important;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        // Cellules texte secondaire
+        .email-cell,
+        .date-cell {
+            color: $text-secondary !important;
+            font-size: 0.85rem;
+        }
+
+        // Badges statut
+        .status-badge {
+            padding: 0.2rem 0.6rem !important;
+            border-radius: 20px !important;
+            font-size: 0.75rem !important;
+            font-weight: 600 !important;
+            display: inline-block !important;
+
+            &.Panier,
+            &.En\ vente {
+                background: rgba($primary, 0.12) !important;
+                color: $primary-dark !important;
+                border: 1px solid rgba($primary, 0.3) !important;
+            }
+
+            &.Vendu {
+                background: rgba($success, 0.12) !important;
+                color: $success !important;
+                border: 1px solid rgba($success, 0.3) !important;
+            }
+
+            &.En\ stock {
+                background: rgba($text-muted, 0.12) !important;
+                color: $text-secondary !important;
+                border: 1px solid $border !important;
+            }
+        }
+
+        // Actions
+        .actions-cell {
+            white-space: nowrap;
+
+            .edit-btn,
+            .delete-btn {
+                padding: 0.3rem 0.65rem;
+                font-size: 0.8rem;
+                min-width: auto;
+                height: auto;
+                line-height: 1.4;
+                border-radius: $radius;
+                color: white !important;
+                margin-right: 0.4rem;
+                transition: $transition;
+
+                // Override Material flat button reset
+                .mat-button-wrapper {
+                    color: white;
+                }
+
+                ::ng-deep .mat-button-ripple {
+                    color: white;
+                }
+
+                i {
+                    font-size: 0.85rem;
+                    vertical-align: middle;
+                    margin-right: 0.2rem;
+                }
+
+                &:hover {
+                    opacity: 0.85;
+                    transform: translateY(-1px);
+                }
+            }
+
+            .edit-btn {
+                background-color: $primary !important;
+            }
+
+            .delete-btn {
+                background-color: $danger !important;
+            }
+        }
     }
 
-    .mat-row {
-      transition: $transition;
-      border-bottom: 1px solid $border;
-
-      &:hover { background: rgba($primary, 0.04); }
-      &:last-child { border-bottom: none; }
-
-      .mat-cell {
-        color: $text-primary;
-        padding: 1rem;
-        font-size: 0.9rem;
-        border-bottom: none;
-      }
+    // Ligne vide
+    .mat-row.mat-no-data-row .mat-cell {
+        text-align: center;
+        color: $text-muted;
+        font-style: italic;
+        padding: 3rem 1rem;
     }
-
-    // Badges ID
-    .id-badge {
-      font-weight: 700;
-      color: $primary-dark;
-      background: rgba($primary, 0.12);
-      padding: 0.15rem 0.45rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-    }
-
-    // Cellules texte secondaire
-    .email-cell,
-    .date-cell {
-      color: $text-secondary;
-      font-size: 0.85rem;
-    }
-
-    // Badges statut
-    .status-badge {
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      display: inline-block;
-
-      &.Panier, &.En\ vente {
-        background: rgba($primary, 0.12);
-        color: $primary-dark;
-        border: 1px solid rgba($primary, 0.3);
-      }
-
-      &.Vendu {
-        background: rgba($success, 0.12);
-        color: $success;
-        border: 1px solid rgba($success, 0.3);
-      }
-
-      &.En\ stock {
-        background: rgba($text-muted, 0.12);
-        color: $text-secondary;
-        border: 1px solid $border;
-      }
-    }
-
-    // Actions
-    .actions-cell {
-      white-space: nowrap;
-
-      .edit-btn,
-      .delete-btn {
-        padding: 0.3rem 0.65rem;
-        font-size: 0.8rem;
-        min-width: auto;
-        height: auto;
-        line-height: 1.4;
-        border-radius: $radius;
-        color: white !important;
-        margin-right: 0.4rem;
-        transition: $transition;
-
-        // Override Material flat button reset
-        .mat-button-wrapper { color: white; }
-        ::ng-deep .mat-button-ripple { color: white; }
-
-        i { font-size: 0.85rem; vertical-align: middle; margin-right: 0.2rem; }
-
-        &:hover { opacity: 0.85; transform: translateY(-1px); }
-      }
-
-      .edit-btn   { background-color: $primary !important; }
-      .delete-btn { background-color: $danger !important; }
-    }
-  }
-
-  // Ligne vide
-  .mat-row.mat-no-data-row .mat-cell {
-    text-align: center;
-    color: $text-muted;
-    font-style: italic;
-    padding: 3rem 1rem;
-  }
-}
-
-// Pagination
-.mat-paginator {
-  background: $background;
-  border-top: 1px solid $border;
-  color: $text-secondary;
-}
-
-// Responsive
-@media (max-width: 768px) {
-  .admin-tableaux-container { padding: 1rem; }
-  .admin-header h1          { font-size: 1.5rem; }
-  .filter-section           { padding: 1rem; }
-
-  .mat-header-cell,
-  .mat-cell { padding: 0.75rem 0.5rem !important; font-size: 0.8rem !important; }
 }
