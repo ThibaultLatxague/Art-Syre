@@ -8,6 +8,7 @@ $primary-color: #fafafa;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    background: #f5efe6;
 
     .register-card {
         max-width: 500px;
@@ -280,4 +281,31 @@ $primary-color: #fafafa;
     .full-width {
         margin-bottom: 12px;
     }
+}
+
+.paint-decoration {
+    position: absolute;
+    opacity: 0.5;
+    filter: blur(0.2px);
+    z-index: 0;
+}
+
+.paint-left {
+    left: -120px;
+    top: 15%;
+    width: 320px;
+    height: 100px;
+    background: #e99c86;
+    border-radius: 70% 20% 50% 30%;
+    transform: rotate(-20deg);
+}
+
+.paint-right {
+    right: -100px;
+    bottom: 20%;
+    width: 350px;
+    height: 120px;
+    background: #8fb5ae;
+    border-radius: 30% 70% 40% 50%;
+    transform: rotate(15deg);
 }
