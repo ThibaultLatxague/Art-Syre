@@ -151,8 +151,9 @@ Container
 }
 
 .main-admin-container {
+    padding: 2rem;
     margin: 0 auto;
-    background: #f5f5f5;
+    background: $background;
     min-height: 100vh;
 }
 
