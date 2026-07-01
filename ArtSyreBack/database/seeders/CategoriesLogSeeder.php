@@ -18,7 +18,8 @@ class CategoriesLogSeeder extends Seeder
             ['id' => 2, 'nom' => 'Utilisateurs'],
             ['id' => 3, 'nom' => 'Sécurité'],
             ['id' => 4, 'nom' => 'Statistiques'],
-            ['id' => 5, 'nom' => 'SEO'], 
+            ['id' => 5, 'nom' => 'SEO'],
+            ['id' => 6, 'nom' => 'Mails'],
         ]);
     }
 }

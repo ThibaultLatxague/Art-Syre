@@ -31,7 +31,8 @@ export class LogsComponent implements OnInit{
     { label: 'Utilisateurs', dataSource: new MatTableDataSource<Log>(), loaded: false },
     { label: 'Sécurité', dataSource: new MatTableDataSource<Log>(), loaded: false },
     { label: 'Statistiques', dataSource: new MatTableDataSource<Log>(), loaded: false },
-    { label: 'SEO', dataSource: new MatTableDataSource<Log>(), loaded: false }
+    { label: 'SEO', dataSource: new MatTableDataSource<Log>(), loaded: false },
+    { label: 'Mails', dataSource: new MatTableDataSource<Log>(), loaded: false }
   ];
 
   selectedIndex = 0;

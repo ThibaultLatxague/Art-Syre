@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MailService } from '../services/mail.service';
+import { LogsService } from '../services/log.service';
 
 @Component({
   selector: 'app-contact',
@@ -15,7 +16,7 @@ export class ContactComponent  implements OnInit {
   submitMessage: string = '';
   submitMessageType: 'success' | 'error' = 'success';
 
-  constructor(private formBuilder: FormBuilder, private mailService: MailService) {
+  constructor(private formBuilder: FormBuilder, private mailService: MailService, private logsService: LogsService) {
     this.contactForm = this.createForm();
   }
 
@@ -61,7 +62,7 @@ export class ContactComponent  implements OnInit {
             console.log('Données du formulaire:', formData);
             console.log('Réponse du serveur:', response);
             // Simulation d'un succès
-            this.handleSubmitSuccess();
+            this.handleSubmitSuccess(formData);
           }).catch(error => {
             console.error('Erreur lors de l\'envoi de l\'email:', error);
             this.handleSubmitError();
@@ -75,7 +76,18 @@ export class ContactComponent  implements OnInit {
     }
   }
 
-  private handleSubmitSuccess(): void {
+  private handleSubmitSuccess(formData: any): void {
+    this.logsService.createLog({
+      categories_log_id: 6, // Category ID for 'Mails'
+      description: `Email envoyé par ${formData.email} avec le sujet "${formData.subject}" à ${formData.timestamp}`
+    }).subscribe({
+      next: () => {
+        console.log('Log créé avec succès');
+      },
+      error: (error) => {
+        console.error('Erreur lors de la création du log:', error);
+      }
+    });
     this.isSubmitting = false;
     this.submitMessage = 'Email envoyé avec succès !';
     this.submitMessageType = 'success';
