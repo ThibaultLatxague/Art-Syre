@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 
-class MailController extends Controller
+class ControllerMail extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -66,14 +66,14 @@ class MailController extends Controller
     public function send(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string',
             'email' => 'required|email',
             'subject' => 'required|string',
-            'message' => 'required|string',
+            'description' => 'required|string',
+            'timestamp' => 'required|date',
         ]);
 
         try{
-            \Mail::to('contact@monsite.test')->send(new \App\Mail\ContactMail($data));
+            \Mail::to('test@artsyre.local')->send(new \App\Mail\ContactMail($data));
             return response()->json([
                 'success' => true,
                 'message' => 'Le mail a été envoyé avec succès.'

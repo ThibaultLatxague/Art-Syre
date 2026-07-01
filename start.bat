@@ -32,7 +32,7 @@ echo  ==========================================
 echo.
 
 REM ── 1. Arrêt des processus existants ─────────────────────────────────────────
-echo [1/6] Arret des processus existants...
+echo [1/7] Arret des processus existants...
 
 REM Tuer les processus sur les ports 8000 et 4200
 for %%P in (%BACKEND_PORT% %FRONTEND_PORT%) do (
@@ -51,7 +51,7 @@ echo       OK - Processus arretes
 echo.
 
 REM ── 2. Démarrage de WAMP Server ───────────────────────────────────────────────
-echo [2/6] Demarrage de WAMP Server (Apache + MySQL)...
+echo [2/7] Demarrage de WAMP Server (Apache + MySQL)...
 
 REM Vérifier si MySQL tourne déjà sur le port 3306
 netstat -ano | findstr ":%MYSQL_PORT% " | findstr "LISTENING" >nul 2>&1
@@ -179,7 +179,7 @@ echo       Interface mail ^> http://localhost:%MAILPIT_WEB_PORT%
 echo.
 
 REM ── 4. Backend Laravel ────────────────────────────────────────────────────────
-echo [3/6] Demarrage du backend Laravel (port %BACKEND_PORT%)...
+echo [3/7] Demarrage du backend Laravel (port %BACKEND_PORT%)...
 cd /d "%BACK_DIR%"
 
 if not exist "vendor\" (
@@ -201,7 +201,7 @@ echo       OK - Backend demarre ^> http://localhost:%BACKEND_PORT%
 echo.
 
 REM ── 5. Frontend Angular ───────────────────────────────────────────────────────
-echo [4/6] Demarrage du frontend Angular (port %FRONTEND_PORT%)...
+echo [4/7] Demarrage du frontend Angular (port %FRONTEND_PORT%)...
 cd /d "%FRONT_DIR%"
 
 if not exist "node_modules\" (
@@ -214,7 +214,7 @@ echo       OK - Frontend demarre ^> http://localhost:%FRONTEND_PORT%
 echo.
 
 REM ── 6. Attente que les services soient prêts ──────────────────────────────────
-echo [5/6] Attente de la disponibilite des services...
+echo [5/7] Attente de la disponibilite des services...
 
 set /a TIMEOUT_BACK=0
 :wait_back
@@ -243,10 +243,12 @@ set /a TIMEOUT_FRONT=0
 echo.
 
 REM ── 7. Ouverture du navigateur ────────────────────────────────────────────────
-echo [6/6] Ouverture des pages dans le navigateur...
-start "" "http://localhost:%BACKEND_PORT%"
-timeout /t 1 /nobreak >nul
-start "" "http://localhost:%FRONTEND_PORT%"
+@REM echo [6/7] Ouverture des pages dans le navigateur...
+@REM start "" "http://localhost:%BACKEND_PORT%"
+@REM timeout /t 1 /nobreak >nul
+@REM start "" "http://localhost:%FRONTEND_PORT%"
+@REM start "" "http://localhost:%MAILPIT_WEB_PORT%"
+@REM echo.
 
 REM ── 7. Récapitulatif ──────────────────────────────────────────────────────────
 echo.

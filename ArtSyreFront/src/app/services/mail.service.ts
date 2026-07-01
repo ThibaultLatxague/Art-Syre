@@ -12,6 +12,6 @@ export class MailService {
   private apiUrl = `${environment.apiUrl}/mail`;
 
   sendMail(formData: any): Promise<any> {
-    return this.http.post(`${this.apiUrl}/send`, formData).toPromise();
+    return this.http.post(`${this.apiUrl}`, formData).toPromise();
   }
 }

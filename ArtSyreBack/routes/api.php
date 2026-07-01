@@ -12,12 +12,14 @@ use App\Http\Controllers\ControllerImage;
 use App\Http\Controllers\ControllerTableau;
 use App\Http\Controllers\ControllerCategorieLog;
 use App\Http\Controllers\ControllerLog;
+use App\Http\Controllers\ControllerMail;
 
 // La liste complète des ressources
 Route::apiResource('utilisateur', ControllerUtilisateur::class);
 Route::apiResource('categories', ControllerCategorie::class);
 Route::apiResource('images', ControllerImage::class);
 Route::apiResource('tableaux', ControllerTableau::class);
+Route::apiResource('mail', ControllerMail::class);
 
 // La suppression des ressources
 Route::delete('/tableaux/{id}', [ControllerTableau::class, 'destroy']);
@@ -46,6 +48,7 @@ Route::post('/utilisateur', [ControllerUtilisateur::class, 'store']);
 Route::post('/categories', [ControllerCategorie::class, 'store']);
 Route::post('/images', [ControllerImage::class, 'store']);
 Route::post('/tableaux', [ControllerTableau::class, 'store']);
+Route::post('/mail', [ControllerMail::class, 'send']);
 
 // Commandes et souhaits
 Route::get('/commandes', [ControllerUtilisateur::class, 'orders']);
