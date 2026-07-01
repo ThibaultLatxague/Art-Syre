@@ -20,43 +20,16 @@ Route::apiResource('categories', ControllerCategorie::class);
 Route::apiResource('images', ControllerImage::class);
 Route::apiResource('tableaux', ControllerTableau::class);
 Route::apiResource('mail', ControllerMail::class);
+Route::apiResource('categories_logs', ControllerCategorieLog::class);
+Route::apiResource('logs', ControllerLog::class);
 
-// La suppression des ressources
-Route::delete('/tableaux/{id}', [ControllerTableau::class, 'destroy']);
-Route::delete('/images/{id}', [ControllerImage::class, 'destroy']);
-Route::delete('/utilisateur/{id}', [ControllerUtilisateur::class, 'destroy']);
-Route::delete('/categories/{id}', [ControllerCategorie::class, 'destroy']);
-
-// La liste d'image d'un tableau
-Route::get('/tableaux/{id}/images', [ControllerTableau::class, 'getImages']);
-
-// Element unique
-Route::get('/utilisateur/{id}', [ControllerUtilisateur::class, 'show']);
-Route::get('/categories/{id}', [ControllerCategorie::class, 'show']);
-Route::get('/images/{id}', [ControllerImage::class, 'show']);
-Route::get('/tableaux/{id}', [ControllerTableau::class, 'show']);
-
-// Mise a jour
-Route::put('/utilisateur/{id}', [ControllerUtilisateur::class, 'update']);
-Route::put('/categories/{id}', [ControllerCategorie::class, 'update']);
-Route::put('/images/{id}', [ControllerImage::class, 'update']);
-Route::put('/tableaux/{id}', [ControllerTableau::class, 'update']);
-Route::post('/utilisateur/login', [ControllerUtilisateur::class, 'login']);
-
-// Création
-Route::post('/utilisateur', [ControllerUtilisateur::class, 'store']);
-Route::post('/categories', [ControllerCategorie::class, 'store']);
-Route::post('/images', [ControllerImage::class, 'store']);
-Route::post('/tableaux', [ControllerTableau::class, 'store']);
+// Route pour envoyer un email
 Route::post('/mail', [ControllerMail::class, 'send']);
 
 // Commandes et souhaits
 Route::get('/commandes', [ControllerUtilisateur::class, 'orders']);
 Route::get('/commandes/{id}', [ControllerUtilisateur::class, 'ordersId']);
 Route::post('/tableaux/like/{id}', [ControllerTableau::class, 'toggleLike']);
-
-
-
 
 // Routes login etc
 Route::post('/login', [ControllerUtilisateur::class, 'login']);
@@ -73,9 +46,33 @@ Route::get('/utilisateur/{id}/panier', [ControllerUtilisateur::class, 'getTablea
 Route::post('/utilisateur/{id}/panier', [ControllerUtilisateur::class, 'addToPanier']);
 Route::delete('/utilisateur/{id}/panier', [ControllerUtilisateur::class, 'removeFromPanier']);
 
-// Récupérer la liste des utilisateurs
-Route::get('/utilisateur', [ControllerUtilisateur::class, 'index']);
+// // Récupérer la liste des utilisateurs
+// Route::get('/utilisateur', [ControllerUtilisateur::class, 'index']);
 
-// Logs et catégories de logs
-Route::apiResource('categories_logs', ControllerCategorieLog::class);
-Route::apiResource('logs', ControllerLog::class);
+// // La suppression des ressources
+// Route::delete('/tableaux/{id}', [ControllerTableau::class, 'destroy']);
+// Route::delete('/images/{id}', [ControllerImage::class, 'destroy']);
+// Route::delete('/utilisateur/{id}', [ControllerUtilisateur::class, 'destroy']);
+// Route::delete('/categories/{id}', [ControllerCategorie::class, 'destroy']);
+
+// // La liste d'image d'un tableau
+// Route::get('/tableaux/{id}/images', [ControllerTableau::class, 'getImages']);
+
+// // Element unique
+// Route::get('/utilisateur/{id}', [ControllerUtilisateur::class, 'show']);
+// Route::get('/categories/{id}', [ControllerCategorie::class, 'show']);
+// Route::get('/images/{id}', [ControllerImage::class, 'show']);
+// Route::get('/tableaux/{id}', [ControllerTableau::class, 'show']);
+
+// // Mise a jour
+// Route::put('/utilisateur/{id}', [ControllerUtilisateur::class, 'update']);
+// Route::put('/categories/{id}', [ControllerCategorie::class, 'update']);
+// Route::put('/images/{id}', [ControllerImage::class, 'update']);
+// Route::put('/tableaux/{id}', [ControllerTableau::class, 'update']);
+// Route::post('/utilisateur/login', [ControllerUtilisateur::class, 'login']);
+
+// // Création
+// Route::post('/utilisateur', [ControllerUtilisateur::class, 'store']);
+// Route::post('/categories', [ControllerCategorie::class, 'store']);
+// Route::post('/images', [ControllerImage::class, 'store']);
+// Route::post('/tableaux', [ControllerTableau::class, 'store']);

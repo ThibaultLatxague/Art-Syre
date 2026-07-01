@@ -39,6 +39,10 @@ class ControllerLog extends Controller
 
     public function count()
     {
+        if (!isset($this->numberOfLogs)) {
+            $this->updateNumberOfLogs();
+        }
+
         return response()->json($this->numberOfLogs);
     }
 
@@ -47,6 +51,10 @@ class ControllerLog extends Controller
      */
     public function store(Request $request)
     {
+        if (!isset($this->numberOfLogs)) {
+            $this->updateNumberOfLogs();
+        }
+        
         $request->validate([
             'categories_log_id' => 'required|exists:categories_logs,id',
             'description' => 'required|string',
@@ -77,6 +85,10 @@ class ControllerLog extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if (!isset($this->numberOfLogs)) {
+            $this->updateNumberOfLogs();
+        }
+
         $request->validate([
             'categories_log_id' => 'sometimes|required|exists:categories_logs,id',
             'description' => 'sometimes|required|string',
@@ -91,9 +103,19 @@ class ControllerLog extends Controller
      */
     public function destroy(string $id)
     {
+        if (!isset($this->numberOfLogs)) {
+            $this->updateNumberOfLogs();
+        }
+
         $log = Log::findOrFail($id);
         $log->delete();
         $this->numberOfLogs--;
         return response()->json(null, 204);
+    }
+
+    public function updateNumberOfLogs()
+    {
+        $logs = Log::all();
+        $this->numberOfLogs = count($logs);
     }
 }
