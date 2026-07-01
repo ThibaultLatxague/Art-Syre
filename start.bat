@@ -13,6 +13,9 @@ set MYSQL_PORT=3306
 set SCRIPT_DIR=%~dp0
 set BACK_DIR=%SCRIPT_DIR%ArtSyreBack
 set FRONT_DIR=%SCRIPT_DIR%ArtSyreFront
+set MAILPIT_SMTP_PORT=1025
+set MAILPIT_WEB_PORT=8025
+set MAILPIT_CONTAINER=artsyre-mailpit
 
 REM Chemins d'installation WAMP les plus courants (modifiez si nécessaire)
 set WAMP_EXE=
@@ -108,6 +111,73 @@ if not exist "%FRONT_DIR%" (
     exit /b 1
 )
 
+REM ── 3. Démarrage de Mailpit ────────────────────────────────────────────────
+echo [3/7] Demarrage de Mailpit (serveur mail local)...
+
+docker --version >nul 2>&1
+if errorlevel 1 (
+    echo       [ERREUR] Docker n'est pas installe ou n'est pas demarre.
+    echo       Installez Docker Desktop puis relancez le script.
+    pause
+    exit /b 1
+)
+
+REM Vérifier si l'image existe
+docker image inspect axllent/mailpit >nul 2>&1
+if errorlevel 1 (
+    echo       Telechargement de l'image Mailpit...
+    docker pull axllent/mailpit
+)
+
+REM Vérifier si le conteneur existe déjà
+docker ps -a --format "{{.Names}}" | findstr /x "%MAILPIT_CONTAINER%" >nul
+
+if not errorlevel 1 (
+    REM Le conteneur existe, vérifier s'il tourne
+    docker ps --format "{{.Names}}" | findstr /x "%MAILPIT_CONTAINER%" >nul
+    
+    if errorlevel 1 (
+        echo       Redemarrage du conteneur Mailpit...
+        docker start %MAILPIT_CONTAINER% >nul
+    ) else (
+        echo       OK - Mailpit deja actif
+    )
+
+) else (
+
+    echo       Creation du conteneur Mailpit...
+
+    docker run -d ^
+        --name %MAILPIT_CONTAINER% ^
+        -p %MAILPIT_SMTP_PORT%:1025 ^
+        -p %MAILPIT_WEB_PORT%:8025 ^
+        axllent/mailpit
+
+)
+
+REM Attente du serveur SMTP
+echo       Attente du demarrage SMTP...
+
+set /a MAIL_WAIT=0
+
+:wait_mailpit
+timeout /t 2 /nobreak >nul
+set /a MAIL_WAIT+=2
+
+netstat -ano | findstr ":%MAILPIT_SMTP_PORT% " | findstr "LISTENING" >nul 2>&1
+
+if not errorlevel 1 goto mailpit_ready
+
+if !MAIL_WAIT! LSS 30 goto wait_mailpit
+
+echo       [AVERT] Mailpit non disponible apres 30s
+
+:mailpit_ready
+
+echo       OK - Mailpit pret
+echo       Interface mail ^> http://localhost:%MAILPIT_WEB_PORT%
+echo.
+
 REM ── 4. Backend Laravel ────────────────────────────────────────────────────────
 echo [3/6] Demarrage du backend Laravel (port %BACKEND_PORT%)...
 cd /d "%BACK_DIR%"
@@ -188,6 +258,9 @@ echo   Application  -^>  http://localhost:%FRONTEND_PORT%
 echo   API Backend  -^>  http://localhost:%BACKEND_PORT%
 echo   Base donnees -^>  MySQL sur le port %MYSQL_PORT% ^(via WampServer^)
 echo.
+echo   Mail local   -^>  http://localhost:%MAILPIT_WEB_PORT%
+echo   SMTP         -^>  localhost:%MAILPIT_SMTP_PORT%
+echo.
 echo   Logs backend  : %TEMP%\artsyre-back.log
 echo   Logs frontend : %TEMP%\artsyre-front.log
 echo.
@@ -207,6 +280,11 @@ for %%P in (%BACKEND_PORT% %FRONTEND_PORT%) do (
         taskkill /PID %%a /F >nul 2>&1
     )
 )
+echo Arret de Mailpit...
+
+docker stop %MAILPIT_CONTAINER% >nul 2>&1
+
+echo Mailpit arrete.
 echo Services arretes. A bientot !
 timeout /t 2 /nobreak >nul
 endlocal
