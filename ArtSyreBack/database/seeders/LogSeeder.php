@@ -57,6 +57,5 @@ class LogSeeder extends Seeder
             'categories_log_id' => 6,
             'description' => 'Envoi d\'un email de confirmation',
         ]);
-        Log::factory()->count(200)->create();
     }
 }
