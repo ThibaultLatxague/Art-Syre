@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MailService } from '../services/mail.service';
 
 @Component({
   selector: 'app-contact',
@@ -14,7 +15,7 @@ export class ContactComponent  implements OnInit {
   submitMessage: string = '';
   submitMessageType: 'success' | 'error' = 'success';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private mailService: MailService) {
     this.contactForm = this.createForm();
   }
 
@@ -44,7 +45,7 @@ export class ContactComponent  implements OnInit {
       this.isSubmitting = true;
       this.submitMessage = '';
 
-      // Simulation d'un appel API
+      // Appel réel du service pour envoyer l'email
       const formData = {
         email: this.contactForm.get('email')?.value,
         subject: this.contactForm.get('subject')?.value,
@@ -56,11 +57,15 @@ export class ContactComponent  implements OnInit {
       setTimeout(() => {
         try {
           // Ici, vous appelleriez votre service pour envoyer les données
-          console.log('Données du formulaire:', formData);
-          
-          // Simulation d'un succès
-          this.handleSubmitSuccess();
-          
+          this.mailService.sendMail(formData).then(response => {
+            console.log('Données du formulaire:', formData);
+            console.log('Réponse du serveur:', response);
+            // Simulation d'un succès
+            this.handleSubmitSuccess();
+          }).catch(error => {
+            console.error('Erreur lors de l\'envoi de l\'email:', error);
+            this.handleSubmitError();
+          });
         } catch (error) {
           this.handleSubmitError();
         }
@@ -71,9 +76,15 @@ export class ContactComponent  implements OnInit {
   }
 
   private handleSubmitSuccess(): void {
+    this.isSubmitting = false;
+    this.submitMessage = 'Email envoyé avec succès !';
+    this.submitMessageType = 'success';
   }
 
   private handleSubmitError(): void {
+    this.isSubmitting = false;
+    this.submitMessage = 'Erreur lors de l\'envoi de l\'email.';
+    this.submitMessageType = 'error';
   }
 
   onReset(): void {
